@@ -1,0 +1,32 @@
+{
+  "name": "albert-kennedy",
+  "version": "1.0.0",
+  "description": "## Inter-AKT App - Connecting young people within the LBGT to mentors.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "node start-client.js",
+    "server": "nodemon ./server/server.js",
+    "dev": "concurrently \"npm run server \" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fac-12/Albert-Kennedy.git"
+  },
+  "author": "Hannah, Lucy and Sophie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fac-12/Albert-Kennedy/issues"
+  },
+  "homepage": "https://github.com/fac-12/Albert-Kennedy#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "env2": "^2.2.0",
+    "eslint": "^4.17.0",
+    "express": "^4.16.2",
+    "nodemon": "^1.14.12"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1"
+  }
+}
