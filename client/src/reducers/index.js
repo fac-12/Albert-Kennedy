@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
+import { reducer as formReducer } from "redux-form";
 
-const rootReducer = combineReducers({
-  state: (state = {}) => state
+import appointmentReducer from "./appointmentReducer";
+
+export default combineReducers({
+  form: formReducer,
+  newApt: appointmentReducer
 });
-
-export default rootReducer;

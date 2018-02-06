@@ -1,9 +1,14 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-class App extends Component {
+import TopicForm from "./schedule/Topic";
+
+export default class App extends Component {
   render() {
-    return <div> </div>;
+    return (
+      <Router>
+        <Route exact path="/" component={TopicForm} />
+      </Router>
+    );
   }
 }
-
-export default App;
