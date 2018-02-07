@@ -1,2 +1,4 @@
-export const APT_TOPICS = "apt_topics";
-export const APT_MENTOR = "apt_mentor";
+export const TOPICS = "apt_topics";
+export const MENTOR = "apt_mentor";
+export const AVAILIBILTY = "AVAILIBILTY";
+export const APT_TIME = "apt_time";

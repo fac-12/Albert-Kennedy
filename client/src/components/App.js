@@ -4,6 +4,7 @@ import { Router, Route } from "react-router-dom";
 import history from "../history";
 import TopicForm from "./schedule/Topic";
 import MentorForm from "./schedule/Mentor";
+import ScheduleForm from "./schedule/Schedule";
 
 export default class App extends Component {
   render() {
@@ -12,6 +13,7 @@ export default class App extends Component {
         <div>
           <Route exact path="/topics" component={TopicForm} />
           <Route exact path="/mentors" component={MentorForm} />
+          <Route exact path="/schedule" component={ScheduleForm} />
         </div>
       </Router>
     );
