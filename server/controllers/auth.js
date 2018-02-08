@@ -38,3 +38,7 @@ exports.signUp = (req, res) => {
 exports.signIn = (req, res) => {
   res.json({ token: userToken(req.user) });
 };
+
+exports.getUser = (req, res) => {
+  res.send(req.user);
+};

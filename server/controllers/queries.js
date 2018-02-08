@@ -15,7 +15,14 @@ const addUser = (name, email, password) => {
     .then(user => user[0]);
 };
 
+const getUserById = id => {
+  return db
+    .query("SELECT * FROM users WHERE id = $1", [id])
+    .then(user => user[0]);
+};
+
 module.exports = {
   getUser,
-  addUser
+  addUser,
+  getUserById
 };
