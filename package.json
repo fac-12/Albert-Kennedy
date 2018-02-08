@@ -28,6 +28,7 @@
     "jwt-simple": "^0.5.1",
     "nodemon": "^1.14.12",
     "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "pg-promise": "^7.4.1"
   },
   "devDependencies": {

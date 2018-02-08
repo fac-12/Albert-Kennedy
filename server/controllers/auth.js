@@ -34,3 +34,7 @@ exports.signUp = (req, res) => {
     })
     .catch(console.log);
 };
+
+exports.signIn = (req, res) => {
+  res.json({ token: userToken(req.user) });
+};
