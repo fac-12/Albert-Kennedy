@@ -38,3 +38,22 @@ export const logoutUser = () => {
     type: UNAUTH_USER
   };
 };
+
+export const getUser = () => {
+  return dispatch => {
+    axios
+      .get("/getuser", {
+        headers: { authorization: localStorage.getItem("token") }
+      })
+      .then(response => {
+        dispatch({
+          type: AUTH_USER
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: UNAUTH_USER
+        });
+      });
+  };
+};

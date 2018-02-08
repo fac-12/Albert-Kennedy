@@ -5,8 +5,11 @@ export default class Landing extends Component {
   render() {
     return (
       <div>
-        Landing Page
+        <p>Landing Page</p>
         <Link to="./topic">Link to topic page</Link>
+        <p>
+          Returning user? <Link to="/signin">Log in</Link>
+        </p>
       </div>
     );
   }

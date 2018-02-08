@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { signinUser } from "../../actions/auth";
 
 class SigninForm extends Component {
@@ -21,6 +22,9 @@ class SigninForm extends Component {
           component={this.renderField}
         />
         <button type="submit">login</button>
+        <p>
+          New to inter-AKT? <Link to="/">Start here</Link>
+        </p>
       </form>
     );
   }

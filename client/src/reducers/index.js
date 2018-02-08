@@ -3,9 +3,11 @@ import { reducer as formReducer } from "redux-form";
 
 import newAppointmentReducer from "./newAppointmentReducer";
 import mentorsReducer from "./mentorsReducer";
+import authReducer from "./authReducer";
 
 export default combineReducers({
   form: formReducer,
   newApt: newAppointmentReducer,
-  mentors: mentorsReducer
+  mentors: mentorsReducer,
+  auth: authReducer
 });
