@@ -8,12 +8,14 @@ import ScheduleForm from "./schedule/Schedule";
 import RegisterForm from "./auth/Register";
 import SigninForm from "./auth/Signin";
 import Profile from "./profile/Profile";
+import Landing from "./landing/Landing";
 
 export default class App extends Component {
   render() {
     return (
       <Router history={history}>
         <div>
+          <Route exact path="/" component={Landing} />
           <Route exact path="/topics" component={TopicForm} />
           <Route exact path="/mentors" component={MentorForm} />
           <Route exact path="/schedule" component={ScheduleForm} />
