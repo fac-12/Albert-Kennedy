@@ -21,7 +21,7 @@ export const fetchAvailibilites = mentor => {
   /* fetch data for specific mentor*/
   return {
     type: AVAILIBILTY,
-    payload: [1, 2, 3] //dummy
+    payload: ["1", "2", "3"] //dummy
   };
 };
 
