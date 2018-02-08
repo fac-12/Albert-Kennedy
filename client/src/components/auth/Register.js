@@ -71,7 +71,7 @@ class RegisterForm extends Component {
   }
 
   handleFormSubmit(values) {
-    this.props.signupUser(values);
+    this.props.registerUser(values);
   }
 }
 

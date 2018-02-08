@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
+import { signinUser } from "../../actions/auth";
 
 class SigninForm extends Component {
   render() {
+    const { handleSubmit } = this.props;
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
         <Field
           name="email"
           type="email"
@@ -30,8 +33,12 @@ class SigninForm extends Component {
       </div>
     );
   }
+
+  handleFormSubmit(values) {
+    this.props.signinUser(values);
+  }
 }
 
 export default reduxForm({
   form: "SigninForm"
-})(SigninForm);
+})(connect(null, { signinUser })(SigninForm));
