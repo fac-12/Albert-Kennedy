@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
+import { registerUser } from "../../actions/auth";
 
 class RegisterForm extends Component {
   render() {
+    const { handleSubmit } = this.props;
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
         <Field
           name="name"
           type="text"
@@ -54,6 +56,7 @@ class RegisterForm extends Component {
           label="Confirm password"
           component={this.renderField}
         />
+        <button type="submit">next</button>
       </form>
     );
   }
@@ -66,8 +69,12 @@ class RegisterForm extends Component {
       </div>
     );
   }
+
+  handleFormSubmit(values) {
+    this.props.signupUser(values);
+  }
 }
 
 export default reduxForm({
   form: "RegisterForm"
-})(connect(null, null)(RegisterForm));
+})(connect(null, { registerUser })(RegisterForm));
