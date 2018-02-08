@@ -7,6 +7,7 @@ import MentorForm from "./schedule/Mentor";
 import ScheduleForm from "./schedule/Schedule";
 import RegisterForm from "./auth/Register";
 import SigninForm from "./auth/Signin";
+import Profile from "./profile/Profile";
 
 export default class App extends Component {
   render() {
@@ -18,6 +19,7 @@ export default class App extends Component {
           <Route exact path="/schedule" component={ScheduleForm} />
           <Route exact path="/register" component={RegisterForm} />
           <Route exact path="/signin" component={SigninForm} />
+          <Route exact path="/profile" component={Profile} />
         </div>
       </Router>
     );
