@@ -7,13 +7,20 @@ export const registerUser = values => {
     axios
       .post("/signup", values)
       .then(response => {
+        console.log('res', response);
         localStorage.setItem("token", response.data.token);
         dispatch({
           type: AUTH_USER
         });
         history.push("/success");
       })
-      .catch(console.log);
+      .catch(error => {
+        if (error.message.includes('422')){
+        dispatch(displayError(error.response.data.error));
+      } else {
+        dispatch(displayError("There was an issue with our server. Please try again later"));
+      }
+      });
   };
 };
 

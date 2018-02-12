@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/auth";
+import { Link } from "react-router-dom";
 import SubmitButton from "../SubmitButton";
 
 class RegisterForm extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
+      <div>
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
         <Field
           name="name"
@@ -59,6 +61,11 @@ class RegisterForm extends Component {
         />
         <SubmitButton text="next" />
       </form>
+      <p>{this.renderAlert()}</p>
+       <p>
+          Returning user? <Link to="/signin">Log in</Link>
+        </p>
+      </div>
     );
   }
 
@@ -71,11 +78,20 @@ class RegisterForm extends Component {
     );
   }
 
+  renderAlert(){
+    if (this.props.error){
+      return <span>{this.props.error}</span>
+    }
+  }
+
   handleFormSubmit(values) {
     this.props.registerUser(values);
   }
 }
 
+
+const mapStateToProps = state => ({ error: state.error })
+
 export default reduxForm({
   form: "RegisterForm"
-})(connect(null, { registerUser })(RegisterForm));
+})(connect(mapStateToProps, { registerUser })(RegisterForm));

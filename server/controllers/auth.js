@@ -8,20 +8,29 @@ const userToken = user => {
 };
 
 exports.signUp = (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, confirmPassword, postcode } = req.body;
 
-  if (!name || !email || !password) {
+  console.log("pw", password, confirmPassword);
+  if (!name || !email || !password || !confirmPassword || !postcode) {
     return res
       .status(422)
-      .send({ error: "You must provide a name, email and password" });
+      .send({ error: "You must provide a name, email, location and password" });
   }
 
-  queries
+  else if (password !== confirmPassword) {
+    console.log("here")
+    return res
+    .status(422)
+    .send({ error: "Your passwords don't match!"})
+  }
+
+  else {
+     queries
     .getUser(email)
     .then(user => {
       return new Promise((resolve, reject) => {
         if (user) {
-          res.status(422).send({ error: "Email is in use. Please log in" });
+          res.status(422).send({ error: "Email is in use. Please log in." });
           reject("Email is in use. Please log in");
         } else resolve(hashPassword(password));
       });
@@ -33,6 +42,8 @@ exports.signUp = (req, res) => {
       res.json({ token: userToken(user) });
     })
     .catch(console.log);
+  }
+
 };
 
 exports.signIn = (req, res) => {
