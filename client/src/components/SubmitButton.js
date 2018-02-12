@@ -7,6 +7,8 @@ const Button = styled.button`
   border-radius: 5px;
   width: 340px;
   height: 60px;
+  font-size: 16px;
+  margin: 5px;
 `;
 
 const SubmitButton = props => {

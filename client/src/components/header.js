@@ -17,7 +17,6 @@ const Logo = styled.img`
 `;
 
 const Heading = styled.h2`
-  font-family: "Quicksand", sans-serif;
   font-size: 30px;
   font-weight: 300;
   text-align: center;
@@ -26,7 +25,6 @@ const Heading = styled.h2`
 `;
 
 const Text = styled.p`
-  font-family: "Quicksand", sans-serif;
   font-size: 18px;
   font-weight: 300;
   text-align: center;
