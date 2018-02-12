@@ -8,7 +8,7 @@ export default class Crisis extends Component {
         <p>If you are in immediate danger: call 999</p>
         <p>
           If you are feeling suicidal: call HopeLine UK on 0800 068 41 41 or
-          Samartans on 116 123
+          Samaritans on 116 123
         </p>
         <p>If you are being abused: call ChildLine on 0800 1111</p>
       </div>
