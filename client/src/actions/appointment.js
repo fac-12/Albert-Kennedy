@@ -10,6 +10,7 @@ export const updateTopics = values => {
 };
 
 export const updateMentor = value => {
+  console.log(value);
   history.push("/schedule");
   return {
     type: MENTOR,
@@ -19,6 +20,7 @@ export const updateMentor = value => {
 
 export const fetchAvailibilites = mentor => {
   /* fetch data for specific mentor*/
+
   return {
     type: AVAILIBILTY,
     payload: ["1", "2", "3"] //dummy

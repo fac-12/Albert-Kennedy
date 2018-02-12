@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { updateTopics } from "../../actions/appointment";
+import SubmitButton from "../SubmitButton";
 
 class TopicForm extends Component {
   render() {
@@ -34,7 +35,7 @@ class TopicForm extends Component {
           label="Anything else!"
           component={this.renderField}
         />
-        <button type="submit">next</button>
+        <SubmitButton text="next" />
       </form>
     );
   }

@@ -3,6 +3,7 @@ import { Field, reduxForm } from "redux-form";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { updateMentor } from "../../actions/appointment";
+import SubmitButton from "../SubmitButton";
 
 class MentorForm extends Component {
   render() {
@@ -19,7 +20,7 @@ class MentorForm extends Component {
             component={this.renderField}
           />
         ))}
-        <button type="submit">next</button>
+        <SubmitButton text="next" />
       </form>
     );
   }

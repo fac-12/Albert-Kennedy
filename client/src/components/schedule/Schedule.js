@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import _ from "lodash";
 
 import { fetchAvailibilites, updateAptTime } from "../../actions/appointment";
+import SubmitButton from "../SubmitButton";
 
 class ScheduleForm extends Component {
   render() {
@@ -23,7 +24,7 @@ class ScheduleForm extends Component {
               component={this.renderField}
             />
           ))}
-          <button type="submit">next</button>
+          <SubmitButton text="next" />
         </form>
       );
     }
