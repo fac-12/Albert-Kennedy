@@ -3,6 +3,7 @@ import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { signinUser } from "../../actions/auth";
+import SubmitButton from "../SubmitButton";
 
 class SigninForm extends Component {
   render() {
@@ -21,7 +22,7 @@ class SigninForm extends Component {
           label="Password"
           component={this.renderField}
         />
-        <button type="submit">login</button>
+        <SubmitButton text="login" />
         <p>
           New to inter-AKT? <Link to="/">Start here</Link>
         </p>

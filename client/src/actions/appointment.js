@@ -19,13 +19,19 @@ export const updateMentor = value => {
 
 export const fetchAvailibilites = mentor => {
   /* fetch data for specific mentor*/
+
   return {
     type: AVAILIBILTY,
     payload: ["1", "2", "3"] //dummy
   };
 };
 
-export const updateAptTime = value => {
+export const updateAptTime = (value, loggedin) => {
+  if (loggedin) {
+    history.push("/success");
+  } else {
+    history.push("/register");
+  }
   return {
     type: APT_TIME,
     payload: value

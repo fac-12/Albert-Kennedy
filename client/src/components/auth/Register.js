@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/auth";
+import SubmitButton from "../SubmitButton";
 
 class RegisterForm extends Component {
   render() {
@@ -56,7 +57,7 @@ class RegisterForm extends Component {
           label="Confirm password"
           component={this.renderField}
         />
-        <button type="submit">next</button>
+        <SubmitButton text="next" />
       </form>
     );
   }
