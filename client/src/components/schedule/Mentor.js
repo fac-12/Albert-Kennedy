@@ -14,8 +14,10 @@ class MentorForm extends Component {
       return <div />;
     }
     const { handleSubmit } = this.props;
+    
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+
         {_.map(this.props.mentors, mentor => (
           <Field
             name="mentor"
@@ -24,7 +26,7 @@ class MentorForm extends Component {
             label={mentor.name}
             desc={mentor.description}
             img={mentor.img_url}
-            value={mentor.id.toString()}
+            value={mentor.name}
             component={this.renderField}
           />
         ))}

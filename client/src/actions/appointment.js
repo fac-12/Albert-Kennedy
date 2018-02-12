@@ -11,19 +11,24 @@ export const updateTopics = values => {
 };
 
 export const updateMentor = value => {
-  console.log(value);
   history.push("/schedule");
   return {
     type: MENTOR,
-    payload: value
+    payload: value.mentor
   };
 };
 
 export const fetchAvailibilites = mentor => {
   /* fetch data for specific mentor*/
-  return {
-    type: AVAILIBILTY,
-    payload: ["1", "2", "3"] //dummy
+  return dispatch => {
+    axios
+    .get(`/getavailabilities?mentor=${mentor}`)
+    .then(res => {
+      dispatch({
+        type: AVAILIBILTY,
+        payload: res.data
+      })
+    })
   };
 };
 
@@ -33,6 +38,7 @@ export const fetchMentors = () => {
     axios
       .get("/getmentordata")
       .then(res => {
+        console.log(res.data);
         dispatch({
           type: MENTORLIST,
           payload: res.data

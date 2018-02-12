@@ -24,6 +24,11 @@ const getUserById = id => {
 const getMentors = () => {
   return db.query("SELECT * FROM mentors");
 };
+// 
+// const getAvailabilities = (id) => {
+//   return db
+//   .query(SELECT * )
+// }
 
 module.exports = {
   getUser,
