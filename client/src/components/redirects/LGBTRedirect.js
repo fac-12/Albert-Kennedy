@@ -12,7 +12,7 @@ export default class LGBTRedirect extends Component {
         <p>If you are facing homelessness: call Shelter on 0808 800 4444 </p>
         <p>
           If you are feeling suicidal: call HopeLine UK on 0800 068 41 41 or
-          Samartans on 116 123
+          Samaritans on 116 123
         </p>
         <p>If you are being abused: call ChildLine on 0800 1111</p>
         <p>
