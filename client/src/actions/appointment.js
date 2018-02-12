@@ -27,6 +27,7 @@ export const fetchAvailibilites = mentor => {
 };
 
 export const updateAptTime = (value, loggedin) => {
+  localStorage.setItem("endOfFlow", "finished");
   if (loggedin) {
     history.push("/success");
   } else {
