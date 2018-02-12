@@ -11,6 +11,7 @@ import RegisterForm from "./auth/Register";
 import SigninForm from "./auth/Signin";
 import Profile from "./profile/Profile";
 import Landing from "./landing/Landing";
+import Age from "./landing/Age";
 
 class App extends Component {
   render() {
@@ -32,6 +33,7 @@ class App extends Component {
               !this.props.auth ? <Profile /> : <Redirect to="/signin" />
             }
           />
+          <Route exact path="/age" component={Age} />
           <Route exact path="/topics" component={TopicForm} />
           <Route exact path="/mentors" component={MentorForm} />
           <Route exact path="/schedule" component={ScheduleForm} />
