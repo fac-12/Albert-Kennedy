@@ -12,6 +12,10 @@ import SigninForm from "./auth/Signin";
 import Profile from "./profile/Profile";
 import Landing from "./landing/Landing";
 import Age from "./landing/Age";
+import LGBT from "./landing/LGBT";
+import AgeRedirect from "./redirects/AgeRedirect";
+import LGBTRedirect from "./redirects/LGBTRedirect";
+import Crisis from "./redirects/Crisis";
 
 class App extends Component {
   render() {
@@ -34,6 +38,9 @@ class App extends Component {
             }
           />
           <Route exact path="/age" component={Age} />
+          <Route exact path="/lgbt" component={LGBT} />
+          <Route exact path="/ageredirect" component={AgeRedirect} />
+          <Route exact path="/lgbtredirect" component={LGBTRedirect} />
           <Route exact path="/topics" component={TopicForm} />
           <Route exact path="/mentors" component={MentorForm} />
           <Route exact path="/schedule" component={ScheduleForm} />
