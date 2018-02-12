@@ -9,8 +9,7 @@ const userToken = user => {
 
 exports.signUp = (req, res) => {
   const { name, email, password, confirmPassword, postcode } = req.body;
-
-  console.log("pw", password, confirmPassword);
+  
   if (!name || !email || !password || !confirmPassword || !postcode) {
     return res
       .status(422)
@@ -18,7 +17,6 @@ exports.signUp = (req, res) => {
   }
 
   else if (password !== confirmPassword) {
-    console.log("here")
     return res
     .status(422)
     .send({ error: "Your passwords don't match!"})
