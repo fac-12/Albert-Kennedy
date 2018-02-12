@@ -6,7 +6,7 @@ export default class LGBT extends Component {
     return (
       <div>
         <p>Do you identify as part of the LGBT+ community?</p>
-        <LinkButton text="yes" url="/topics" />
+        <LinkButton text="yes" url="/topics" primary />
         <LinkButton text="no" url="/lgbtredirect" />
       </div>
     );

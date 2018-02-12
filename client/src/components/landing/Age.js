@@ -6,7 +6,7 @@ export default class Age extends Component {
     return (
       <div>
         <p>Are you aged between 13 and 25?</p>
-        <LinkButton text="yes" url="/lgbt" />
+        <LinkButton text="yes" url="/lgbt" primary />
         <LinkButton text="no" url="/ageredirect" />
       </div>
     );

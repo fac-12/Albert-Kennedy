@@ -3,25 +3,29 @@ import { Field, reduxForm } from "redux-form";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { updateMentor } from "../../actions/appointment";
+import Header from "../Header";
 import SubmitButton from "../SubmitButton";
 
 class MentorForm extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-        {_.map(this.props.mentors, mentor => (
-          <Field
-            name="mentor"
-            type="radio"
-            key={mentor.id}
-            label={mentor.name}
-            value={mentor.name}
-            component={this.renderField}
-          />
-        ))}
-        <SubmitButton text="next" />
-      </form>
+      <div>
+        <Header heading="Choose a mentor to connect with" />
+        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+          {_.map(this.props.mentors, mentor => (
+            <Field
+              name="mentor"
+              type="radio"
+              key={mentor.id}
+              label={mentor.name}
+              value={mentor.name}
+              component={this.renderField}
+            />
+          ))}
+          <SubmitButton text="next" />
+        </form>
+      </div>
     );
   }
   renderField(field) {
