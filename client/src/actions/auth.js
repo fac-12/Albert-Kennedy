@@ -12,7 +12,10 @@ export const registerUser = values => {
         dispatch({
           type: AUTH_USER
         });
-        history.push("/success");
+        if(localStorage.endOfFlow === "finished") {
+          history.push("/success");
+        }
+        else history.push("/profile");
       })
       .catch(error => {
         if (error.message.includes('422')){
