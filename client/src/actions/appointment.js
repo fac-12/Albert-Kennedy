@@ -10,7 +10,6 @@ export const updateTopics = values => {
 };
 
 export const updateMentor = value => {
-  console.log(value);
   history.push("/schedule");
   return {
     type: MENTOR,
@@ -27,7 +26,12 @@ export const fetchAvailibilites = mentor => {
   };
 };
 
-export const updateAptTime = value => {
+export const updateAptTime = (value, loggedin) => {
+  if (loggedin) {
+    history.push("/success");
+  } else {
+    history.push("/register");
+  }
   return {
     type: APT_TIME,
     payload: value

@@ -42,15 +42,16 @@ class ScheduleForm extends Component {
       </div>
     );
   }
-  onSubmit = values => {
-    this.props.updateAptTime(values);
+  onSubmit = value => {
+    this.props.updateAptTime(value, this.props.auth);
   };
 }
 
 const mapStateToProps = state => {
   return {
     mentor: state.newApt.mentor,
-    availibility: state.newApt.availibility
+    availibility: state.newApt.availibility,
+    auth: state.auth
   };
 };
 
