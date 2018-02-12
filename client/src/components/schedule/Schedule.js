@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import _ from "lodash";
 
 import { fetchAvailibilites, updateAptTime } from "../../actions/appointment";
+import Header from "../Header";
 import SubmitButton from "../SubmitButton";
 
 class ScheduleForm extends Component {
@@ -13,19 +14,22 @@ class ScheduleForm extends Component {
     } else {
       const { handleSubmit } = this.props;
       return (
-        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          {_.map(this.props.availibility, time => (
-            <Field
-              name="datetime"
-              type="radio"
-              key={time}
-              label={time}
-              value={time}
-              component={this.renderField}
-            />
-          ))}
-          <SubmitButton text="next" />
-        </form>
+        <div>
+          <Header heading="Schedule an appointment" />
+          <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+            {_.map(this.props.availibility, time => (
+              <Field
+                name="datetime"
+                type="radio"
+                key={time}
+                label={time}
+                value={time}
+                component={this.renderField}
+              />
+            ))}
+            <SubmitButton text="next" />
+          </form>
+        </div>
       );
     }
   }

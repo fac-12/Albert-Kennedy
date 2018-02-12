@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import Header from "../Header";
 import LinkButton from "../LinkButton";
 
 class Success extends Component {
   render() {
     return (
       <div>
+        <Header heading="Success!" />
         <p>You have an appointment with [IMPORT DATA HERE]. </p>
         <p>Log back in to the site then for your chat. </p>
         <p>
