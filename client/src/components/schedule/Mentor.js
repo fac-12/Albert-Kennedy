@@ -39,8 +39,6 @@ class MentorForm extends Component {
       </div>
     );
   }
-}
-
 
   renderField(field) {
     return (
