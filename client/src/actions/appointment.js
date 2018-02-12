@@ -1,5 +1,6 @@
-import { TOPICS, MENTOR, AVAILIBILTY, APT_TIME } from "./types";
+import { TOPICS, MENTOR, AVAILIBILTY, APT_TIME, MENTORLIST } from "./types";
 import history from "../history";
+import axios from "axios";
 
 export const updateTopics = values => {
   history.push("/mentors");
@@ -10,6 +11,7 @@ export const updateTopics = values => {
 };
 
 export const updateMentor = value => {
+  console.log(value);
   history.push("/schedule");
   return {
     type: MENTOR,
@@ -22,6 +24,21 @@ export const fetchAvailibilites = mentor => {
   return {
     type: AVAILIBILTY,
     payload: ["1", "2", "3"] //dummy
+  };
+};
+
+export const fetchMentors = () => {
+
+  return dispatch => {
+    axios
+      .get("/getmentordata")
+      .then(res => {
+        dispatch({
+          type: MENTORLIST,
+          payload: res.data
+        });
+      })
+      .catch(error => console.log(error));
   };
 };
 

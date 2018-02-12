@@ -21,8 +21,13 @@ const getUserById = id => {
     .then(user => user[0]);
 };
 
+const getMentors = () => {
+  return db.query("SELECT * FROM mentors");
+};
+
 module.exports = {
   getUser,
   addUser,
-  getUserById
+  getUserById,
+  getMentors
 };

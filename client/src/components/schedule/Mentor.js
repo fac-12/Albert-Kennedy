@@ -2,10 +2,17 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import _ from "lodash";
 import { connect } from "react-redux";
-import { updateMentor } from "../../actions/appointment";
+import { fetchMentors, updateMentor } from "../../actions/appointment";
 
 class MentorForm extends Component {
+  componentDidMount() {
+    this.props.fetchMentors();
+  }
+
   render() {
+    if (!this.props.mentors) {
+      return <div />;
+    }
     const { handleSubmit } = this.props;
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
@@ -15,7 +22,9 @@ class MentorForm extends Component {
             type="radio"
             key={mentor.id}
             label={mentor.name}
-            value={mentor.name}
+            desc={mentor.description}
+            img={mentor.img_url}
+            value={mentor.id.toString()}
             component={this.renderField}
           />
         ))}
@@ -28,6 +37,8 @@ class MentorForm extends Component {
       <div>
         <label>{field.label}</label>
         <input type="radio" {...field.input} />
+        <p>{field.desc}</p>
+        <img src={field.img} alt="Mentor"></img>
       </div>
     );
   }
@@ -38,10 +49,11 @@ class MentorForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    mentors: state.mentors
+    mentors: state.mentors.mentor_list
+
   };
 };
 
 export default reduxForm({
   form: "MentorForm"
-})(connect(mapStateToProps, { updateMentor })(MentorForm));
+})(connect(mapStateToProps, { updateMentor, fetchMentors })(MentorForm));
