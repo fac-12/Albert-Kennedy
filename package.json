@@ -34,6 +34,7 @@
     "pg-promise": "^7.4.1",
     "redux-thunk": "^2.2.0",
     "request": "^2.83.0"
+
   },
   "devDependencies": {
     "concurrently": "^3.5.1"

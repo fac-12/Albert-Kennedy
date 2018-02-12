@@ -2,7 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
+<<<<<<< HEAD
 import reduxThunk from "redux-thunk";
+||||||| merged common ancestors
+=======
+import reduxThunk from "redux-thunk";
+import styles from "./assets/styles.css";
+>>>>>>> master
 
 import App from "./components/App";
 import reducers from "./reducers";

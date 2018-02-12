@@ -48,7 +48,13 @@ export const fetchMentors = () => {
   };
 };
 
-export const updateAptTime = value => {
+export const updateAptTime = (value, loggedin) => {
+  localStorage.setItem("endOfFlow", "finished");
+  if (loggedin) {
+    history.push("/success");
+  } else {
+    history.push("/register");
+  }
   return {
     type: APT_TIME,
     payload: value
