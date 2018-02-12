@@ -23,6 +23,7 @@ class SigninForm extends Component {
           component={this.renderField}
         />
         <SubmitButton text="login" />
+        <p>{this.renderAlert()}</p>
         <p>
           New to inter-AKT? <Link to="/">Start here</Link>
         </p>
@@ -39,11 +40,19 @@ class SigninForm extends Component {
     );
   }
 
+  renderAlert(){
+    if (this.props.error){
+      return <span>{this.props.error}</span>
+    }
+  }
+
   handleFormSubmit(values) {
     this.props.signinUser(values);
   }
 }
 
+const mapStateToProps = state => ({ error: state.error })
+
 export default reduxForm({
   form: "SigninForm"
-})(connect(null, { signinUser })(SigninForm));
+})(connect(mapStateToProps, { signinUser })(SigninForm));
