@@ -15,27 +15,33 @@ class ScheduleForm extends Component {
       const { handleSubmit } = this.props;
       return (
         <div>
-        <Header heading="Schedule an appointment" />
-        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          {_.map(this.props.availibility, time => (
-            <Field
-              name="datetime"
-              type="radio"
-              key={time}
-              label={time[0] + " " + time[1]}
-              value={time[0] + " " + time[1]}
-              component={this.renderField}
-            />
-          ))}
-          <SubmitButton text="next" />
-        </form>
-      </div>
+          <Header heading="Schedule an appointment" />
+          <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+            {_.map(this.props.availibility, time => (
+              <Field
+                name="datetime"
+                type="radio"
+                key={time}
+                label={time[0] + " " + time[1]}
+                value={time[0] + " " + time[1]}
+                component={this.renderField}
+              />
+            ))}
+            <Field name="error" component={this.renderError} />
+            <SubmitButton text="next" />
+          </form>
+        </div>
       );
     }
   }
 
   componentDidMount() {
     this.props.fetchAvailibilites(this.props.mentor);
+  }
+
+  renderError(field) {
+    const { meta: { error, submitFailed } } = field;
+    return <div>{submitFailed ? error : ""}</div>;
   }
 
   renderField(field) {
@@ -46,10 +52,19 @@ class ScheduleForm extends Component {
       </div>
     );
   }
+
   onSubmit = value => {
     this.props.updateAptTime(value, this.props.auth);
   };
 }
+
+const validate = values => {
+  const errors = {};
+  if (_.isEmpty(values)) {
+    errors.error = "Please select an appointment time.";
+  }
+  return errors;
+};
 
 const mapStateToProps = state => {
   return {
@@ -60,6 +75,7 @@ const mapStateToProps = state => {
 };
 
 export default reduxForm({
+  validate,
   form: "ScheduleForm"
 })(
   connect(mapStateToProps, { fetchAvailibilites, updateAptTime })(ScheduleForm)
