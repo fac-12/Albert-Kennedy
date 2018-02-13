@@ -22,8 +22,8 @@ class ScheduleForm extends Component {
                 name="datetime"
                 type="radio"
                 key={time}
-                label={time[0] + " " + time[1]}
-                value={time[0] + " " + time[1]}
+                label={time[0] + ", " + time[1]}
+                value={time[0] + ", " + time[1]}
                 component={this.renderField}
               />
             ))}
