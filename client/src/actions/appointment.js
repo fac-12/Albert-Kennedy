@@ -21,24 +21,20 @@ export const updateMentor = value => {
 export const fetchAvailibilites = mentor => {
   /* fetch data for specific mentor*/
   return dispatch => {
-    axios
-    .get(`/getavailabilities?mentor=${mentor}`)
-    .then(res => {
+    axios.get(`/getavailabilities?mentor=${mentor}`).then(res => {
       dispatch({
         type: AVAILIBILTY,
         payload: res.data
-      })
-    })
+      });
+    });
   };
 };
 
 export const fetchMentors = () => {
-
   return dispatch => {
     axios
       .get("/getmentordata")
       .then(res => {
-        console.log(res.data);
         dispatch({
           type: MENTORLIST,
           payload: res.data
