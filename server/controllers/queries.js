@@ -26,9 +26,9 @@ const getMentors = () => {
 };
 
 
-const getAppointments = (datetime) => {
+const getAppointments = (mentor, datetime) => {
   return db
-  .query(`SELECT * FROM appointments WHERE date_and_time = $1`, [datetime])
+  .query(`SELECT * FROM appointments WHERE date_and_time = $1 AND mentor_id = (SELECT id FROM mentors WHERE name = $2)`, [datetime, mentor])
 }
 
 

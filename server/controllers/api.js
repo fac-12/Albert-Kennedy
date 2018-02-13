@@ -24,7 +24,7 @@ exports.getAvailabilities = (req, res) => {
   const filterAvailabilities = (availabilities) => {
    availabilities.forEach(availability => {
      queries
-      .getAppointments((availability[0] + " " + availability[1]).toString())
+      .getAppointments(mentor, (availability[0] + " " + availability[1]).toString())
       .then(result => {
         counter++
         if (result.length === 0) filteredAvailabilities.push(availability);
