@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import _ from "lodash";
+import history from "../../history";
 
 import { fetchAvailibilites, updateAptTime } from "../../actions/appointment";
 import Header from "../Header";
@@ -36,7 +37,11 @@ class ScheduleForm extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchAvailibilites(this.props.mentor);
+    if (!this.props.mentor) {
+      history.push("/mentors");
+    } else {
+      this.props.fetchAvailibilites(this.props.mentor);
+    }
   }
 
   renderError(field) {
@@ -78,5 +83,8 @@ export default reduxForm({
   validate,
   form: "ScheduleForm"
 })(
-  connect(mapStateToProps, { fetchAvailibilites, updateAptTime })(ScheduleForm)
+  connect(mapStateToProps, {
+    fetchAvailibilites,
+    updateAptTime
+  })(ScheduleForm)
 );

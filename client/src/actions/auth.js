@@ -7,22 +7,24 @@ export const registerUser = values => {
     axios
       .post("/signup", values)
       .then(response => {
-        console.log('res', response);
         localStorage.setItem("token", response.data.token);
         dispatch({
           type: AUTH_USER
         });
-        if(localStorage.endOfFlow === "finished") {
+        if (localStorage.endOfFlow === "finished") {
           history.push("/success");
-        }
-        else history.push("/profile");
+        } else history.push("/profile");
       })
       .catch(error => {
-        if (error.message.includes('422')){
-        dispatch(displayError(error.response.data.error));
-      } else {
-        dispatch(displayError("There was an issue with our server. Please try again later"));
-      }
+        if (error.message.includes("422")) {
+          dispatch(displayError(error.response.data.error));
+        } else {
+          dispatch(
+            displayError(
+              "There was an issue with our server. Please try again later"
+            )
+          );
+        }
       });
   };
 };
@@ -39,15 +41,18 @@ export const signinUser = values => {
         history.push("/profile");
       })
       .catch(error => {
-         if (error.message.includes('401')){
-        dispatch(displayError('Email or password was incorrect'));
-      } else {
-        dispatch(displayError("There was an issue with our server. Please try again later"));
-      }
+        if (error.message.includes("401")) {
+          dispatch(displayError("Email or password was incorrect"));
+        } else {
+          dispatch(
+            displayError(
+              "There was an issue with our server. Please try again later"
+            )
+          );
+        }
       });
   };
 };
-
 
 export const displayError = error => {
   return {

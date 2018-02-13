@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import _ from "lodash";
+import history from "../../history";
 import { connect } from "react-redux";
 import { fetchMentors, updateMentor } from "../../actions/appointment";
 import Header from "../Header";
@@ -8,7 +9,11 @@ import SubmitButton from "../SubmitButton";
 
 class MentorForm extends Component {
   componentDidMount() {
-    this.props.fetchMentors();
+    if (!this.props.topics) {
+      history.push("/topics");
+    } else {
+      this.props.fetchMentors();
+    }
   }
 
   render() {
@@ -69,7 +74,8 @@ const validate = values => {
 
 const mapStateToProps = state => {
   return {
-    mentors: state.mentors.mentor_list
+    mentors: state.mentors.mentor_list,
+    topics: state.newApt.topics
   };
 };
 
