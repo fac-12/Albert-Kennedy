@@ -17,8 +17,40 @@ exports.getAvailabilities = (req, res) => {
 
   request(url, (error, response, body) => {
     if (error) return res.status(500).send({ error: "There was a network issue. Please make sure you are connected to the internet"});
-    const bodyParsed = JSON.parse(body);
-    const initialDates = bodyParsed.values.slice(1,6);
-    res.send(JSON.stringify(initialDates));
-  })
+    const availabilities = JSON.parse(body).values.slice(1,);
+    const filteredAvailabilities = [];
+    let counter = 0;
+
+  const filterAvailabilities = (availabilities) => {
+   availabilities.forEach(availability => {
+     queries
+      .getAppointments((availability[0] + " " + availability[1]).toString())
+      .then(result => {
+        counter++
+        if (result.length === 0) filteredAvailabilities.push(availability);
+        if (counter === availabilities.length) res.send(JSON.stringify(filteredAvailabilities))
+      })
+      .catch(console.log(error));
+    });
   }
+
+  filterAvailabilities(availabilities);
+  });
+};
+
+
+// const filterAvailabilities = (availabilities, cb() => res.send(JSON.stringify(filteredAvailabilities))) => {
+//    availabilities.forEach(availability => {
+//       queries
+//       .getAppointments((availability[0] + " " + availability[1]).toString())
+//       .then(res => {
+//         console.log("res", res)
+//         if (res.length === 0) filteredAvailabilities.push(availability);
+//         console.log(filteredAvailabilities);
+//       })
+//     })
+//    cb();
+// }
+
+
+

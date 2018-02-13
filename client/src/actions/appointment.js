@@ -19,7 +19,6 @@ export const updateMentor = value => {
 };
 
 export const fetchAvailibilites = mentor => {
-  /* fetch data for specific mentor*/
   return dispatch => {
     axios
     .get(`/getavailabilities?mentor=${mentor}`)
@@ -33,7 +32,6 @@ export const fetchAvailibilites = mentor => {
 };
 
 export const fetchMentors = () => {
-
   return dispatch => {
     axios
       .get("/getmentordata")
