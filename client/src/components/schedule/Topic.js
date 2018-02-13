@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { updateTopics } from "../../actions/appointment";
 import Header from "../Header";
 import SubmitButton from "../SubmitButton";
+import _ from "lodash";
 
 class TopicForm extends Component {
   render() {
@@ -44,10 +45,12 @@ class TopicForm extends Component {
     );
   }
   renderField(field) {
+    const { meta: { error, submitFailed } } = field;
     return (
       <div>
         <label htmlFor={field.name}>{field.label}</label>
         <input type="checkbox" {...field.input} />
+        <div>{submitFailed ? error : ""}</div>
       </div>
     );
   }
@@ -56,6 +59,16 @@ class TopicForm extends Component {
   };
 }
 
+const validate = values => {
+  const errors = {};
+  if (_.isEmpty(values)) {
+    errors.other =
+      "Please pick at least one topic, choose 'Anything else' if you are unsure.";
+  }
+  return errors;
+};
+
 export default reduxForm({
+  validate,
   form: "TopicForm"
 })(connect(null, { updateTopics })(TopicForm));
