@@ -59,3 +59,7 @@ typings/
 
 # mac-stuff
 .DS_Store
+
+# files related to api setup
+client_secret.json
+quickstart.js
