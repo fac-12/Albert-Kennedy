@@ -1,4 +1,11 @@
-import { TOPICS, MENTOR, AVAILIBILTY, APT_TIME, MENTORLIST } from "./types";
+import {
+  TOPICS,
+  MENTOR,
+  AVAILIBILTY,
+  APT_TIME,
+  MENTORLIST,
+  USER_APTS
+} from "./types";
 import history from "../history";
 import axios from "axios";
 
@@ -20,14 +27,12 @@ export const updateMentor = value => {
 
 export const fetchAvailibilites = mentor => {
   return dispatch => {
-    axios
-    .get(`/getavailabilities?mentor=${mentor}`)
-    .then(res => {
+    axios.get(`/getavailabilities?mentor=${mentor}`).then(res => {
       dispatch({
         type: AVAILIBILTY,
         payload: res.data
-      })
-    })
+      });
+    });
   };
 };
 
@@ -55,5 +60,20 @@ export const updateAptTime = (value, loggedin) => {
   return {
     type: APT_TIME,
     payload: value
+  };
+};
+
+export const fetchAppointments = () => {
+  return dispatch => {
+    axios
+      .get("/getappointments", {
+        headers: { authorization: localStorage.getItem("token") }
+      })
+      .then(res => {
+        dispatch({
+          type: USER_APTS,
+          payload: res.data
+        });
+      });
   };
 };
