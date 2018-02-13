@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { signinUser } from "../../actions/auth";
+import { signinUser, resetError } from "../../actions/auth";
 import SubmitButton from "../SubmitButton";
 
 class SigninForm extends Component {
@@ -51,6 +51,10 @@ class SigninForm extends Component {
   handleFormSubmit(values) {
     this.props.signinUser(values);
   }
+
+  componentDidMount() {
+    this.props.resetError();
+  }
 }
 
 const validate = values => {
@@ -65,4 +69,4 @@ const mapStateToProps = state => ({ error: state.error });
 export default reduxForm({
   validate,
   form: "SigninForm"
-})(connect(mapStateToProps, { signinUser })(SigninForm));
+})(connect(mapStateToProps, { signinUser, resetError })(SigninForm));

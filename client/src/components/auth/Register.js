@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { registerUser } from "../../actions/auth";
+import { registerUser, resetError } from "../../actions/auth";
 import Header from "../Header";
 import SubmitButton from "../SubmitButton";
 
@@ -90,6 +90,10 @@ class RegisterForm extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.resetError();
+  }
+
   handleFormSubmit(values) {
     this.props.registerUser(values);
   }
@@ -114,4 +118,4 @@ const mapStateToProps = state => ({ error: state.error });
 export default reduxForm({
   validate,
   form: "RegisterForm"
-})(connect(mapStateToProps, { registerUser })(RegisterForm));
+})(connect(mapStateToProps, { registerUser, resetError })(RegisterForm));

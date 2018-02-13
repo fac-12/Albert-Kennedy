@@ -1,6 +1,6 @@
 import axios from "axios";
 import history from "../history";
-import { AUTH_USER, UNAUTH_USER, DISPLAY_ERROR } from "./types";
+import { AUTH_USER, UNAUTH_USER, DISPLAY_ERROR, RESET_ERROR } from "./types";
 
 export const registerUser = values => {
   return dispatch => {
@@ -58,6 +58,12 @@ export const displayError = error => {
   return {
     type: DISPLAY_ERROR,
     payload: error
+  };
+};
+
+export const resetError = () => {
+  return {
+    type: RESET_ERROR
   };
 };
 
