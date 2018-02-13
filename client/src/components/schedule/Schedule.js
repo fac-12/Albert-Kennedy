@@ -13,24 +13,12 @@ class ScheduleForm extends Component {
     if (!this.props.availibility) {
       return <div />;
     } else {
-      const { handleSubmit } = this.props;
       return (
         <div>
           <Header heading="Schedule an appointment" />
-          <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-            {_.map(this.props.availibility, time => (
-              <Field
-                name="datetime"
-                type="radio"
-                key={time}
-                label={time[0] + ", " + time[1]}
-                value={time[0] + ", " + time[1]}
-                component={this.renderField}
-              />
-            ))}
-            <Field name="error" component={this.renderError} />
-            <SubmitButton text="next" />
-          </form>
+          {this.props.availibility === "none"
+            ? this.renderNoApts()
+            : this.renderForm()}
         </div>
       );
     }
@@ -42,6 +30,30 @@ class ScheduleForm extends Component {
     } else {
       this.props.fetchAvailibilites(this.props.mentor);
     }
+  }
+
+  renderNoApts() {
+    return <div>No appointments</div>;
+  }
+
+  renderForm() {
+    const { handleSubmit } = this.props;
+    return (
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+        {_.map(this.props.availibility, time => (
+          <Field
+            name="datetime"
+            type="radio"
+            key={time}
+            label={time[0] + ", " + time[1]}
+            value={time[0] + ", " + time[1]}
+            component={this.renderField}
+          />
+        ))}
+        <Field name="error" component={this.renderError} />
+        <SubmitButton text="next" />
+      </form>
+    );
   }
 
   renderError(field) {
