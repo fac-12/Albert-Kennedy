@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import Header from "../Header";
 
 export default class Profile extends Component {
   render() {
-    return <div>Profile Page</div>;
+    return <Header heading="My Appointments" logout />;
   }
 }

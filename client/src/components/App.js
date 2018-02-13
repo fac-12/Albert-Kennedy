@@ -42,6 +42,7 @@ class App extends Component {
           <Route exact path="/lgbt" component={LGBT} />
           <Route exact path="/ageredirect" component={AgeRedirect} />
           <Route exact path="/lgbtredirect" component={LGBTRedirect} />
+          <Route exact path="/crisis" component={Crisis} />
           <Route exact path="/topics" component={TopicForm} />
           <Route exact path="/mentors" component={MentorForm} />
           <Route exact path="/schedule" component={ScheduleForm} />
