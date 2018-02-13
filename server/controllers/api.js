@@ -37,20 +37,3 @@ exports.getAvailabilities = (req, res) => {
   filterAvailabilities(availabilities);
   });
 };
-
-
-// const filterAvailabilities = (availabilities, cb() => res.send(JSON.stringify(filteredAvailabilities))) => {
-//    availabilities.forEach(availability => {
-//       queries
-//       .getAppointments((availability[0] + " " + availability[1]).toString())
-//       .then(res => {
-//         console.log("res", res)
-//         if (res.length === 0) filteredAvailabilities.push(availability);
-//         console.log(filteredAvailabilities);
-//       })
-//     })
-//    cb();
-// }
-
-
-
