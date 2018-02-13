@@ -17,12 +17,25 @@ const addUser = (name, email, password) => {
 
 const getUserById = id => {
   return db
-    .query("SELECT * FROM users WHERE id = $1", [id])
+    .query(`SELECT * FROM users WHERE id = $1`, [id])
     .then(user => user[0]);
 };
+
+const getMentors = () => {
+  return db.query("SELECT * FROM mentors");
+};
+
+
+const getAppointments = (mentor, datetime) => {
+  return db
+  .query(`SELECT * FROM appointments WHERE date_and_time = $1 AND mentor_id = (SELECT id FROM mentors WHERE name = $2)`, [datetime, mentor])
+}
+
 
 module.exports = {
   getUser,
   addUser,
-  getUserById
+  getUserById,
+  getMentors, 
+  getAppointments
 };

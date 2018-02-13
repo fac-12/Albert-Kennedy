@@ -16,7 +16,7 @@ class Success extends Component {
         <LinkButton text="done" url="/profile" />
       </div>
     );
-  }
-}
+  };
+};
 
 export default Success;

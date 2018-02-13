@@ -15,21 +15,21 @@ class ScheduleForm extends Component {
       const { handleSubmit } = this.props;
       return (
         <div>
-          <Header heading="Schedule an appointment" />
-          <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-            {_.map(this.props.availibility, time => (
-              <Field
-                name="datetime"
-                type="radio"
-                key={time}
-                label={time}
-                value={time}
-                component={this.renderField}
-              />
-            ))}
-            <SubmitButton text="next" />
-          </form>
-        </div>
+        <Header heading="Schedule an appointment" />
+        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+          {_.map(this.props.availibility, time => (
+            <Field
+              name="datetime"
+              type="radio"
+              key={time}
+              label={time[0] + ", " + time[1]}
+              value={time[0] + ", " + time[1]}
+              component={this.renderField}
+            />
+          ))}
+          <SubmitButton text="next" />
+        </form>
+      </div>
       );
     }
   }
