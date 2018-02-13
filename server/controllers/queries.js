@@ -25,10 +25,12 @@ const getMentors = () => {
   return db.query("SELECT * FROM mentors");
 };
 
+
 const getAppointments = (datetime) => {
   return db
   .query(`SELECT * FROM appointments WHERE date_and_time = $1`, [datetime])
 }
+
 
 module.exports = {
   getUser,
