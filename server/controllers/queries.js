@@ -32,8 +32,6 @@ const getAppointments = (mentor, datetime) => {
 }
 
 const addAppointment = (newApptObj) => {
-  console.log("in query", newApptObj);
-  console.log("newApptObj.user_id", newApptObj.user_id);
   return db
   .query(`INSERT INTO appointments (user_id, mentor_id, date_and_time, topics, chat_string) VALUES ($1, (SELECT id FROM mentors WHERE name = $2), 
     $3, $4, $5)`, [newApptObj.user_id, newApptObj.mentor, newApptObj.date_and_time, newApptObj.topics, newApptObj.chat_string])
