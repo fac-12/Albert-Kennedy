@@ -45,9 +45,21 @@ export const fetchMentors = () => {
   };
 };
 
-export const updateAptTime = (value, loggedin) => {
+export const updateAptTime = (value, loggedin, newApt) => {
   localStorage.setItem("endOfFlow", "finished");
-  if (loggedin) {
+
+    if (loggedin) {
+
+    const scheduledAppt = {
+    mentor: newApt.mentor,
+    date_and_time: value,
+    topics: newApt.topics
+    }
+
+    axios 
+      .post("/addappt", { scheduledAppt, headers: { authorization: localStorage.getItem("token") }
+      })
+
     history.push("/success");
   } else {
     history.push("/register");

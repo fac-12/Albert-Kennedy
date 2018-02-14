@@ -47,7 +47,7 @@ class ScheduleForm extends Component {
     );
   }
   onSubmit = value => {
-    this.props.updateAptTime(value, this.props.auth);
+    this.props.updateAptTime(value, this.props.auth, this.props.newApt);
   };
 }
 
@@ -55,7 +55,8 @@ const mapStateToProps = state => {
   return {
     mentor: state.newApt.mentor,
     availibility: state.newApt.availibility,
-    auth: state.auth
+    auth: state.auth,
+    newApt: state.newApt
   };
 };
 

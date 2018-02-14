@@ -31,11 +31,17 @@ const getAppointments = (mentor, datetime) => {
   .query(`SELECT * FROM appointments WHERE date_and_time = $1 AND mentor_id = (SELECT id FROM mentors WHERE name = $2)`, [datetime, mentor])
 }
 
+const addAppointment = (scheduledAppt) => {
+  return db
+  .query(`INSERT INTO appointments (user_id, mentor_id, date_and_time, topics, chat_string) VALUES ($1, (SELECT id FROM mentors WHERE name = $2), 
+    $3, ARRAY$4, $5)`, [this.user_id, this.mentor, this.date_and_time, this.topics, this.chat_string])
+}
 
 module.exports = {
   getUser,
   addUser,
   getUserById,
   getMentors, 
-  getAppointments
+  getAppointments, 
+  addAppointment
 };

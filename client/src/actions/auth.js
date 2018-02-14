@@ -2,30 +2,90 @@ import axios from "axios";
 import history from "../history";
 import { AUTH_USER, UNAUTH_USER, DISPLAY_ERROR } from "./types";
 
-export const registerUser = values => {
-  return dispatch => {
-    axios
-      .post("/signup", values)
-      .then(response => {
-        console.log('res', response);
-        localStorage.setItem("token", response.data.token);
-        dispatch({
-          type: AUTH_USER
-        });
-        if(localStorage.endOfFlow === "finished") {
+export const registerUser = (values, newApt) => {
+  console.log("apt object", newApt)
+  if(localStorage.endOfFlow === "finished") {
+
+    const scheduledAppt = {
+    mentor: newApt.mentor,
+    date_and_time: newApt.aptTime.datetime,
+    topics: newApt.topics
+    }
+
+    return dispatch => {
+      axios
+        .post("/signup", values)
+        .then(response => {
+          localStorage.setItem("token", response.data.token);
+          dispatch({
+            type: AUTH_USER
+          });
+         })
+        .then(response => {
+          axios.post("/addappt", { scheduledAppt, headers: { authorization: localStorage.getItem("token") }})
+        })
+        .then(response => {
           history.push("/success");
-        }
-        else history.push("/profile");
-      })
-      .catch(error => {
+        })
+        .catch(error => {
         if (error.message.includes('422')){
         dispatch(displayError(error.response.data.error));
       } else {
         dispatch(displayError("There was an issue with our server. Please try again later"));
       }
       });
-  };
-};
+  }
+}
+
+  else {
+    return dispatch => {
+        axios
+          .post("/signup", values)
+          .then(response => {
+            localStorage.setItem("token", response.data.token);
+            dispatch({
+              type: AUTH_USER
+            });
+            history.push("/profile");
+          })
+          .catch(error => {
+          if (error.message.includes('422')){
+          dispatch(displayError(error.response.data.error));
+        } else {
+          dispatch(displayError("There was an issue with our server. Please try again later"));
+        }
+        });
+
+    }
+  }
+}
+
+//   return dispatch => {
+//     axios
+//       .post("/signup", values)
+//       .then(response => {
+//         console.log('res', response);
+//         localStorage.setItem("token", response.data.token);
+//         dispatch({
+//           type: AUTH_USER
+//         });
+//         if(localStorage.endOfFlow === "finished") {
+//         axios 
+//          .post("/addappt", { newApt, headers: { authorization: localStorage.getItem("token") }
+//         })
+//         history.push("/success");
+//         }
+//         else history.push("/profile");
+//       })
+//       .catch(error => {
+//         if (error.message.includes('422')){
+//         dispatch(displayError(error.response.data.error));
+//       } else {
+//         dispatch(displayError("There was an issue with our server. Please try again later"));
+//       }
+//       });
+//   };
+// };
 
 export const signinUser = values => {
   return dispatch => {
