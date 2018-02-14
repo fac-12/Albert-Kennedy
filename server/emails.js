@@ -14,7 +14,7 @@ const mentor_confirmation_email = mentor_email => {
 		to: mentor_email,
 		subject: "inter-AKT appointment confirmation",
 		html: `<p> Hello, </p>
-  <p>This is to confirm that you have a chat with { user.name } scheduled on { appointment.date }. Please visit { link } when the time comes.</p>
+  <p>This is to confirm that you have a chat with { user.name } scheduled on { scheduledAppt.date_and_time }. Please visit { chatString } at the scheduled time.</p>
   <p>Thank you inter-AKT</p>`
 	};
 
@@ -32,8 +32,8 @@ const user_confirmation_email = (user_email, keyword) => {
 		from: "hellointerakt@gmail.com",
 		to: user_email,
 		subject: "inter_AKT appointment confirmation",
-		html: `<p> Hello, </p>
-  <p>This is to confirm you have made an appointment to chat with { mentor name } at { date and time }. Please visit this {link} when your appointment is due. </p>
+		html: `<p> Hello, { scheduledAppt.mentor }</p>
+  <p>This is to confirm you have made an appointment to chat with { scheduledAppt.mentor } at { scheduledAppt.date_and_time }. Please visit this { chatString } at the scheduled time. </p>
   <p>Thank you for using inter-AKT</p>`
 	};
 
@@ -52,7 +52,7 @@ const akt_email = (email, name, link) => {
 		to: "hellointerakt@gmail.com",
 		subject: "inter-AKT appointment scheduled",
 		html: `<p>An appointment has been made via the inter-AKT app.
-    {user.name} has an appointment with {mentor.name} on {date and time}`
+    {INSERT USER NAME} has an appointment with { scheduledAppt.mentor } on { scheduledAppt.date_and_time }.`
 	};
 
 	transporter.sendMail(akt_email, function(error, info) {
