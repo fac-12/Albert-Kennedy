@@ -17,9 +17,6 @@ exports.addAppt = (req, res) => {
 		topics: Object.keys(scheduledAppt.topics),
 		chat_string: chatString
 	} 
-
-	console.log("in addApt, here's the scheduledAppt obj", scheduledAppt);
-	console.log("in addAppt, here's the newApptObj", newApptObj);
 	
 	queries
 	.addAppointment(newApptObj)
