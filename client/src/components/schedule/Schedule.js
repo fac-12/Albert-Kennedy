@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import _ from "lodash";
+import history from "../../history";
 
 import { fetchAvailibilites, updateAptTime } from "../../actions/appointment";
 import Header from "../Header";
@@ -12,30 +13,52 @@ class ScheduleForm extends Component {
     if (!this.props.availibility) {
       return <div />;
     } else {
-      const { handleSubmit } = this.props;
       return (
         <div>
-        <Header heading="Schedule an appointment" />
-        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          {_.map(this.props.availibility, time => (
-            <Field
-              name="datetime"
-              type="radio"
-              key={time}
-              label={time[0] + ", " + time[1]}
-              value={time[0] + ", " + time[1]}
-              component={this.renderField}
-            />
-          ))}
-          <SubmitButton text="next" />
-        </form>
-      </div>
+          <Header heading="Schedule an appointment" />
+          {this.props.availibility === "none"
+            ? this.renderNoApts()
+            : this.renderForm()}
+        </div>
       );
     }
   }
 
   componentDidMount() {
-    this.props.fetchAvailibilites(this.props.mentor);
+    if (!this.props.mentor) {
+      history.push("/mentors");
+    } else {
+      this.props.fetchAvailibilites(this.props.mentor);
+    }
+  }
+
+  renderNoApts() {
+    return <div>No appointments</div>;
+  }
+
+  renderForm() {
+    const { handleSubmit } = this.props;
+    return (
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+        {_.map(this.props.availibility, time => (
+          <Field
+            name="datetime"
+            type="radio"
+            key={time}
+            label={time[0] + ", " + time[1]}
+            value={time[0] + ", " + time[1]}
+            component={this.renderField}
+          />
+        ))}
+        <Field name="error" component={this.renderError} />
+        <SubmitButton text="next" />
+      </form>
+    );
+  }
+
+  renderError(field) {
+    const { meta: { error, submitFailed } } = field;
+    return <div>{submitFailed ? error : ""}</div>;
   }
 
   renderField(field) {
@@ -46,10 +69,19 @@ class ScheduleForm extends Component {
       </div>
     );
   }
+
   onSubmit = value => {
     this.props.updateAptTime(value, this.props.auth, this.props.newApt);
   };
 }
+
+const validate = values => {
+  const errors = {};
+  if (_.isEmpty(values)) {
+    errors.error = "Please select an appointment time.";
+  }
+  return errors;
+};
 
 const mapStateToProps = state => {
   return {
@@ -61,7 +93,11 @@ const mapStateToProps = state => {
 };
 
 export default reduxForm({
+  validate,
   form: "ScheduleForm"
 })(
-  connect(mapStateToProps, { fetchAvailibilites, updateAptTime })(ScheduleForm)
+  connect(mapStateToProps, {
+    fetchAvailibilites,
+    updateAptTime
+  })(ScheduleForm)
 );

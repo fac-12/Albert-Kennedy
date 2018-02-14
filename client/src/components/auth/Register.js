@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { registerUser } from "../../actions/auth";
+import { registerUser, resetError } from "../../actions/auth";
 import Header from "../Header";
 import SubmitButton from "../SubmitButton";
 
@@ -62,9 +62,10 @@ class RegisterForm extends Component {
             label="Confirm password"
             component={this.renderField}
           />
+          <p>{this.renderAlert()}</p>
           <SubmitButton text="next" />
         </form>
-        <p>{this.renderAlert()}</p>
+
         <p>
           Returning user? <Link to="/signin">Log in</Link>
         </p>
@@ -73,10 +74,12 @@ class RegisterForm extends Component {
   }
 
   renderField(field) {
+    const { meta: { touched, error } } = field;
     return (
       <div>
         <label>{field.label}</label>
         <input {...field.input} type={field.type} />
+        <p>{touched ? error : ""}</p>
       </div>
     );
   }
@@ -87,16 +90,38 @@ class RegisterForm extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.resetError();
+  }
+
   handleFormSubmit(values) {
     this.props.registerUser(values, this.props.newApt);
   }
 }
+
 
 const mapStateToProps = state => ({ 
   error: state.error,  
   newApt: state.newApt
   });
 
+const validate = values => {
+  const errors = {};
+  if (!values.name) errors.name = "Enter your name";
+  if (!values.email) errors.email = "Enter an email";
+  if (!values.dob) errors.dob = "Enter your date of birth";
+  if (!values.postcode) errors.postcode = "Enter a postcode";
+  if (!values.password) errors.password = "Enter your password";
+  if (values.password !== values.confirmPassword)
+    errors.confirmPassword = "Passwords do not match";
+  if (!values.confirmPassword)
+    errors.confirmPassword = "Enter your password again";
+  return errors;
+};
+
+
+
 export default reduxForm({
+  validate,
   form: "RegisterForm"
-})(connect(mapStateToProps, { registerUser })(RegisterForm));
+})(connect(mapStateToProps, { registerUser, resetError })(RegisterForm));
