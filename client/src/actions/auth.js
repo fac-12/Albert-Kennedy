@@ -3,7 +3,6 @@ import history from "../history";
 import { AUTH_USER, UNAUTH_USER, DISPLAY_ERROR, RESET_ERROR } from "./types";
 
 export const registerUser = (values, newApt) => {
-  console.log("apt object", newApt)
   if(localStorage.endOfFlow === "finished") {
 
     const scheduledAppt = {
@@ -59,33 +58,6 @@ export const registerUser = (values, newApt) => {
     }
   }
 }
-
-//   return dispatch => {
-//     axios
-//       .post("/signup", values)
-//       .then(response => {
-//         console.log('res', response);
-//         localStorage.setItem("token", response.data.token);
-//         dispatch({
-//           type: AUTH_USER
-//         });
-//         if(localStorage.endOfFlow === "finished") {
-//         axios 
-//          .post("/addappt", { newApt, headers: { authorization: localStorage.getItem("token") }
-//         })
-//         history.push("/success");
-//         }
-//         else history.push("/profile");
-//       })
-//       .catch(error => {
-//         if (error.message.includes('422')){
-//         dispatch(displayError(error.response.data.error));
-//       } else {
-//         dispatch(displayError("There was an issue with our server. Please try again later"));
-//       }
-//       });
-//   };
-// };
 
 export const signinUser = values => {
   return dispatch => {
