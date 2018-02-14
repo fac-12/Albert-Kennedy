@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { signinUser } from "../../actions/auth";
+import { signinUser, resetError } from "../../actions/auth";
 import SubmitButton from "../SubmitButton";
 
 class SigninForm extends Component {
@@ -22,8 +22,8 @@ class SigninForm extends Component {
           label="Password"
           component={this.renderField}
         />
-        <SubmitButton text="login" />
         <p>{this.renderAlert()}</p>
+        <SubmitButton text="login" />
         <p>
           New to inter-AKT? <Link to="/">Start here</Link>
         </p>
@@ -32,27 +32,41 @@ class SigninForm extends Component {
   }
 
   renderField(field) {
+    const { meta: { touched, error } } = field;
     return (
       <div>
         <label>{field.label}</label>
         <input {...field.input} type={field.type} />
+        <p>{touched ? error : ""}</p>
       </div>
     );
   }
 
-  renderAlert(){
-    if (this.props.error){
-      return <span>{this.props.error}</span>
+  renderAlert() {
+    if (this.props.error) {
+      return <span>{this.props.error}</span>;
     }
   }
 
   handleFormSubmit(values) {
     this.props.signinUser(values);
   }
+
+  componentDidMount() {
+    this.props.resetError();
+  }
 }
 
-const mapStateToProps = state => ({ error: state.error })
+const validate = values => {
+  const errors = {};
+  if (!values.email) errors.email = "Enter your email";
+  if (!values.password) errors.password = "Enter your password";
+  return errors;
+};
+
+const mapStateToProps = state => ({ error: state.error });
 
 export default reduxForm({
+  validate,
   form: "SigninForm"
-})(connect(mapStateToProps, { signinUser })(SigninForm));
+})(connect(mapStateToProps, { signinUser, resetError })(SigninForm));

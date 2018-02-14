@@ -7,3 +7,4 @@ export const AUTH_USER = "auth_user";
 export const UNAUTH_USER = "unauth_user";
 export const DISPLAY_ERROR = "display_error";
 export const USER_APTS = "user_apts";
+export const RESET_ERROR = "reset_error";
