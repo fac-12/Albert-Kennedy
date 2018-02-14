@@ -15,5 +15,4 @@ router.get("/getuser", requireAuth, getUser);
 router.get("/getmentordata", getMentors);
 router.get("/getavailabilities", getAvailabilities);
 
-
 module.exports = router;

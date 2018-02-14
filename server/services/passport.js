@@ -30,9 +30,8 @@ const jwtOptions = {
 };
 
 const jwtLogin = new Strategy(jwtOptions, (payload, done) => {
-	queries.getUserById(payload.sub);
-	console
-		.log("this is the user", payload.sub)
+	queries
+		.getUserById(payload.sub)
 		.then(user => {
 			if (user) {
 				done(null, user);

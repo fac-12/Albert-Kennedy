@@ -8,17 +8,22 @@ const transporter = nodemailer.createTransport({
 	}
 });
 
-const mentor_confirmation_email = mentor_email => {
-	const mentor_email = {
+const mentorConfirmationEmail = (
+	emailAddress,
+	userName,
+	dateTime,
+	chatString
+) => {
+	const mentorEmail = {
 		from: "hellointerakt@gmail.com",
-		to: mentor_email,
+		to: emailAddress,
 		subject: "inter-AKT appointment confirmation",
 		html: `<p> Hello, </p>
-  <p>This is to confirm that you have a chat with { user.name } scheduled on { scheduledAppt.date_and_time }. Please visit { chatString } at the scheduled time.</p>
+  <p>This is to confirm that you have a chat with ${userName} scheduled on ${dateTime}. Please visit ${chatString} at the scheduled time.</p>
   <p>Thank you inter-AKT</p>`
 	};
 
-	transporter.sendMail(mentor_confirmation_email, function(error, info) {
+	transporter.sendMail(mentorConfirmationEmail, function(error, info) {
 		if (error) {
 			throw error;
 		} else {
@@ -27,17 +32,22 @@ const mentor_confirmation_email = mentor_email => {
 	});
 };
 
-const user_confirmation_email = (user_email, keyword) => {
-	const user_email = {
+const userConfirmationEmail = (
+	emailAddress,
+	mentorName,
+	dateTime,
+	chatString
+) => {
+	const userEmail = {
 		from: "hellointerakt@gmail.com",
-		to: user_email,
+		to: emailAddress,
 		subject: "inter_AKT appointment confirmation",
-		html: `<p> Hello, { scheduledAppt.mentor }</p>
-  <p>This is to confirm you have made an appointment to chat with { scheduledAppt.mentor } at { scheduledAppt.date_and_time }. Please visit this { chatString } at the scheduled time. </p>
+		html: `<p> Hello, ${mentorName}</p>
+  <p>This is to confirm you have made an appointment to chat with ${mentorName} at ${dateTime}. Please visit this ${chatString} at the scheduled time. </p>
   <p>Thank you for using inter-AKT</p>`
 	};
 
-	transporter.sendMail(user_email, function(error, info) {
+	transporter.sendMail(userEmail, function(error, info) {
 		if (error) {
 			console.log(error);
 		} else {
@@ -46,16 +56,16 @@ const user_confirmation_email = (user_email, keyword) => {
 	});
 };
 
-const akt_email = (email, name, link) => {
-	const akt_email = {
+const aktConfirmationEmail = (userName, mentorName, dateTime) => {
+	const aktEmail = {
 		from: "hellointerakt@gmail.com",
 		to: "hellointerakt@gmail.com",
 		subject: "inter-AKT appointment scheduled",
 		html: `<p>An appointment has been made via the inter-AKT app.
-    {INSERT USER NAME} has an appointment with { scheduledAppt.mentor } on { scheduledAppt.date_and_time }.`
+    ${userName} has an appointment with ${mentorName} on ${dateTime}.`
 	};
 
-	transporter.sendMail(akt_email, function(error, info) {
+	transporter.sendMail(aktEmail, function(error, info) {
 		if (error) {
 			console.log(error);
 		} else {
@@ -65,7 +75,7 @@ const akt_email = (email, name, link) => {
 };
 
 module.exports = {
-	mentor_email,
-	user_email,
-	akt_email
+	mentorConfirmationEmail,
+	userConfirmationEmail,
+	aktConfirmationEmail
 };

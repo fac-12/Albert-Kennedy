@@ -32,9 +32,11 @@ const getAppointments = (mentor, datetime) => {
 	);
 };
 
-const getMentorEmail = mentor_name => {
+const getEmailDetails = (mentor_name, user_id) => {
 	return db.query(
-    `SELECT email FROM mentors WHERE mentor_email = $1`, [mentor_email];
+		`SELECT mentors.email AS mentor_email, users.name as user_name, users.email as user_email FROM mentors, users WHERE mentor.name = $1 and users.id = $2`,
+		[mentor_name, user_id]
+	);
 };
 
 module.exports = {
@@ -43,5 +45,5 @@ module.exports = {
 	getUserById,
 	getMentors,
 	getAppointments,
-	getMentorEmail
+	getEmailDetails
 };
