@@ -2,7 +2,6 @@ import axios from "axios";
 import history from "../history";
 import { AUTH_USER, UNAUTH_USER, DISPLAY_ERROR, RESET_ERROR } from "./types";
 
-<<<<<<< HEAD
 export const registerUser = (values, newApt) => {
   console.log("apt object", newApt)
   if(localStorage.endOfFlow === "finished") {

@@ -31,10 +31,12 @@ const getAppointments = (mentor, datetime) => {
   .query(`SELECT * FROM appointments WHERE date_and_time = $1 AND mentor_id = (SELECT id FROM mentors WHERE name = $2)`, [datetime, mentor])
 }
 
-const addAppointment = (scheduledAppt) => {
+const addAppointment = (newApptObj) => {
+  console.log("in query", newApptObj);
+  console.log("newApptObj.user_id", newApptObj.user_id);
   return db
   .query(`INSERT INTO appointments (user_id, mentor_id, date_and_time, topics, chat_string) VALUES ($1, (SELECT id FROM mentors WHERE name = $2), 
-    $3, ARRAY$4, $5)`, [this.user_id, this.mentor, this.date_and_time, this.topics, this.chat_string])
+    $3, $4, $5)`, [newApptObj.user_id, newApptObj.mentor, newApptObj.date_and_time, newApptObj.topics, newApptObj.chat_string])
 }
 
 module.exports = {

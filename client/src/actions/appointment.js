@@ -50,7 +50,7 @@ export const updateAptTime = (value, loggedin, newApt) => {
 
     const scheduledAppt = {
     mentor: newApt.mentor,
-    date_and_time: value,
+    date_and_time: value.datetime,
     topics: newApt.topics
     }
 
