@@ -16,14 +16,14 @@ const mentorConfirmationEmail = (
 ) => {
 	const mentorEmail = {
 		from: "hellointerakt@gmail.com",
-		to: emailAddress,
+		to: `${emailAddress}`,
 		subject: "inter-AKT appointment confirmation",
 		html: `<p> Hello, </p>
-  <p>This is to confirm that you have a chat with ${userName} scheduled on ${dateTime}. Please visit ${chatString} at the scheduled time.</p>
+  <p>This is to confirm that you have a chat with ${userName} scheduled on ${dateTime}. Please visit this link: https://appear.in/${chatString} at the scheduled time.</p>
   <p>Thank you inter-AKT</p>`
 	};
 
-	transporter.sendMail(mentorConfirmationEmail, function(error, info) {
+	transporter.sendMail(mentorEmail, function(error, info) {
 		if (error) {
 			throw error;
 		} else {
@@ -34,16 +34,17 @@ const mentorConfirmationEmail = (
 
 const userConfirmationEmail = (
 	emailAddress,
+	userName,
 	mentorName,
 	dateTime,
 	chatString
 ) => {
 	const userEmail = {
 		from: "hellointerakt@gmail.com",
-		to: emailAddress,
+		to: `${emailAddress}`,
 		subject: "inter_AKT appointment confirmation",
-		html: `<p> Hello, ${mentorName}</p>
-  <p>This is to confirm you have made an appointment to chat with ${mentorName} at ${dateTime}. Please visit this ${chatString} at the scheduled time. </p>
+		html: `<p> Hello, ${userName}</p>
+  <p>This is to confirm you have made an appointment to chat with ${mentorName} at ${dateTime}. Please visit this link: https://appear.in/${chatString} at the scheduled time. This will take you to an external site and the chat will only be between you and ${mentorName}. You have the option to chat via video, audio or messaging. </p>
   <p>Thank you for using inter-AKT</p>`
 	};
 

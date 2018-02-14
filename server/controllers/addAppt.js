@@ -26,25 +26,30 @@ exports.addAppt = (req, res) => {
 
 	queries
 		.addAppointment(newApptObj)
-		.getEmailDetails(newApptObj.mentor, userId)
-		.then(mentor_email, user_name, user_email => {
-			mentorConfirmationEmail(
-				mentor_email,
-				user_name,
-				newApptObj.date_and_time,
-				newApptObj.chat_string
-			);
-			userConfirmationEmail(
-				user_email,
-				newApptObj.mentor,
-				newApptObj.date_and_time,
-				newApptObj.chat_string
-			);
-			aktConfirmationEmail(
-				user_name,
-				newApptObj.mentor,
-				newApptObj.date_and_time
-			);
+		.then(() => {
+			queries
+				.getEmailDetails(newApptObj.mentor, userId)
+				.then(res => {
+					mentorConfirmationEmail(
+						res[0].mentor_email,
+						res[0].user_name,
+						newApptObj.date_and_time,
+						newApptObj.chat_string
+					);
+					userConfirmationEmail(
+						res[0].user_email,
+						res[0].user_name,
+						newApptObj.mentor,
+						newApptObj.date_and_time,
+						newApptObj.chat_string
+					);
+					aktConfirmationEmail(
+						res[0].user_name,
+						newApptObj.mentor,
+						newApptObj.date_and_time
+					);
+				})
+				.catch(err => console.log(err));
 		})
 		.catch(err => console.log("error", err));
 };
