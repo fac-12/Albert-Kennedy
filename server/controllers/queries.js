@@ -34,7 +34,7 @@ const getAppointments = (mentor, datetime) => {
 
 const getMentorEmail = mentor_name => {
 	return db.query(
-    `SELECT email FROM mentors WHERE mentor_name = $1`, [mentor_name];
+    `SELECT email FROM mentors WHERE mentor_email = $1`, [mentor_email];
 };
 
 module.exports = {

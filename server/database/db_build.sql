@@ -17,7 +17,7 @@ CREATE TABLE mentors (
   name VARCHAR(100) NOT NULL,
   email VARCHAR(100) NOT NULL UNIQUE,
   description TEXT NOT NULL,
-  img_url VARCHAR(200),
+  img_url VARCHAR NOT NULL,
   date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -26,6 +26,8 @@ CREATE TABLE appointments (
   user_id INTEGER REFERENCES users(id) NOT NULL,
   mentor_id INTEGER REFERENCES mentors(id) NOT NULL,
   date_and_time TIMESTAMP NOT NULL,
+  topics TEXT[] NOT NULL, 
+  chat_string VARCHAR(6) NOT NULL, 
   date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 

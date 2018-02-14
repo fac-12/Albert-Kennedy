@@ -16,33 +16,38 @@ exports.getAvailabilities = (req, res) => {
 
 	request(url, (error, response, body) => {
 		if (error)
-			return res
-				.status(500)
-				.send({
-					error:
-						"There was a network issue. Please make sure you are connected to the internet"
-				});
-		const availabilities = JSON.parse(body).values.slice(1);
-		const filteredAvailabilities = [];
-		let counter = 0;
-
-		const filterAvailabilities = availabilities => {
-			availabilities.forEach(availability => {
-				queries
-					.getAppointments(
-						mentor,
-						(availability[0] + " " + availability[1]).toString()
-					)
-					.then(result => {
-						counter++;
-						if (result.length === 0) filteredAvailabilities.push(availability);
-						if (counter === availabilities.length)
-							res.send(JSON.stringify(filteredAvailabilities));
-					})
-					.catch(console.log(error));
+			return res.status(500).send({
+				error:
+					"There was a network issue. Please make sure you are connected to the internet"
 			});
-		};
 
-		filterAvailabilities(availabilities);
+		const data = JSON.parse(body).values;
+		if (!data) {
+			return res.send("none");
+		} else {
+			const availabilities = data.slice(1);
+			const filteredAvailabilities = [];
+			let counter = 0;
+
+			const filterAvailabilities = availabilities => {
+				availabilities.forEach(availability => {
+					queries
+						.getAppointments(
+							mentor,
+							(availability[0] + " " + availability[1]).toString()
+						)
+						.then(result => {
+							counter++;
+							if (result.length === 0)
+								filteredAvailabilities.push(availability);
+							if (counter === availabilities.length)
+								res.send(JSON.stringify(filteredAvailabilities));
+						})
+						.catch(console.log(error));
+				});
+			};
+
+			filterAvailabilities(availabilities);
+		}
 	});
 };
