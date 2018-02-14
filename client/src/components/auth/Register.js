@@ -95,9 +95,15 @@ class RegisterForm extends Component {
   }
 
   handleFormSubmit(values) {
-    this.props.registerUser(values);
+    this.props.registerUser(values, this.props.newApt);
   }
 }
+
+
+const mapStateToProps = state => ({ 
+  error: state.error,  
+  newApt: state.newApt
+  });
 
 const validate = values => {
   const errors = {};
@@ -113,7 +119,7 @@ const validate = values => {
   return errors;
 };
 
-const mapStateToProps = state => ({ error: state.error });
+
 
 export default reduxForm({
   validate,
