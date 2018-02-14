@@ -118,12 +118,12 @@ class TopicForm extends Component {
   renderField = field => {
     const { meta: { error, submitFailed, active } } = field;
     return [
-      <Card htmlFor={field.name}>
+      <Card htmlFor={field.name} key={1}>
         <Img src={field.src} />
         <Input id={field.name} type="checkbox" {...field.input} />
         <Label>{field.label}</Label>
       </Card>,
-      <Error>{submitFailed ? error : ""}</Error>
+      <Error key={2}>{submitFailed ? error : ""}</Error>
     ];
   };
 
