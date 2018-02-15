@@ -6,14 +6,15 @@ import history from "../../history";
 import styled from "styled-components";
 import { fetchAvailibilites, updateAptTime } from "../../actions/appointment";
 import Header from "../Header";
+import { Link } from "react-router-dom";
 import SubmitButton from "../SubmitButton";
 
 const Card = styled.label`
-  width: 340px;
-  height: 140px;
+  width: 90vw;
+  height: 10vh;
   border-radius: 10px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
-  margin: 15px;
+  margin: 2vh 5vw 2vh 5vw;
   border-left: solid 8px #fb8b24;
   display: flex;
   align-items: center;
@@ -41,9 +42,22 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 3vh;
+  padding-bottom: 3vh;
 `;
 
+const NoAptsCard = styled.div`
+    width: 340px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+    margin: 15px;
+    display: flex;
+    align-items: center;
+`;
+
+const TextWrap = styled.div`
+    padding: 20px;
+`;
 
 class ScheduleForm extends Component {
   render() {
@@ -69,25 +83,39 @@ class ScheduleForm extends Component {
     }
   }
 
+
   renderNoApts() {
-    return <div>No appointments</div>;
-  }
+    return (
+        <NoAptsCard>
+            <TextWrap>
+                <p>
+                    Whoops! There are no appointments currently available for this
+                    mentor
+                </p>
+                <p>
+                    Please <Link to="/mentors">pick another.</Link>
+                </p>
+            </TextWrap>
+        </NoAptsCard>
+    );
+}
 
   renderForm() {
     const { handleSubmit } = this.props;
+    const dates = this.convertDates(this.props.availibility);
     return (
       <Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
       <div>
-        {_.map(this.props.availibility, time => (
-          <Field
-            name="datetime"
-            type="radio"
-            key={time}
-            label={time[0] + " at " + time[1]}
-            value={time[0] + " at " + time[1]}
-            component={this.renderField}
-          />
-        ))}
+         {_.map(dates, datetime => (
+                    <Field
+                        name="datetime"
+                        type="radio"
+                        key={datetime}
+                        label={datetime[0] + " at " + datetime[1]}
+                        value={datetime[0] + " at " + datetime[1]}
+                        component={this.renderField}
+                    />
+                ))}
         </div>
         <div>
         <Field name="error" component={this.renderError} />
@@ -114,6 +142,30 @@ class ScheduleForm extends Component {
   onSubmit = value => {
     this.props.updateAptTime(value, this.props.auth, this.props.newApt);
   };
+
+  convertDates = dateArr => {
+        const dateOptions = {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        };
+        const timeOptions = {
+            hour: "numeric",
+            minute: "numeric",
+            hour12: true
+        };
+
+        let dates = dateArr.map(date => {
+            const datetime = new Date(date);
+            const dateStr = datetime.toLocaleString("en-gb", dateOptions);
+            const timeStr = datetime.toLocaleString("en-gb", timeOptions);
+            return [dateStr, timeStr];
+        });
+
+        return dates;
+    };
+
 }
 
 const validate = values => {

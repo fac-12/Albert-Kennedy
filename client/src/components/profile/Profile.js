@@ -31,6 +31,13 @@ const Button = styled.button`
 	border-radius: 0.3rem;
 `;
 
+const NewAppButton = styled(LinkButton)`
+  position: inherit;
+  margin: 2vh 5vw 2vh 5vw;
+
+`
+
+
 class Profile extends Component {
 	render() {
 		console.log(this.props.apts);
@@ -56,7 +63,7 @@ class Profile extends Component {
 							</Card>
 						);
 					})}
-					<LinkButton text="new appointment" url="/topics" primary />
+					<NewAppButton text="new appointment" url="/topics" primary />
 
 					<p>
 						Immediate crisis? Don't use this site -{" "}
