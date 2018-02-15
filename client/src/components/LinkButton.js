@@ -6,10 +6,13 @@ const Button = styled.button`
   background: ${props => (props.primary ? "#f47a20" : "white")};
   border: 2px solid #f47a20;
   border-radius: 5px;
-  width: 100vw;
+  box-sizing: border-box;
+  width: 90vw;
   height: 60px;
   font-size: 16px;
-  margin: 5px;
+  position: absolute;
+  bottom: ${props => (props.primary ? "15vh" : "3vh")};
+
 `;
 
 const LinkButton = props => {

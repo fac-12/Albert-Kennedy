@@ -10,7 +10,6 @@ const Button = styled.button`
   height: 60px;
   font-size: 16px;
   margin: 5vw;
-  align-self: flex-end;
 `;
 
 const SubmitButton = props => {
