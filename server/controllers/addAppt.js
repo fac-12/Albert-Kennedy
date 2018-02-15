@@ -48,7 +48,9 @@ exports.addAppt = (req, res) => {
 						newApptObj.mentor,
 						newApptObj.date_and_time
 					);
+					return;
 				})
+				.then(res.send())
 				.catch(err => console.log(err));
 		})
 		.catch(err => console.log("error", err));
