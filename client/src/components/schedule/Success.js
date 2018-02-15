@@ -6,8 +6,13 @@ import _ from "lodash";
 import styled from "styled-components";
 
 const TextWrapper = styled.div`
-  width: 90%;
+  width: 88%;
   margin: auto;
+`;
+
+const Button = styled(LinkButton)`
+  position: fixed;
+  margin: 2vh 5vw 2vh 5vw;
 `;
 
 class Success extends Component {
@@ -31,7 +36,7 @@ class Success extends Component {
               profile page.
             </p>
           </TextWrapper>
-          <LinkButton text="done" url="/profile" />
+          <Button text="done" url="/profile" />
         </div>
       );
     }

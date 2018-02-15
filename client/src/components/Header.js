@@ -7,79 +7,78 @@ import { connect } from "react-redux";
 import { logoutUser } from "../actions/auth";
 
 const NavBar = styled.nav`
-	width: 100%;
-	height: 66px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	background-color: #7c53a2;
+  width: 100%;
+  height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #7c53a2;
 `;
 
 const Logo = styled.img`
-	width: 80px;
-	height: auto;
+  width: 80px;
+  height: auto;
 `;
 
 const Heading = styled.h2`
-	font-size: 30px;
-	font-weight: 300;
-	text-align: center;
-	width: 90%;
-	margin: 1rem auto;
-	padding: 1.5rem;
+  font-size: 30px;
+  font-weight: 300;
+  text-align: center;
+  width: 90%;
+  margin: 1rem auto;
+  padding: 1.5rem;
 `;
 
 const Text = styled.p`
-	font-size: 18px;
-	font-weight: 300;
-	text-align: center;
-	width: 90%;
-	margin: 0.5rem auto;
+  font-size: 18px;
+  font-weight: 300;
+  text-align: center;
+  width: 90%;
+  margin: 0.5rem auto;
 `;
 
 const Wrapper = styled.div`
-	min-height: 175px;
-	margin-bottom: 1em;
-	width: 100vw;
+  min-height: 175px;
+  margin-bottom: 1em;
+  width: 100vw;
 `;
 
-
 const P = styled.p`
-	padding: 0.2rem;
-	margin: 0.5rem;
-	color: white;
-	font-size: 1.2rem;
-	text-decoration: underline;
+  padding: 0.2rem;
+  margin: 0.5rem;
+  color: white;
+  font-size: 1rem;
+  text-decoration: underline;
 `;
 
 class Header extends Component {
-	render() {
-		return (
-			<Wrapper>
-				<NavBar>
-					<Link to="/">
-						<Logo src={logo} alt="Albert Kennedy Trust logo" />
-					</Link>
-					{this.props.logout ? (
-						<Link to="/" onClick={this.logout.bind(this)}>
-							<P>Log out</P>
-						</Link>
-					) : (
-						<Link to="/crisis">
-							<P>I'm in crisis</P>
-						</Link>
-					)}
-				</NavBar>
-				<Heading>{this.props.heading}</Heading>
-				<Text>{this.props.text}</Text>
-				<h2 className="header__text">{this.props.headerText}</h2>
-			</Wrapper>
-		);
-	}
+  render() {
+    return (
+      <Wrapper>
+        <NavBar>
+          <Link to="/">
+            <Logo src={logo} alt="Albert Kennedy Trust logo" />
+          </Link>
+          {this.props.logout ? (
+            <Link to="/" onClick={this.logout.bind(this)}>
+              <P>Log out</P>
+            </Link>
+          ) : (
+            <Link to="/crisis">
+              <P>I'm in crisis</P>
+            </Link>
+          )}
+        </NavBar>
+        <Heading>{this.props.heading}</Heading>
+        <Text>{this.props.text}</Text>
+        <h2 className="header__text">{this.props.headerText}</h2>
+      </Wrapper>
+    );
+  }
 
-	logout() {
-		this.props.logoutUser();
-	}
+  logout() {
+    this.props.logoutUser();
+  }
 }
 
 export default connect(null, { logoutUser })(Header);
