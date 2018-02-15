@@ -46,10 +46,12 @@ const addAppointment = newApptObj => {
 	);
 };
 
-const getUserAppointments = (userId, mentorId) => {
+const getUserAppointments = user_id => {
 	return db.query(
-		`SELECT * from appointments WHERE user_id = $1 AND mentor_id = $2 (SELECT mentors_id)`,
-		[userId, mentorId]
+		`SELECT mentors.name, appointments.date_and_time, appointments.chat_string
+    FROM appointments
+    INNER JOIN mentors ON (appointments.mentor_id = mentors.id) WHERE appointments.user_id = $1`,
+		[user_id]
 	);
 };
 
@@ -60,6 +62,5 @@ module.exports = {
 	getMentors,
 	getAppointments,
 	addAppointment,
-	getUserAppointments,
-	getEmailDetails
+	getUserAppointments
 };
