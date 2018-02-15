@@ -45,12 +45,6 @@ const Input = styled.input`
 
 const Label = styled.div``;
 
-const Img = styled.img`
-  height: auto;
-  width: 50px;
-  padding: 5px;
-`;
-
 class ScheduleForm extends Component {
   render() {
     if (!this.props.availibility) {
