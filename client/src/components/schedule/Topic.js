@@ -18,7 +18,7 @@ const Input = styled.input`
   display: none;
 
   &:checked + div {
-    color: #fb8b24;
+    color: #f47a20;
   }
 `;
 
@@ -33,7 +33,7 @@ const Card = styled.label`
   justify-content: center;
   text-align: center;
   margin: 5px;
-  border-left: solid 8px #fb8b24;
+  border-left: solid 8px #f47a20;
 `;
 
 const Label = styled.div`

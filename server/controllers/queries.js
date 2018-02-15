@@ -32,6 +32,13 @@ const getAppointments = (mentor, datetime) => {
 	);
 };
 
+const getEmailDetails = (mentor_name, user_id) => {
+	return db.query(
+		`SELECT mentors.email AS mentor_email, users.name as user_name, users.email as user_email FROM mentors, users WHERE mentors.name = $1 and users.id = $2`,
+		[mentor_name, user_id]
+	);
+};
+
 const addAppointment = newApptObj => {
 	return db.query(
 		`INSERT INTO appointments (user_id, mentor_id, date_and_time, topics, chat_string) VALUES ($1, (SELECT id FROM mentors WHERE name = $2),
@@ -48,7 +55,7 @@ const addAppointment = newApptObj => {
 
 const getUserAppointments = user_id => {
 	return db.query(
-		`SELECT mentors.name, appointments.date_and_time, appointments.chat_string
+		`SELECT mentors.name, appointments.date_and_time, appointments.chat_string, mentors.img_url
     FROM appointments
     INNER JOIN mentors ON (appointments.mentor_id = mentors.id) WHERE appointments.user_id = $1`,
 		[user_id]
@@ -61,6 +68,7 @@ module.exports = {
 	getUserById,
 	getMentors,
 	getAppointments,
+	getEmailDetails,
 	addAppointment,
 	getUserAppointments
 };

@@ -3,8 +3,8 @@ import history from "../history";
 import styled from "styled-components";
 
 const Button = styled.button`
-  background: ${props => (props.primary ? "#fb8b24" : "white")};
-  border: 2px solid #fb8b24;
+  background: ${props => (props.primary ? "#f47a20" : "white")};
+  border: 2px solid #f47a20;
   border-radius: 5px;
   width: 340px;
   height: 60px;
