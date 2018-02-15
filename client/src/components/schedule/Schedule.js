@@ -10,7 +10,7 @@ import SubmitButton from "../SubmitButton";
 
 const Card = styled.label`
   width: 340px;
-  height: 140px;
+  height: 70px;
   border-radius: 10px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
   margin: 15px;
@@ -66,15 +66,16 @@ class ScheduleForm extends Component {
 
   renderForm() {
     const { handleSubmit } = this.props;
+    const dates = this.convertDates(this.props.availibility);
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-        {_.map(this.props.availibility, time => (
+        {_.map(dates, datetime => (
           <Field
             name="datetime"
             type="radio"
-            key={time}
-            label={time[0] + " at " + time[1]}
-            value={time[0] + " at " + time[1]}
+            key={datetime}
+            label={datetime[0] + " at " + datetime[1]}
+            value={datetime[0] + " at " + datetime[1]}
             component={this.renderField}
           />
         ))}
@@ -100,6 +101,34 @@ class ScheduleForm extends Component {
 
   onSubmit = value => {
     this.props.updateAptTime(value, this.props.auth, this.props.newApt);
+  };
+
+  convertDates = dateArr => {
+    const dateOptions = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    };
+    const timeOptions = {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true
+    };
+
+    let dates = dateArr.map(date => {
+      const ymd = date[0]
+        .split("/")
+        .slice(2)
+        .concat(date[0].split("/").slice(0, 2));
+      const time = date[1].slice(0, -3);
+      const datetime = new Date(ymd.concat([","]).concat(time));
+      const dateStr = datetime.toLocaleString("en-gb", dateOptions);
+      const timeStr = datetime.toLocaleString("en-gb", timeOptions);
+      return [dateStr, timeStr];
+    });
+
+    return dates;
   };
 }
 
