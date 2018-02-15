@@ -6,6 +6,45 @@ import { connect } from "react-redux";
 import { fetchMentors, updateMentor } from "../../actions/appointment";
 import Header from "../Header";
 import SubmitButton from "../SubmitButton";
+import styled from "styled-components";
+
+const Card = styled.label`
+  width: 340px;
+  height: 140px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+  margin: 15px;
+  border-left: solid 8px #fb8b24;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+`;
+
+const Input = styled.input`
+  display: none;
+
+  &:checked + div {
+    color: #fb8b24;
+  }
+`;
+
+const Label = styled.div`
+  width: 190px;
+  margin: 0 0 10px 0;
+  font-weight: bold;
+`;
+
+const Desc = styled.p`
+  width: 190px;
+  margin: 0;
+  font-size: 0.9rem;
+`;
+
+const Img = styled.img`
+  height: auto;
+  width: 80px;
+  padding: 5px;
+`;
 
 class MentorForm extends Component {
   componentDidMount() {
@@ -47,12 +86,16 @@ class MentorForm extends Component {
 
   renderField(field) {
     return (
-      <div>
-        <label>{field.label}</label>
-        <input type="radio" {...field.input} />
-        <p>{field.desc}</p>
-        <img src={field.img} alt="Mentor" />
-      </div>
+      <Card>
+        <div>
+          <Img src={field.img} alt="Mentor" />
+        </div>
+        <Input type="radio" id={field.label} {...field.input} />
+        <div>
+          <Label>{field.label}</Label>
+          <Desc>{field.desc}</Desc>
+        </div>
+      </Card>
     );
   }
   renderError(field) {
