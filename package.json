@@ -8,7 +8,7 @@
     "node": "8.6.0"
   },
   "scripts": {
-    "start": "node ./server.js",
+    "start": "node ./server/server.js",
     "postinstall": "cd client && npm i",
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "node start-client.js",
