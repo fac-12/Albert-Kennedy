@@ -55,7 +55,7 @@ const Crisis = styled.p`
 class Profile extends Component {
   render() {
     if (!this.props.apts) {
-      return <div>You have no appointments booked!</div>;
+      return <div />;
     } else {
       return (
         <div>
