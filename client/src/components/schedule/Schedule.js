@@ -3,10 +3,38 @@ import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import _ from "lodash";
 import history from "../../history";
-
+import styled from "styled-components";
 import { fetchAvailibilites, updateAptTime } from "../../actions/appointment";
 import Header from "../Header";
 import SubmitButton from "../SubmitButton";
+
+const Card = styled.label`
+  width: 340px;
+  height: 140px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+  margin: 15px;
+  border-left: solid 8px #fb8b24;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+`;
+
+const Input = styled.input`
+  display: none;
+
+  &:checked + div {
+    color: #fb8b24;
+  }
+`;
+
+const Label = styled.div``;
+
+const Img = styled.img`
+  height: auto;
+  width: 50px;
+  padding: 5px;
+`;
 
 class ScheduleForm extends Component {
   render() {
@@ -63,10 +91,10 @@ class ScheduleForm extends Component {
 
   renderField(field) {
     return (
-      <div>
-        <label>{field.label}</label>
-        <input type="radio" {...field.input} />
-      </div>
+      <Card>
+        <Input type="radio" {...field.input} />
+        <Label>{field.label}</Label>
+      </Card>
     );
   }
 
