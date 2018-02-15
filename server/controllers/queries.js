@@ -47,7 +47,6 @@ const addAppointment = newApptObj => {
 };
 
 const getUserAppointments = userId => {
-	console.log("hello!!", userId);
 	return db.query(`SELECT * FROM appointments WHERE user_id = $1`, [userId]);
 };
 

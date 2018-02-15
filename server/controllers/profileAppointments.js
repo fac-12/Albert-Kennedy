@@ -1,7 +1,6 @@
 const queries = require("./queries");
 
 exports.profileAppointments = (req, res) => {
-	console.log("before queries");
 	queries
 		.getUserAppointments(req.user.id)
 		.then(appointments => {
