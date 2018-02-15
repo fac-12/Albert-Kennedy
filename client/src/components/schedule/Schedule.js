@@ -37,58 +37,59 @@ const Img = styled.img`
 `;
 
 class ScheduleForm extends Component {
-  render() {
-    if (!this.props.availibility) {
-      return <div />;
-    } else {
-      return (
-        <div>
-          <Header heading="Schedule an appointment" />
-          {this.props.availibility === "none"
-            ? this.renderNoApts()
-            : this.renderForm()}
-        </div>
-      );
-    }
-  }
+	render() {
+		if (!this.props.availibility) {
+			return <div />;
+		} else {
+			return (
+				<div>
+					<Header heading="Schedule an appointment" />
+					{this.props.availibility === "none"
+						? this.renderNoApts()
+						: this.renderForm()}
+				</div>
+			);
+		}
+	}
 
-  componentDidMount() {
-    if (!this.props.mentor) {
-      history.push("/mentors");
-    } else {
-      this.props.fetchAvailibilites(this.props.mentor);
-    }
-  }
+	componentDidMount() {
+		if (!this.props.mentor) {
+			history.push("/mentors");
+		} else {
+			this.props.fetchAvailibilites(this.props.mentor);
+		}
+	}
 
-  renderNoApts() {
-    return <div>No appointments</div>;
-  }
+	renderNoApts() {
+		return <div>No appointments</div>;
+	}
 
-  renderForm() {
-    const { handleSubmit } = this.props;
-    return (
-      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-        {_.map(this.props.availibility, time => (
-          <Field
-            name="datetime"
-            type="radio"
-            key={time}
-            label={time[0] + ", " + time[1]}
-            value={time[0] + ", " + time[1]}
-            component={this.renderField}
-          />
-        ))}
-        <Field name="error" component={this.renderError} />
-        <SubmitButton text="next" />
-      </form>
-    );
-  }
+	renderForm() {
+		const { handleSubmit } = this.props;
+		return (
+			<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+				{_.map(this.props.availibility, time => (
+					<Field
+						name="datetime"
+						type="radio"
+						key={time}
+						label={time[0] + " at " + time[1]}
+						value={time[0] + " at " + time[1]}
+						component={this.renderField}
+					/>
+				))}
+				<Field name="error" component={this.renderError} />
+				<SubmitButton text="next" />
+			</form>
+		);
+	}
 
-  renderError(field) {
-    const { meta: { error, submitFailed } } = field;
-    return <div>{submitFailed ? error : ""}</div>;
-  }
+	renderError(field) {
+		const { meta: { error, submitFailed } } = field;
+		return <div>{submitFailed ? error : ""}</div>;
+	}
 
+<<<<<<< HEAD
   renderField(field) {
     return (
       <Card>
@@ -97,34 +98,45 @@ class ScheduleForm extends Component {
       </Card>
     );
   }
+=======
+	renderField(field) {
+		return (
+			<div>
+				<label>{field.label}</label>
+				<input type="radio" {...field.input} />
+			</div>
+		);
+	}
+>>>>>>> master
 
-  onSubmit = value => {
-    this.props.updateAptTime(value, this.props.auth);
-  };
+	onSubmit = value => {
+		this.props.updateAptTime(value, this.props.auth, this.props.newApt);
+	};
 }
 
 const validate = values => {
-  const errors = {};
-  if (_.isEmpty(values)) {
-    errors.error = "Please select an appointment time.";
-  }
-  return errors;
+	const errors = {};
+	if (_.isEmpty(values)) {
+		errors.error = "Please select an appointment time.";
+	}
+	return errors;
 };
 
 const mapStateToProps = state => {
-  return {
-    mentor: state.newApt.mentor,
-    availibility: state.newApt.availibility,
-    auth: state.auth
-  };
+	return {
+		mentor: state.newApt.mentor,
+		availibility: state.newApt.availibility,
+		auth: state.auth,
+		newApt: state.newApt
+	};
 };
 
 export default reduxForm({
-  validate,
-  form: "ScheduleForm"
+	validate,
+	form: "ScheduleForm"
 })(
-  connect(mapStateToProps, {
-    fetchAvailibilites,
-    updateAptTime
-  })(ScheduleForm)
+	connect(mapStateToProps, {
+		fetchAvailibilites,
+		updateAptTime
+	})(ScheduleForm)
 );
