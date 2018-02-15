@@ -6,7 +6,7 @@ const Button = styled.button`
   background: ${props => (props.primary ? "#fb8b24" : "white")};
   border: 2px solid #fb8b24;
   border-radius: 5px;
-  width: 340px;
+  width: 100vw;
   height: 60px;
   font-size: 16px;
   margin: 5px;

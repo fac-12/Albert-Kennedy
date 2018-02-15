@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import logo from "../assets/logo.jpg";
+import logo from "../assets/logo_white.png";
 import arrow from "../assets/curvearrow.png";
 import { Link } from "react-router-dom";
 
@@ -9,6 +9,7 @@ const NavBar = styled.nav`
   height: 66px;
   display: flex;
   align-items: center;
+  background-color: #7c53a2;
 `;
 
 const Logo = styled.img`
@@ -32,16 +33,11 @@ const Text = styled.p`
   margin: 0.5rem auto;
 `;
 
-const Arrow = styled.img`
-  position: fixed;
-  top: 130px;
-  left: 15px;
-  width: 80px;
-`;
 
 const Wrapper = styled.div`
-  min-height: 200px;
+  min-height: 175px;
   margin-bottom: 1em;
+  width: 100vw;
 `;
 const Header = props => {
   return (
@@ -51,7 +47,6 @@ const Header = props => {
           <Logo src={logo} alt="Albert Kennedy Trust logo" />
         </Link>
       </NavBar>
-      <Arrow src={arrow} alt="Curved arrow" />
       <Heading>{props.heading}</Heading>
       <Text>{props.text}</Text>
       <h2 className="header__text">{props.headerText}</h2>
