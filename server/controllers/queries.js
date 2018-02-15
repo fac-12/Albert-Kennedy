@@ -60,5 +60,6 @@ module.exports = {
 	getMentors,
 	getAppointments,
 	addAppointment,
-	getUserAppointments
+	getUserAppointments,
+	getEmailDetails
 };
