@@ -23,7 +23,8 @@ export const registerUser = (values, newApt) => {
         .then(response => {
           axios.post("/addappt", { scheduledAppt, headers: { authorization: localStorage.getItem("token") }})
         })
-        .then(response => {
+        .then(() => {
+          localStorage.removeItem("endOfFlow");
           history.push("/success");
         })
         .catch(error => {
