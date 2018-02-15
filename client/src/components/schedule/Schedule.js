@@ -138,12 +138,7 @@ class ScheduleForm extends Component {
     };
 
     let dates = dateArr.map(date => {
-      const ymd = date[0]
-        .split("/")
-        .slice(2)
-        .concat(date[0].split("/").slice(0, 2));
-      const time = date[1].slice(0, -3);
-      const datetime = new Date(ymd.concat([","]).concat(time));
+      const datetime = new Date(date);
       const dateStr = datetime.toLocaleString("en-gb", dateOptions);
       const timeStr = datetime.toLocaleString("en-gb", timeOptions);
       return [dateStr, timeStr];
