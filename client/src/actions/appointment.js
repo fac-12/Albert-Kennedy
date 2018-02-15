@@ -53,12 +53,16 @@ export const updateAptTime = (value, loggedin, newApt) => {
 			topics: newApt.topics
 		};
 
-		axios.post("/addappt", {
+		axios
+		.post("/addappt", {
 			scheduledAppt,
 			headers: { authorization: localStorage.getItem("token") }
-		});
-
-		history.push("/success");
+		})
+		.then(res => {
+			localStorage.removeItem("endOfFlow");
+			history.push("/success");
+		})
+		.catch(err => console.log(err))
 	} else {
 		history.push("/register");
 	}
