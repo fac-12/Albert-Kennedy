@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { fetchAvailibilites, updateAptTime } from "../../actions/appointment";
 import Header from "../Header";
 import SubmitButton from "../SubmitButton";
+import { Link } from "react-router-dom";
 
 const Card = styled.label`
   width: 340px;
@@ -18,6 +19,20 @@ const Card = styled.label`
   display: flex;
   align-items: center;
   justify-content: space-around;
+`;
+
+const NoAptsCard = styled.div`
+  width: 340px;
+  height: 200px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+  margin: 15px;
+  display: flex;
+  align-items: center;
+`;
+
+const TextWrap = styled.div`
+  padding: 20px;
 `;
 
 const Input = styled.input`
@@ -61,7 +76,19 @@ class ScheduleForm extends Component {
   }
 
   renderNoApts() {
-    return <div>No appointments</div>;
+    return (
+      <NoAptsCard>
+        <TextWrap>
+          <p>
+            Whoops! There are no appointments currently available for this
+            mentor
+          </p>
+          <p>
+            Please <Link to="/mentors">pick another.</Link>
+          </p>
+        </TextWrap>
+      </NoAptsCard>
+    );
   }
 
   renderForm() {
