@@ -43,6 +43,7 @@ const Wrapper = styled.div`
 	width: 100vw;
 `;
 
+
 const P = styled.p`
 	padding: 0.2rem;
 	margin: 0.5rem;

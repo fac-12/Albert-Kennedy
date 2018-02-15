@@ -58,7 +58,15 @@ const Crisis = styled.p`
   padding: 0.8em;
 `;
 
+const NewAppButton = styled(LinkButton)`
+  position: inherit;
+  margin: 2vh 5vw 2vh 5vw;
+`
+
+
 class Profile extends Component {
+
+	
   render() {
     if (!this.props.apts) {
       return <div />;
@@ -86,8 +94,7 @@ class Profile extends Component {
               );
             })}
           </FlexWrap>
-          <LinkButton text="new appointment" url="/topics" primary />
-
+          <NewAppButton text="new appointment" url="/topics" primary />
           <p>
             Immediate crisis? Don't use this site -{" "}
             <Link to="/crisis">use these resources instead</Link>
