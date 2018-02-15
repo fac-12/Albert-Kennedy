@@ -41,6 +41,7 @@ const Wrapper = styled.div`
 	margin-bottom: 1em;
 	width: 100vw;
 `;
+
 class Header extends Component {
 	render() {
 		return (
