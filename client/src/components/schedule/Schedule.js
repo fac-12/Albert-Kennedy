@@ -120,8 +120,8 @@ class ScheduleForm extends Component {
   renderField(field) {
     return (
       <Card>
-        <Input type="radio" {...field.input} key={1} />
-        <Label key={2}>{field.label}</Label>
+        <Input type="radio" {...field.input} />
+        <Label>{field.label}</Label>
       </Card>
     );
   }
