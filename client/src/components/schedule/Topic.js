@@ -61,9 +61,6 @@ const Error = styled.div`
   align-self: flex-start;
 `;
 
-const Orange = styled.span`
-color = red;
-`;
 class TopicForm extends Component {
   render() {
     const { handleSubmit } = this.props;
@@ -116,7 +113,7 @@ class TopicForm extends Component {
   }
 
   renderField = field => {
-    const { meta: { error, submitFailed, active } } = field;
+    const { meta: { error, submitFailed } } = field;
     return [
       <Card htmlFor={field.name} key={1}>
         <Img src={field.src} />

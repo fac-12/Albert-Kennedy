@@ -2,29 +2,46 @@ import React, { Component } from "react";
 import Header from "../Header";
 import LinkButton from "../LinkButton";
 import { connect } from "react-redux";
+import _ from "lodash";
+import styled from "styled-components";
+
+const TextWrapper = styled.div`
+  width: 90%;
+  margin: auto;
+`;
 
 class Success extends Component {
-	render() {
-		console.log(this.props.newApt);
-		return (
-			<div className="container__div">
-				<Header heading="Success!" />
-				<p>
-					You have booked the following appointment with <span />
-					{this.props.newApt.mentor} on {this.props.newApt.aptTime.datetime}
-				</p>
-				<p>Log back in to the site then for your chat. </p>
-				<p>In the meantime, click done to see your profile.</p>
-				<LinkButton text="done" url="/profile" />
-			</div>
-		);
-	}
+  render() {
+    if (_.isEmpty(this.props.newApt)) {
+      this.props.history.push("/topics");
+      return <div />;
+    } else {
+      return (
+        <div>
+          <Header heading="Success!" />
+          <TextWrapper>
+            <p>
+              You have booked an appointment with <span />
+              <strong>{this.props.newApt.mentor}</strong> on{" "}
+              <strong>{this.props.newApt.aptTime.datetime}</strong>
+            </p>
+            <p>You have been sent an email with a link to join the chat. </p>
+            <p>
+              Or, log back in at the given time to join the chat from your
+              profile page.
+            </p>
+          </TextWrapper>
+          <LinkButton text="done" url="/profile" />
+        </div>
+      );
+    }
+  }
 }
 
 const mapStateToProps = state => {
-	return {
-		newApt: state.newApt
-	};
+  return {
+    newApt: state.newApt
+  };
 };
 
 export default connect(mapStateToProps)(Success);
