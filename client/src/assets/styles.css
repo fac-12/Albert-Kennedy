@@ -1,6 +1,6 @@
 * {
-  font-family: "Quicksand", sans-serif;
-  box-sizing: border-box;
+	font-family: "Quicksand", sans-serif;
+	box-sizing: border-box;
 }
 
 .root {
@@ -25,4 +25,3 @@
 	flex-wrap: wrap;
 	align-items: space-between;
 }
-

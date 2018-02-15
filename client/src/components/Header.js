@@ -26,6 +26,7 @@ const Heading = styled.h2`
 	text-align: center;
 	width: 90%;
 	margin: 1rem auto;
+	padding: 1.5rem;
 `;
 
 const Text = styled.p`
@@ -41,6 +42,15 @@ const Wrapper = styled.div`
 	margin-bottom: 1em;
 	width: 100vw;
 `;
+
+const P = styled.p`
+	padding: 0.2rem;
+	margin: 0.5rem;
+	color: white;
+	font-size: 1.2rem;
+	text-decoration: underline;
+`;
+
 class Header extends Component {
 	render() {
 		return (
@@ -51,10 +61,12 @@ class Header extends Component {
 					</Link>
 					{this.props.logout ? (
 						<Link to="/" onClick={this.logout.bind(this)}>
-							Log out
+							<P>Log out</P>
 						</Link>
 					) : (
-						<Link to="/crisis">I'm in crisis</Link>
+						<Link to="/crisis">
+							<P>I'm in crisis</P>
+						</Link>
 					)}
 				</NavBar>
 				<Heading>{this.props.heading}</Heading>

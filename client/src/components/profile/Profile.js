@@ -7,8 +7,6 @@ import LinkButton from "../LinkButton";
 import styled from "styled-components";
 
 const Card = styled.div`
-	width: 90vw;
-	height: 25vh;
 	border-radius: 10px;
 	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
 	margin: 10px;
@@ -16,21 +14,26 @@ const Card = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
+	@media (min-width: 600px) {
+		width: 50vw;
+		margin-left: auto;
+		margin-right: auto;
+	}
 `;
 
 const Img = styled.img`
+	max-height: 30vh;
+	max-width: 20vw;
 	height: auto;
-	width: 25vw;
-	padding: 5px;
 `;
 
 const Button = styled.button`
-	height: 4vh;
+	margin-bottom: 1rem;
+	padding: 1rem;
 	border: solid 0.1em #f47a20;
 	background-color: white;
 	border-radius: 0.3rem;
 `;
-
 class Profile extends Component {
 	render() {
 		console.log(this.props.apts);
