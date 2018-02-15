@@ -1,9 +1,15 @@
 {
   "name": "albert-kennedy",
   "version": "1.0.0",
-  "description": "## Inter-AKT App - Connecting young people within the LBGT to mentors.",
+  "description":
+    "## Inter-AKT App - Connecting young people within the LBGT to mentors.",
   "main": "index.js",
+  "engines": {
+    "node": "8.6.0"
+  },
   "scripts": {
+    "start": "node ./server/server.js",
+    "postinstall": "cd client && npm i",
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "node start-client.js",
     "server": "nodemon ./server/server.js",
