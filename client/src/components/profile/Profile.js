@@ -17,17 +17,23 @@ const Card = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  @media (min-width: 600px) {
+    width: 50vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 const Img = styled.img`
+  max-height: 30vh;
+  max-width: 20vw;
   height: auto;
-  width: 25vw;
-  padding: 5px;
 `;
 
 const Button = styled.button`
   height: 4vh;
   width: 90%;
+  margin-bottom: 1rem;
   border: solid 0.1em #f47a20;
   background-color: white;
   border-radius: 0.3rem;
