@@ -62,7 +62,7 @@ class MentorForm extends Component {
 		const { handleSubmit } = this.props;
 
 		return (
-			<div>
+			<div className="container__div">
 				<Header heading="Choose a mentor to connect with" />
 				<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 					{_.map(this.props.mentors, mentor => (

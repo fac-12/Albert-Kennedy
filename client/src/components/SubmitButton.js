@@ -5,10 +5,12 @@ const Button = styled.button`
   background: white;
   border: 2px solid #f47a20;
   border-radius: 5px;
-  width: 340px;
+  box-sizing: border-box;
+  width: 90vw;
   height: 60px;
   font-size: 16px;
-  margin: 5px;
+  margin: 5vw;
+  align-self: flex-end;
 `;
 
 const SubmitButton = props => {

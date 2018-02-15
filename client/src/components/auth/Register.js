@@ -5,70 +5,111 @@ import { Link } from "react-router-dom";
 import { registerUser, resetError } from "../../actions/auth";
 import Header from "../Header";
 import SubmitButton from "../SubmitButton";
+import styled from "styled-components";
+
+const FormElement = styled.div`
+  height: 10vh;
+  padding: 0 10vw 0 10vw;
+`;
+
+const Input = styled.input`
+  height: 5vh;
+  width: 80vw;
+  box-shadow: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+
+  &:focus {
+    -webkit-appearance: none;
+    outline: none;
+  }
+`;
+
+const Error = styled.p`
+  margin: 0;
+  width: 90vw;
+  color: #fb8b24;
+  line-height: 5vh;
+  font-size: 0.75em;
+`;
+
+const Register = styled.p`
+  width: 100vw;
+  text-align: center;
+`;
 
 class RegisterForm extends Component {
   render() {
     const { handleSubmit } = this.props;
     const text = `Your personal details will be kept private and will not be shared with your mentor.`;
     return (
-      <div>
+      <div className="container__div">
         <Header heading="Please fill in your details" text={text} />
         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <Field
             name="name"
             type="text"
             label="Name"
+            placeholder="Name"
             component={this.renderField}
           />
           <Field
             name="email"
             type="email"
             label="Email"
+            placeholder="Email"
             component={this.renderField}
           />
           <Field
             name="dob"
             type="date"
             label="Date of Birth"
+            placeholder="Date of birth"
             component={this.renderField}
           />
           <Field
             name="postcode"
             type="text"
             label="Postcode"
+            placeholder="Postcode"
             component={this.renderField}
           />
           <Field
             name="gender"
             type="text"
             label="Gender"
+            placeholder="Gender"
             component={this.renderField}
           />
           <Field
             name="sexuality"
             type="text"
             label="Sexuality"
+            placeholder="Sexuality"
             component={this.renderField}
           />
           <Field
             name="password"
             type="password"
             label="Password"
+            placeholder="Password"
             component={this.renderField}
           />
           <Field
             name="confirmPassword"
             type="password"
             label="Confirm password"
+            placeholder="Confirm password"
             component={this.renderField}
           />
           <p>{this.renderAlert()}</p>
           <SubmitButton text="next" />
         </form>
 
-        <p>
+        <Register>
           Returning user? <Link to="/signin">Log in</Link>
-        </p>
+        </Register>
       </div>
     );
   }
@@ -76,11 +117,10 @@ class RegisterForm extends Component {
   renderField(field) {
     const { meta: { touched, error } } = field;
     return (
-      <div>
-        <label>{field.label}</label>
-        <input {...field.input} type={field.type} />
-        <p>{touched ? error : ""}</p>
-      </div>
+      <FormElement>
+        <Input {...field.input} type={field.type} placeholder={field.placeholder}/>
+        <Error>{touched ? error : ""}</Error>
+      </FormElement>
     );
   }
 

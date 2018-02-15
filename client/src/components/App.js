@@ -23,7 +23,7 @@ class App extends Component {
     if (this.props.auth === null) return <div />;
     return (
       <Router history={history}>
-        <div>
+        <div className="root__div">
           <Route
             exact
             path="/"
