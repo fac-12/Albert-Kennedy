@@ -2,3 +2,27 @@
   font-family: "Quicksand", sans-serif;
   box-sizing: border-box;
 }
+
+.root {
+	width: 100vw;
+	height: fit-content;
+	overflow-y: scroll;
+}
+
+.root__div {
+	width: 100vw;
+	height: fit-content;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.container__div {
+	width: 100vw;
+	height: fit-content;
+	min-height: 100vh;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: space-between;
+}
+

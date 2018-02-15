@@ -7,7 +7,7 @@ class Success extends Component {
 	render() {
 		console.log(this.props.newApt);
 		return (
-			<div>
+			<div className="container__div">
 				<Header heading="Success!" />
 				<p>
 					You have booked the following appointment with <span />

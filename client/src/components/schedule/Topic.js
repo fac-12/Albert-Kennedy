@@ -48,7 +48,7 @@ const Img = styled.img`
 `;
 
 const FlexWrapper = styled.div`
-  width: 360px;
+  width: 100vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -68,7 +68,7 @@ class TopicForm extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <div>
+      <div className="container__div">
         <Header heading="Let’s talk" text="Choose as many as apply" />
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <FlexWrapper>
@@ -123,7 +123,7 @@ class TopicForm extends Component {
         <Input id={field.name} type="checkbox" {...field.input} />
         <Label>{field.label}</Label>
       </Card>,
-      <Error key={2}>{submitFailed ? error : ""}</Error>
+      <Error className="error" key={2}>{submitFailed ? error : ""}</Error>
     ];
   };
 
@@ -136,7 +136,7 @@ const validate = values => {
   const errors = {};
   if (_.isEmpty(values)) {
     errors.other =
-      "Please pick at least one topic. Choose 'Anything else' if you are unsure";
+      "Please pick at least one topic, choose 'Anything else' if you are unsure.";
   }
   return errors;
 };
