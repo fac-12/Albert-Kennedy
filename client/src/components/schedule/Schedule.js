@@ -67,7 +67,7 @@ class ScheduleForm extends Component {
       return (
         <div>
           <Header heading="Schedule an appointment" />
-          {this.props.availibility === "none"
+          {this.props.availibility.length === 0
             ? this.renderNoApts()
             : this.renderForm()}
         </div>
