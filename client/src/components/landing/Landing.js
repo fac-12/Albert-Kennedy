@@ -38,7 +38,7 @@ export default class Landing extends Component {
       <Container>
         <h1>inter-AKT</h1>
         <Subtitle>
-          A mentoring platform for young people in the LGBT community
+          A mentoring platform for young people in the LGBT+ community
         </Subtitle>
         <LinkButton text="get started" url="/age" primary />
         <LogIn>
