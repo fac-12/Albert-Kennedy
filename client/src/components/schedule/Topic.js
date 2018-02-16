@@ -61,13 +61,17 @@ const Error = styled.div`
 	align-self: flex-start;
 `;
 
+const Form = styled.form`
+	height: 70vh;
+`;
+
 class TopicForm extends Component {
 	render() {
 		const { handleSubmit } = this.props;
 		return (
 			<div className="container__div">
 				<Header heading="Let’s talk" text="Choose any that apply" />
-				<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+				<Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 					<FlexWrapper>
 						<Field
 							name="housing"
@@ -107,7 +111,7 @@ class TopicForm extends Component {
 						/>
 					</FlexWrapper>
 					<SubmitButton text="next" />
-				</form>
+				</Form>
 			</div>
 		);
 	}
