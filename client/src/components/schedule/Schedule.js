@@ -38,7 +38,7 @@ const Img = styled.img`
 `;
 
 const Form = styled.form`
-  min-height: calc(100vh - 175px);
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

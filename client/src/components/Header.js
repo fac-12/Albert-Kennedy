@@ -26,7 +26,7 @@ const Heading = styled.h2`
   text-align: center;
   width: 90%;
   margin: 1rem auto;
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 0 1.5rem;
 `;
 
 const Text = styled.p`
@@ -38,8 +38,7 @@ const Text = styled.p`
 `;
 
 const Wrapper = styled.div`
-  min-height: 175px;
-  margin-bottom: 1em;
+  min-height: 30vh;
   width: 100vw;
 `;
 
