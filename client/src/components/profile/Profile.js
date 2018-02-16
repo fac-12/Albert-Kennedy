@@ -54,19 +54,16 @@ const TextWrap = styled.div`
   }
 `;
 const Crisis = styled.p`
-  font-size: 0.8rem;
-  padding: 0.8em;
+  font-size: 0.9rem;
+  padding: 0 8vw;
 `;
 
 const NewAppButton = styled(LinkButton)`
   position: inherit;
   margin: 2vh 5vw 2vh 5vw;
-`
-
+`;
 
 class Profile extends Component {
-
-	
   render() {
     if (!this.props.apts) {
       return <div />;
@@ -95,10 +92,10 @@ class Profile extends Component {
             })}
           </FlexWrap>
           <NewAppButton text="new appointment" url="/topics" primary />
-          <p>
+          <Crisis>
             Immediate crisis? Don't use this site -{" "}
             <Link to="/crisis">use these resources instead</Link>
-          </p>
+          </Crisis>
         </div>
       );
     }
