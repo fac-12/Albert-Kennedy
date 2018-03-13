@@ -44,7 +44,7 @@ const userConfirmationEmail = (
 		to: `${emailAddress}`,
 		subject: "inter_AKT appointment confirmation",
 		html: `<p> Hello, ${userName}</p>
-  <p>This is to confirm you have made an appointment to chat with ${mentorName} at ${dateTime}. Please visit this link: https://appear.in/${chatString} at the scheduled time. This will take you to an external site and the chat will only be between you and ${mentorName}. You have the option to chat via video, audio or messaging. </p>
+  <p>This is to confirm you have made an appointment to chat with ${mentorName} at ${dateTime}. Please visit this link: https://tlk.io/${chatString} at the scheduled time. This will take you to an external site and the chat will only be between you and ${mentorName}. You have the option to chat via video, audio or messaging. </p>
   <p>Thank you for using inter-AKT</p>`
 	};
 
