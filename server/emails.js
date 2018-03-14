@@ -19,7 +19,7 @@ const mentorConfirmationEmail = (
 		to: `${emailAddress}`,
 		subject: "inter-AKT appointment confirmation",
 		html: `<p> Hello, </p>
-  <p>This is to confirm that you have a chat with ${userName} scheduled on ${dateTime}. Please visit this link: https://appear.in/${chatString} at the scheduled time.</p>
+  <p>This is to confirm that you have a chat with ${userName} scheduled on ${dateTime}. Please visit this link: https://tlk.io/${chatString} at the scheduled time.</p>
   <p>Thank you inter-AKT</p>`
 	};
 
