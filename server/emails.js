@@ -12,7 +12,8 @@ const mentorConfirmationEmail = (
   emailAddress,
   userName,
   dateTime,
-  chatString
+  chatString,
+  topics
 ) => {
   const mentorEmail = {
     from: 'hellointerakt@gmail.com',
@@ -53,7 +54,7 @@ const userConfirmationEmail = (
   const userEmail = {
     from: 'hellointerakt@gmail.com',
     to: `${emailAddress}`,
-    subject: 'Subject: AKT online mentoring appointment confirmed',
+    subject: 'AKT online mentoring appointment confirmed',
     html: `<p> Hi there ${userName}, </p>
   <p>This email is confirmation of your appointment with ${mentorName} at ${dateTime}.</p>
   <p> At the time of your appointment, click on this link: https://tlk.io/${chatString}. This link will take you to a private chat room where your online mentor will be waiting for you. They will greet you and ask whether you want to continue using live chat or would prefer to use audio or video. </p> 
