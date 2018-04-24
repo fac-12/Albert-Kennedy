@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/fac-12/Albert-Kennedy#readme",
   "dependencies": {
+    "airtable": "^0.5.3",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "env2": "^2.2.0",
