@@ -1,62 +1,38 @@
 // const db = require("../database/db_connections");
-const Airtable = require("airtable");
-const adminBase = new Airtable({ apiKey: "keyrTEGPBVowroQzb" }).base(
-  "appms40YF7qdII2xB"
-);
-const mentorBase = new Airtable({ apiKey: "keyrTEGPBVowroQzb" }).base(
-  "appxfdXbDUpQU50QG"
-);
+const Airtable = require('airtable');
+const adminBase = new Airtable({ apiKey : 'keyrTEGPBVowroQzb'}).base('appms40YF7qdII2xB');
+const mentorBase = new Airtable({ apiKey : 'keyrTEGPBVowroQzb'}).base('appxfdXbDUpQU50QG');
 // require("env2")("config.env");
 
 const getMentors = () => {
-  const mentorObj = [];
-  return mentorBase("mentor_list")
-    .select({
-      fields: ["name", "description", "img_url"]
-    })
-    .all()
-    .then(records => {
-      records.forEach(record => {
-        mentorObj.push(record.fields);
-      });
-      console.log("mentorObj", mentorObj);
-      return mentorObj;
-    })
-    .catch(err => {
-      console.log(err);
-    });
+	const mentorObj = [];
+	return mentorBase('mentor_list').select({
+		fields : ["name", "description", "img_url"]
+	}).all().then(records => {
+		records.forEach(record => {
+			mentorObj.push(record.fields);
+		})
+		console.log("mentorObj", mentorObj);
+		return mentorObj;
+}).catch(err => {
+	console.log(err);
+})
 };
 
-const getAvailabilities = mentor => {
-  const appointmentObj = [];
-  return mentorBase(mentor)
-    .select()
-    .all()
-    .then(records => {
-      records.forEach(record => {
-        appointmentObj.push(record.fields.date);
-      });
-      return appointmentObj;
-    })
-    .catch(console.log);
+
+
+const getAppointments = (mentor) => {
+	const appointmentObj = [];
+return mentorBase(mentor).select().all().then(records => {
+		records.forEach(record {
+			appointmentObj.push(record.fields);
+		})
+		console.log("appointmentObj", appointmentObj);
+		return appointmentObj;
+	}).catch(err => {
+		console.log(err);
+	})
 };
-
-// getAppointments needs to filter out dates between admin base and appt obj
-
-const getAppointments = mentor => {
-  return adminBase("appointments")
-    .select({
-      fields: ["date"]
-    })
-    .all()
-    .then(records => {
-      console.log("records", records[0].fields);
-      return records;
-    })
-    .catch(console.log);
-};
-
-getAppointments();
 
 // const getEmailDetails = (mentor_name, user_id) => {
 // 	return db.query(
@@ -65,16 +41,14 @@ getAppointments();
 // 	);
 // };
 //
-// const getEmailDetails = mentor => {
-//   adminBase("mentors").find("recbPclBtocW0YA2q", function(err, record) {
-//     if (err) {
-//       console.error(err);
-//       return;
-//     }
-//     console.log("getEmailDetails", record.id);
-//   });
-// };
+// const getEmailDetails = (mentor) => {
+// 	adminBase('mentors').find("recbPclBtocW0YA2q", function (err, record) {
+// 		if (err) { console.error(err); return; }
+// 		console.log("getEmailDetails", record.fields.email);
+// 	});
+// }
 // getEmailDetails();
+
 
 // const addAppointment = newApptObj => {
 // 	return db.query(
@@ -108,6 +82,8 @@ getAppointments();
 //
 // addAppointment();
 
+
+
 // const getUserAppointments = user_id => {
 // 	return db.query(
 // 		`SELECT mentors.name, appointments.date_and_time, appointments.chat_string, mentors.img_url
@@ -137,14 +113,14 @@ getAppointments();
 // }
 // getUserAppointments("receGY3BBjfIZErlK");
 
+
 module.exports = {
-  // getUser,
-  // addUser,
-  // getUserById,
-  getMentors,
-  getAvailabilities,
-  getAppointments
-  // getEmailDetails,
-  // addAppointment,
-  // getUserAppointments
+	// getUser,
+	// addUser,
+	// getUserById,
+	getMentors,
+	getAppointments
+	// getEmailDetails,
+	// addAppointment,
+	// getUserAppointments
 };
