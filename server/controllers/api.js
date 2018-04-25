@@ -1,10 +1,13 @@
 const queries = require("./queries");
+const airtable = require("../airtable/airtable_helpers");
 const request = require("request");
 
+
 exports.getMentors = (req, res) => {
-	queries
+	airtable
 		.getMentors()
 		.then(mentors => {
+			console.log("here");
 			res.send(JSON.stringify(mentors));
 		})
 		.catch(console.log);

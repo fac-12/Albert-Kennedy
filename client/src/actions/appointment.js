@@ -37,16 +37,18 @@ export const fetchAvailibilites = mentor => {
 };
 
 export const fetchMentors = () => {
+	console.log("in fetchMentors");
 	return dispatch => {
 		axios
 			.get("/getmentordata")
 			.then(res => {
+				console.log("in here!! ");
 				dispatch({
 					type: MENTORLIST,
 					payload: res.data
 				});
 			})
-			.catch(error => console.log(error));
+			.catch(error => console.log(error)); 
 	};
 };
 

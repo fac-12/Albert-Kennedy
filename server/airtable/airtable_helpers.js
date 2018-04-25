@@ -4,43 +4,36 @@ const adminBase = new Airtable({ apiKey : 'keyrTEGPBVowroQzb'}).base('appms40YF7
 const mentorBase = new Airtable({ apiKey : 'keyrTEGPBVowroQzb'}).base('appxfdXbDUpQU50QG');
 // require("env2")("config.env");
 
-// const getMentors = () => {
-// 	mentorBase('mentor_list').select().eachPage(function page (records, fetchNextPage) {
-// 		records.forEach(function(record) {
-// 			console.log(record.fields);
-// 			return record;
-// 		})
-// 		fetchNextPage();
-// 	}, function done(err){
-// 		if (err) {console.error(err); return; }
-// 	})
-// };
-//
-// getMentors();
+const getMentors = () => {
+	const mentorObj = [];
+	return mentorBase('mentor_list').select({
+		fields : ["name", "description", "img_url"]
+	}).all().then(records => {
+		records.forEach(record => {
+			mentorObj.push(record.fields);
+		})
+		console.log("mentorObj", mentorObj);
+		return mentorObj;
+}).catch(err => {
+	console.log(err);
+})
+};
 
-// const getAppointments = (mentor, datetime) => {
-// 	return db.query(
-// 		`SELECT * FROM appointments WHERE date_and_time = $1 AND mentor_id = (SELECT id FROM mentors WHERE name = $2)`,
-// 		[datetime, mentor]
-// 	);
-// };
 
-//
-// const getAppointments = (mentor) => {
-// 	mentorBase(mentor).select().eachPage(function page (records, fetchNextPage) {
-// 		records.forEach(function(record) {
-// 			console.log("getAppointments", record.fields);
-// 			return record;
-// 		})
-// 		fetchNextPage();
-// 	}, function done(err){
-// 		if (err) {console.error(err); return; }
-// 	})
-// }
-//
-// getAppointments('Lucy');
 
-//
+const getAppointments = (mentor) => {
+	const appointmentObj = [];
+return mentorBase(mentor).select().all().then(records => {
+		records.forEach(record {
+			appointmentObj.push(record.fields);
+		})
+		console.log("appointmentObj", appointmentObj);
+		return appointmentObj;
+	}).catch(err => {
+		console.log(err);
+	})
+};
+
 // const getEmailDetails = (mentor_name, user_id) => {
 // 	return db.query(
 // 		`SELECT mentors.email AS mentor_email, users.name as user_name, users.email as user_email FROM mentors, users WHERE mentors.name = $1 and users.id = $2`,
@@ -48,11 +41,11 @@ const mentorBase = new Airtable({ apiKey : 'keyrTEGPBVowroQzb'}).base('appxfdXbD
 // 	);
 // };
 //
-// const getEmailDetails = () => {
+// const getEmailDetails = (mentor) => {
 // 	adminBase('mentors').find("recbPclBtocW0YA2q", function (err, record) {
 // 		if (err) { console.error(err); return; }
-// 		console.log(record.fields);
-// });
+// 		console.log("getEmailDetails", record.fields.email);
+// 	});
 // }
 // getEmailDetails();
 
@@ -83,14 +76,14 @@ const mentorBase = new Airtable({ apiKey : 'keyrTEGPBVowroQzb'}).base('appxfdXbD
 //   "topics": "careers"
 // }, function(err, record) {
 //     if (err) { console.error(err); return; }
-//     console.log(record.getId());
+//     console.log("addAppointment", record.getId());
 // });
 // }
 //
 // addAppointment();
 
-//
-//
+
+
 // const getUserAppointments = user_id => {
 // 	return db.query(
 // 		`SELECT mentors.name, appointments.date_and_time, appointments.chat_string, mentors.img_url
@@ -100,24 +93,34 @@ const mentorBase = new Airtable({ apiKey : 'keyrTEGPBVowroQzb'}).base('appxfdXbD
 // 	);
 // };
 
-const getUserAppointments = () => {
-	adminBase('appointments').find('receGY3BBjfIZErlK', function(err, record) {
-		    if (err) { console.error(err); return; }
-		    console.log(record.fields);
-		});
-	}
+// adminBase('users').find('recd7JeRiJi3Hfvvy', function(err, record) {
+// 	    if (err) { console.error(err); return; }
+// 	    console.log("getUserAppointments", record.fields.appointments);
+// 	});
+// }
+// const getUserAppointments = (appointments) => {
+// adminBase('appointments').select({
+// 	fields : ["mentor_id", "date_and_time"]
+// }).eachPage(function page (records, fetchNextPage) {
+// 	records.forEach(function(record) {
+// 		console.log("getUserAppointments", record.fields);
+// 		return record;
+// 	})
+// 	fetchNextPage();
+// }, function done(err){
+// 	if (err) {console.error(err); return; }
+// })
+// }
+// getUserAppointments("receGY3BBjfIZErlK");
 
-getUserAppointments();
 
-
-//
-// module.exports = {
-// 	getUser,
-// 	addUser,
-// 	getUserById,
-// 	getMentors,
-// 	getAppointments,
-// 	getEmailDetails,
-// 	addAppointment,
-// 	getUserAppointments
-// };
+module.exports = {
+	// getUser,
+	// addUser,
+	// getUserById,
+	getMentors,
+	getAppointments
+	// getEmailDetails,
+	// addAppointment,
+	// getUserAppointments
+};
