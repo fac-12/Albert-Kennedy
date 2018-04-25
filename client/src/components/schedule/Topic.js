@@ -163,7 +163,6 @@ class TopicForm extends Component {
 		];
 	}
 	onSubmit = values => {
-		console.log("values", values)
 		this.props.updateTopics(values);
 	};
 }

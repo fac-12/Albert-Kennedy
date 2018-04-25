@@ -17,7 +17,6 @@ const mentorConfirmationEmail = (
   info
 ) => {
   const infoContent = info.content ? "They gave the following additional info: " + info.content : ""
-  console.log("in mentor email", infoContent)
   const mentorEmail = {
     from: 'hellointerakt@gmail.com',
     to: `${emailAddress}`,
