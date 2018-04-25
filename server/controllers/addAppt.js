@@ -9,6 +9,7 @@ const {
 
 exports.addAppt = (req, res) => {
   const { headers, scheduledAppt } = req.body;
+  console.log("scheduled app object", scheduledAppt);
 
   const userId = jwt.decode(headers.authorization, process.env.SECRET).sub;
   const chatString = crypto
@@ -21,6 +22,7 @@ exports.addAppt = (req, res) => {
     mentor: scheduledAppt.mentor,
     date_and_time: scheduledAppt.date_and_time,
     topics: Object.keys(scheduledAppt.topics),
+    info: scheduledAppt.topics.info,
     chat_string: chatString
   };
 
@@ -30,13 +32,16 @@ exports.addAppt = (req, res) => {
       queries
         .getEmailDetails(newApptObj.mentor, userId)
         .then(res => {
-          console.log('here in emails');
+          const info = {
+            content: newApptObj.info
+          }
           mentorConfirmationEmail(
             res[0].mentor_email,
             res[0].user_name,
             newApptObj.date_and_time,
             newApptObj.chat_string,
-            newApptObj.topics
+            newApptObj.topics,
+            info
           );
           userConfirmationEmail(
             res[0].user_email,
