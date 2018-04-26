@@ -152,6 +152,7 @@ const sendMentorAndUserEmails = (allAppointmentsTomorrow) => {
       if (error) {
         throw error;
       } else {
+        
         console.log('Email sent: ' + info.response);
       }
     });
