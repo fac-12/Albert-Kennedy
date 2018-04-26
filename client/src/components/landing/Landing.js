@@ -8,25 +8,40 @@ const Container = styled.div`
   position: relative;
   top: 0;
   left: 0;
-  min-height: 40vh;
-  padding: 0 5vw 0 5vw;
-  font-size: 1.2rem;
-  text-align: center;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  @media (min-width: 630px) {
-    background-image: url(${backgroundImage});
-    background-repeat: no-repeat;
-    height: 100vh;
-    margin: 1rem 4rem;
-    background-size: 150rem;
-    background-position: 50% 50%;
-  }
+  height: 100vh;
+  width: 100vw;
+  background-color: #7C53A2;
+  z-index: -1;
 `;
 
+const Mask = styled.div`
+  opacity: 0.5;
+  background-color: #7C53A2;
+  width: 100vw;
+  height: 100vh;
+`
+
+const DesktopBg = styled.div`
+min-height: 40vh;
+padding: 0 5vw 0 5vw;
+font-size: 1.2rem;
+text-align: center;
+display: flex;
+flex-wrap: wrap;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+background-color: #7C53A2;
+@media (min-width: 630px) {
+  background-image: url(${backgroundImage});
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: 1rem 4rem;
+  background-size: 150rem;
+  background-position: 50% 50%;
+  box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.5);
+}
+`
 const Card = styled.div`
   background: white;
   position: absolute;
@@ -35,11 +50,11 @@ const Card = styled.div`
   justify-content: center;
   align-items: center;
   top: 10vh;
+  z-index: 1;
   @media (min-width: 630px) {
     width: 400px;
     height: 400px;
     padding: 1rem;
-
   }
 `;
 
@@ -82,6 +97,8 @@ export default class Landing extends Component {
   render() {
     return (
       <Container>
+        <DesktopBg>
+          <Mask><Img src={backgroundImage}/></Mask>
         <Card>
         <h1>inter-AKT</h1>
         <Subtitle>
@@ -92,7 +109,7 @@ export default class Landing extends Component {
           Returning user? <Link to="/signin">Log in</Link>
         </LogIn>
       </Card>
-        <Img src={backgroundImage}/>
+    </DesktopBg>
       </Container>
     );
   }
