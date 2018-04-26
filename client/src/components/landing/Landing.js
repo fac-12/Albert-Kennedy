@@ -5,12 +5,10 @@ import styled from "styled-components";
 import backgroundImage from "../../assets/images/raw/landing-background.jpg"
 
 const Container = styled.div`
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
-  min-height: 60vh;
-  width: 100vw;
-  height: 60vh;
+  min-height: 40vh;
   padding: 0 5vw 0 5vw;
   font-size: 1.2rem;
   text-align: center;
@@ -19,44 +17,65 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (min-width: 630px) {
+    background-image: url(${backgroundImage});
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 1rem 4rem;
+    background-size: 150rem;
+    background-position: 50% 50%;
+  }
 `;
 
 const Card = styled.div`
   background: white;
+  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
-`
+  align-items: center;
+  top: 10vh;
+  @media (min-width: 630px) {
+    width: 400px;
+    height: 400px;
+    padding: 1rem;
+
+  }
+`;
 
 const Img = styled.img`
   position: fixed;
-  height: 40%;
   bottom: 0;
   clip-path: polygon(0% 20%,100% 0%,100% 100%,100% 100%,100% 100%,100% 100%, 0% 100%);
-  @media (min-width: 600px) {
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-    left: 0;
-    z-index: -1;
+  display: block;
+  max-width:100vw;
+  max-height:60vh;
+  width: auto;
+  height: auto;
+  opacity: 0.4;
+  background-color: #7C53A2;
+  @media (min-width: 630px) {
+    display: none;
   }
 `;
 
 const LogIn = styled.p`
-  position: absolute;
   font-size: 1rem;
   bottom: 3vh;
 `;
 
 const Subtitle = styled.p`
-  margin-bottom: 5vh;
+
 `;
 
 const DesktopButton = styled(LinkButton)`
-  position: inherit;
-  margin: 2vh 5vw 2vh 5vw;
-
+  position: initial;
+  @media (min-width: 630px) {
+    margin: 0;
+    position: initial;
+    width: 90%;
+    height: 60px;
+  }
 `;
 
 export default class Landing extends Component {
