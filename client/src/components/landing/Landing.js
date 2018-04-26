@@ -6,10 +6,6 @@ import backgroundImage from "../../assets/images/raw/landing-background.jpg";
 
 const Container = styled.div`
   position: relative;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
   @media (min-width: 630px) {
     background-color: #7c53a2;
     z-index: -1;
@@ -48,16 +44,16 @@ const DesktopBg = styled.div`
 `;
 const Card = styled.div`
   background: white;
-  position: absolute;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  top: 5vh;
   z-index: 1;
+  margin-top: 2rem;
   @media (min-width: 630px) {
-    width: 400px;
-    height: 400px;
+    width: 20rem;
+    height: 20rem;
     padding: 1rem;
   }
 `;
@@ -80,7 +76,6 @@ const Img = styled.img`
   width: auto;
   height: auto;
   opacity: 0.6;
-  margin: 0;
   @media (min-width: 630px) {
     display: none;
   }
@@ -96,39 +91,44 @@ const StyledLink = styled.a`
   text-decoration: underline;
 `;
 
-const Subtitle = styled.p``;
+const Subtitle = styled.p`
+  margin: 1rem;
+`;
 
 const DesktopButton = styled(LinkButton)`
   position: initial;
+  margin: 0.5rem;
   @media (min-width: 630px) {
     margin: 0;
     position: initial;
     width: 90%;
     height: 60px;
+    margin-bottom: 1.5rem;
   }
 `;
 
-const h1 = styled.h1`
+const Heading = styled.h2`
   color: #7C53A2;
-`
+  top: 3rem;
+`;
 
 export default class Landing extends Component {
   render() {
     return (
       <Container>
         <DesktopBg>
+          <Mask />
+          <Img src={backgroundImage} />
           <Card>
-            <h1>inter-AKT</h1>
+            <Heading><h2>inter-AKT</h2></Heading>
             <Subtitle>
-              A mentoring platform for young people in the LGBT+ community
+              <p>A mentoring platform for young people in the LGBT+ community</p>
             </Subtitle>
             <DesktopButton text="get started" url="/age" primary />
             <LogIn>
               Returning user? <StyledLink to="/signin">Log in</StyledLink>
             </LogIn>
           </Card>
-          <Img src={backgroundImage} />
-          <Mask />
         </DesktopBg>
       </Container>
     );
