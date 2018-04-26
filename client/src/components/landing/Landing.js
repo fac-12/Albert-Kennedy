@@ -5,17 +5,19 @@ import styled from "styled-components";
 import backgroundImage from "../../assets/images/raw/landing-background.jpg";
 
 const Container = styled.div`
-  @media (min-width: 630px) {
+  font-size: 1rem;
+  @media (min-width: 768px) {
     position: relative;
     background-color: #7c53a2;
   }
 `;
 
 const Mask = styled.div`
-  @media (min-width: 630px) {
+  @media (min-width: 768px) {
     opacity: 0.5;
     background-color: #7c53a2;
     width: 100vw;
+    height: 100vh;
   }
 `;
 
@@ -28,7 +30,7 @@ const DesktopBg = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media (min-width: 630px) {
+  @media (min-width: 768px) {
     background-image: url(${backgroundImage});
     background-repeat: no-repeat;
     height: 100vh;
@@ -48,7 +50,7 @@ const Card = styled.div`
   align-items: center;
   z-index: 1;
   margin-top: 2rem;
-  @media (min-width: 630px) {
+  @media (min-width: 768px) {
     position: absolute;
     width: 25rem;
     height: 25rem;
@@ -70,11 +72,11 @@ const Img = styled.img`
     0% 100%
   );
   display: block;
-  max-height: 50vh;
+  max-height: 45vh;
   width: auto;
   height: auto;
   opacity: 0.6;
-  @media (min-width: 630px) {
+  @media (min-width: 768px) {
     display: none;
   }
 `;
@@ -91,12 +93,14 @@ const StyledLink = styled.a`
 
 const Subtitle = styled.p`
   margin: 1rem;
+  font-size: 1rem;
+
 `;
 
 const DesktopButton = styled(LinkButton)`
   position: initial;
-  margin: 0.5rem;
-  @media (min-width: 630px) {
+  margin: 1.5rem;
+  @media (min-width: 768px) {
     position: initial;
     width: 90%;
     height: 60px;
@@ -104,13 +108,13 @@ const DesktopButton = styled(LinkButton)`
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin: 1.5rem;
   }
 `;
 
 const H2 = styled.h2`
   color: #7C53A2;
-  top: 3rem;
+  margin-top: 1rem;
 `;
 
 export default class Landing extends Component {
