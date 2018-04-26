@@ -77,7 +77,6 @@ const Img = styled.img`
   width: auto;
   height: auto;
   opacity: 0.6;
-
   @media (min-width: 630px) {
     display: none;
   }
