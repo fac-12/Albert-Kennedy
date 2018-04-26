@@ -5,13 +5,13 @@ const nodemailer = require('nodemailer');
 const Airtable = require("airtable");
 require("env2")("config.env");
 
+// connect to admin Airtable 
+
 const adminBase = new Airtable({ apiKey: "keyrTEGPBVowroQzb" }).base(
   "appms40YF7qdII2xB"
 );
 
-const mentorBase = new Airtable({ apiKey: "keyrTEGPBVowroQzb" }).base(
-  "appxfdXbDUpQU50QG"
-);
+//set up nodemailer connection
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -21,9 +21,11 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+// holding array for appointments 
+
 const allAppointmentsTomorrow = [];
 
-// first get all appointments in the DB 
+// first get all appointments in the DB, then call getMentorDetails
 
 const getAllAppointmentsTomorrow = () => {
 
@@ -42,7 +44,7 @@ const getAllAppointmentsTomorrow = () => {
     
 };
 
-// get mentor and user email addresses
+// get mentor email and add to appt object, then call getUserDetails
 
 const getMentorEmails = (allAppointmentsTomorrow) => {
 
@@ -67,7 +69,7 @@ const getMentorEmails = (allAppointmentsTomorrow) => {
   .catch(console.log) 
 }
 
-// get user details 
+// gets user details (email and name) and adds to appt object, then calls sendMentorAndUserEmails
 
 const getUserDetails = (allAppointmentsTomorrow) => {
 
@@ -98,7 +100,7 @@ const getUserDetails = (allAppointmentsTomorrow) => {
     .catch(console.log) 
 }
 
-// send  emails
+// sends reminder emails to every user and mentor with an appointment tomorrow
 
 const sendMentorAndUserEmails = (allAppointmentsTomorrow) => {
 
@@ -177,8 +179,6 @@ const apptDateString = date.toISOString().slice(0,10);
 return apptDateString === tomorrowDateString;
 }
 
-const sendReminderEmails = () => {
-  getAllAppointmentsTomorrow();
-}
+// starts promise chain to get appointments and send emails 
 
-sendReminderEmails();
+getAllAppointmentsTomorrow();
