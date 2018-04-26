@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import logo from "../assets/logo_white.png";
-import arrow from "../assets/curvearrow.png";
+// import arrow from "../assets/curvearrow.png";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/auth";
