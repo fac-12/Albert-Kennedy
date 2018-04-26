@@ -10,16 +10,21 @@ const Container = styled.div`
   left: 0;
   height: 100vh;
   width: 100vw;
+  @media (min-width: 630px) {
   background-color: #7C53A2;
   z-index: -1;
+}
 `;
 
 const Mask = styled.div`
+
+  @media (min-width: 630px) {
   opacity: 0.5;
   background-color: #7C53A2;
   width: 100vw;
   height: 100vh;
-`
+}
+`;
 
 const DesktopBg = styled.div`
 min-height: 40vh;
@@ -31,7 +36,7 @@ flex-wrap: wrap;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-background-color: #7C53A2;
+
 @media (min-width: 630px) {
   background-image: url(${backgroundImage});
   background-repeat: no-repeat;
@@ -40,8 +45,9 @@ background-color: #7C53A2;
   background-size: 150rem;
   background-position: 50% 50%;
   box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.5);
+  background-color: #7C53A2;
 }
-`
+`;
 const Card = styled.div`
   background: white;
   position: absolute;
@@ -68,9 +74,10 @@ const Img = styled.img`
   width: auto;
   height: auto;
   opacity: 0.4;
-  background-color: #7C53A2;
+
   @media (min-width: 630px) {
     display: none;
+    
   }
 `;
 
