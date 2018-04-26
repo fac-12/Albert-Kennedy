@@ -65,6 +65,7 @@ const Form = styled.form`
 	height: 70vh;
 `;
 
+
 class TopicForm extends Component {
 	render() {
 		const { handleSubmit } = this.props;

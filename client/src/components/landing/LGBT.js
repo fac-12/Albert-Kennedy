@@ -6,10 +6,9 @@ import lgbtImage from "../../assets/images/raw/lgbt-flag.jpg"
 
 const Container = styled.div`
   position: relative;
-
   @media (min-width: 630px) {
+    position: relative;
     background-color: #7c53a2;
-    z-index: -1;
   }
 `;
 
@@ -18,7 +17,6 @@ const Mask = styled.div`
     opacity: 0.5;
     background-color: #7c53a2;
     width: 100vw;
-    height: 100vh;
   }
 `;
 
@@ -54,9 +52,11 @@ const Card = styled.div`
   z-index: 1;
   margin-top: 2rem;
   @media (min-width: 630px) {
-    width: 20rem;
-    height: 20rem;
+    position: absolute;
+    width: 25rem;
+    height: 25rem;
     padding: 1rem;
+    z-index: 2;
   }
 `;
 
@@ -73,7 +73,6 @@ const Img = styled.img`
     0% 100%
   );
   display: block;
-  max-width: 100vw;
   max-height: 50vh;
   width: auto;
   height: auto;
@@ -104,11 +103,15 @@ const DesktopButton = styled(LinkButton)`
     position: initial;
     width: 90%;
     height: 60px;
-    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 0.5rem;
   }
 `;
 
-const Heading = styled.h2`
+const H2 = styled.h2`
   color: #7C53A2;
   top: 3rem;
 `;
@@ -119,14 +122,14 @@ export default class LGBT extends Component {
       <Container>
         <Img src={lgbtImage}/>
         <DesktopBg>
-          <Mask />
           <Card>
-            <Heading><h2>inter-AKT</h2></Heading>
+            <H2>inter-AKT</H2>
             <Subtitle><p>Do you identify as part of the LGBT+ community?</p></Subtitle>
             <DesktopButton text="yes" url="/topics" primary />
             <DesktopButton text="no" url="/lgbtredirect" />
           </Card>
         </DesktopBg>
+        <Mask />
       </Container>
     );
   }

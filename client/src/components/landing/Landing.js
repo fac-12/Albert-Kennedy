@@ -5,10 +5,9 @@ import styled from "styled-components";
 import backgroundImage from "../../assets/images/raw/landing-background.jpg";
 
 const Container = styled.div`
-  position: relative;
   @media (min-width: 630px) {
+    position: relative;
     background-color: #7c53a2;
-    z-index: -1;
   }
 `;
 
@@ -17,12 +16,10 @@ const Mask = styled.div`
     opacity: 0.5;
     background-color: #7c53a2;
     width: 100vw;
-    height: 100vh;
   }
 `;
 
 const DesktopBg = styled.div`
-  padding: 0 5vw 0 5vw;
   font-size: 1.2rem;
   text-align: center;
   display: flex;
@@ -52,9 +49,11 @@ const Card = styled.div`
   z-index: 1;
   margin-top: 2rem;
   @media (min-width: 630px) {
-    width: 20rem;
-    height: 20rem;
+    position: absolute;
+    width: 25rem;
+    height: 25rem;
     padding: 1rem;
+    z-index: 2;
   }
 `;
 
@@ -71,7 +70,6 @@ const Img = styled.img`
     0% 100%
   );
   display: block;
-  max-width: 100vw;
   max-height: 50vh;
   width: auto;
   height: auto;
@@ -99,15 +97,18 @@ const DesktopButton = styled(LinkButton)`
   position: initial;
   margin: 0.5rem;
   @media (min-width: 630px) {
-    margin: 0;
     position: initial;
     width: 90%;
     height: 60px;
-    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 0.5rem;
   }
 `;
 
-const Heading = styled.h2`
+const H2 = styled.h2`
   color: #7C53A2;
   top: 3rem;
 `;
@@ -116,11 +117,11 @@ export default class Landing extends Component {
   render() {
     return (
       <Container>
+        <Img src={backgroundImage} />
         <DesktopBg>
           <Mask />
-          <Img src={backgroundImage} />
           <Card>
-            <Heading><h2>inter-AKT</h2></Heading>
+            <H2>inter-AKT</H2>
             <Subtitle>
               <p>A mentoring platform for young people in the LGBT+ community</p>
             </Subtitle>
