@@ -1,18 +1,21 @@
-// const db = require("../database/db_connections");
-const Airtable = require("airtable");
-const adminBase = new Airtable({ apiKey: "keyrTEGPBVowroQzb" }).base(
-  "appms40YF7qdII2xB"
+const Airtable = require('airtable');
+require('env2')('config.env');
+
+const adminBase = new Airtable({ apiKey: process.env.AIRTABLE_API }).base(
+  process.env.AIRTABLE_ADMIN_BASE
 );
-const mentorBase = new Airtable({ apiKey: "keyrTEGPBVowroQzb" }).base(
-  "appxfdXbDUpQU50QG"
+
+const mentorBase = new Airtable({ apiKey: process.env.AIRTABLE_API }).base(
+  process.env.AIRTABLE_MENTOR_BASE
 );
-// require("env2")("config.env");
+
+// gets all mentors for 'choose a mentor' page
 
 const getMentors = () => {
   const mentorObj = [];
-  return mentorBase("mentor_list")
+  return mentorBase('mentor_list')
     .select({
-      fields: ["name", "description", "img_url"]
+      fields: ['name', 'description', 'img_url']
     })
     .all()
     .then(records => {
@@ -26,34 +29,88 @@ const getMentors = () => {
     });
 };
 
-const getAvailabilities = (mentor, date) => {
-  const appointmentObj = [];
+// gets all availabilites of chosen mentor
+
+const getAvailabilities = mentor => {
+  const availabilityObj = [];
   return mentorBase(mentor)
     .select()
     .all()
     .then(records => {
       records.map(record => {
-        appointmentObj.push(record.fields.date);
-        console.log("after .push() :", appointmentObj);
-        return appointmentObj;
+        availabilityObj.push(record.fields.date);
       });
+      return availabilityObj;
     })
     .catch(console.log);
 };
-getAvailabilities("Max");
 
-const getAppointments = (mentor, date) => {
-  return adminBase("appointments")
+// gets mentor id of chosen mentor
+
+const getMentorId = mentor => {
+  return adminBase('mentors')
     .select({
-      fields: ["date"]
+      filterByFormula: `{name} = \"${mentor}\"`,
+      fields: ['id']
+    })
+    .all()
+    .then(record => {
+      return record[0].fields.id;
+    });
+};
+
+// gets all booked appointments of chosen mentor
+
+const getAppointments = id => {
+  const appointmentObj = [];
+  return adminBase('appointments')
+    .select({
+      filterByFormula: `{mentor_id} = \"${id}\"`,
+      fields: ['date']
     })
     .all()
     .then(records => {
-      console.log("in getAppointments query: ", records[0].fields);
-      return records.fields;
+      records.map(record => {
+        appointmentObj.push(record.fields.date);
+      });
+      return appointmentObj;
     })
     .catch(console.log);
 };
+
+// filters out already selected appointments 
+
+const filterOutApps = (availabilityObj, appointmentObj) => {
+  console.log('avObj', availabilityObj);
+  console.log('appObj', appointmentObj);
+  const filteredAvailabilities = availabilityObj.filter(
+    availability => !appointmentObj.includes(availability)
+  );
+  console.log("filtered", filteredAvailabilities)
+  return filteredAvailabilities;
+};
+
+// calls all the above functions in order to return to display available time slots on 'choose a time'
+
+const filterAvailabilities = mentor => {
+  let availabilityObj = [];
+  let mentorId = 0;
+  let appointmentObj = [];
+
+  return Promise.all([getAvailabilities(mentor), getMentorId(mentor)])
+    .then(values => {
+      availabilityObj = values[0];
+      mentorId = values[1];
+    })
+    .then(() => getAppointments(mentorId))
+    .then(appObj => {
+      appointmentObj = appObj;
+    })
+    .then(() => {
+      filterOutApps(availabilityObj, appointmentObj);
+    })
+};
+
 
 // const getEmailDetails = (mentor_name, user_id) => {
 // 	return db.query(
@@ -99,7 +156,7 @@ const getAppointments = (mentor, date) => {
 //     console.log("addAppointment", record.getId());
 // });
 // }
-//
+
 // addAppointment();
 
 // const getUserAppointments = user_id => {
@@ -132,13 +189,14 @@ const getAppointments = (mentor, date) => {
 // getUserAppointments("receGY3BBjfIZErlK");
 
 module.exports = {
-  // getUser,
-  // addUser,
-  // getUserById,
-  getMentors,
-  getAppointments,
-  getAvailabilities
-  // getEmailDetails,
-  // addAppointment,
-  // getUserAppointments
+// getUser,
+filterAvailabilities,
+// addUser,
+// getUserById,
+getMentors
+// getAppointments,
+// getAvailabilities
+// getEmailDetails,
+// addAppointment,
+// getUserAppointments
 };
