@@ -28,7 +28,6 @@ const transporter = nodemailer.createTransport({
 // first get all appointments in the DB, then call getMentorDetails
 
 const getAllAppointmentsTomorrow = () => {
-  let allAppointmentsTomorrow = [];
   return adminBase('appointments')
     .select({
       fields: [
@@ -42,12 +41,11 @@ const getAllAppointmentsTomorrow = () => {
     })
     .all()
     .then(records => {
-      records.forEach(record => {
+      return records.reduce((acc, record) => {
         const fullDate = new Date(record.fields.date_and_time);
-        if (isAppointmentTomorrow(fullDate))
-          allAppointmentsTomorrow.push(record.fields);
-      });
-      return allAppointmentsTomorrow;
+        if (isAppointmentTomorrow(fullDate)) return [...acc, record.fields];
+        return acc;
+      }, []);
     })
     .catch(console.log);
 };
@@ -91,7 +89,7 @@ const getUserDetails = async allAppointmentsTomorrow => {
 // sends reminder emails to every user and mentor with an appointment tomorrow
 
 const sendMentorAndUserEmails = () => {
-  const mentorReminderEmail = ({ appt }) => {
+  const sendMentorReminderEmail = appt => {
     const mentorEmail = {
       from: 'hellointerakt@gmail.com',
       to: `${appt.mentor_email}`,
@@ -108,7 +106,7 @@ const sendMentorAndUserEmails = () => {
     });
   };
 
-  const userReminderEmail = ({ appt }) => {
+  const senduserReminderEmail = appt => {
     const userEmail = {
       from: 'hellointerakt@gmail.com',
       to: `${appt.user_email}`,
@@ -130,8 +128,8 @@ const sendMentorAndUserEmails = () => {
     .then(getUserDetails)
     .then(appts => {
       appts.forEach(appt => {
-        mentorReminderEmail({ appt });
-        userReminderEmail({ appt });
+        sendMentorReminderEmail(appt);
+        senduserReminderEmail(appt);
       });
     })
     .catch(console.log);
