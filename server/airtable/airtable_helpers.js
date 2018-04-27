@@ -83,36 +83,6 @@ const filterAvailabilities =  mentor => {
     .catch(console.log)
 };
 
-
-// const getEmailDetails = (mentor_name, user_id) => {
-// 	return db.query(
-// 		`SELECT mentors.email AS mentor_email, users.name as user_name, users.email as user_email FROM mentors, users WHERE mentors.name = $1 and users.id = $2`,
-// 		[mentor_name, user_id]
-// 	);
-// };
-//
-// const getEmailDetails = (mentor) => {
-// 	adminBase('mentors').find("recbPclBtocW0YA2q", function (err, record) {
-// 		if (err) { console.error(err); return; }
-// 		console.log("getEmailDetails", record.fields.email);
-// 	});
-// }
-// getEmailDetails();
-
-// const addAppointment = newApptObj => {
-// 	return db.query(
-// 		`INSERT INTO appointments (user_id, mentor_id, date_and_time, topics, chat_string) VALUES ($1, (SELECT id FROM mentors WHERE name = $2),
-//     $3, $4, $5)`,
-// 		[
-// 			newApptObj.user_id,
-// 			newApptObj.mentor,
-// 			newApptObj.date_and_time,
-// 			newApptObj.topics,
-// 			newApptObj.chat_string
-// 		]
-// 	);
-// };
-
 // gets airtable record id for mentor by name
 
 const getMentorRecordId = async mentor => {
@@ -151,6 +121,7 @@ const insertAppointment = ({ user_id, mentor_id, date_and_time, topics, chat_str
   "topics": topics, 
   "chat_string": chat_string
 })
+  .then(() => [mentor_id, user_id])
   .catch(console.log)
 }
 
@@ -169,7 +140,29 @@ return Promise.all(
 .catch(console.log)
 } 
  
+// get user and mentor emails 
 
+const getEmailDetails = async ([mentorId, userId]) => {
+
+  const getMentorDetails = mentorId => {
+    return  adminBase('mentors')
+    .find(mentorId)
+    .then(([record]) => [record.fields.email, record.fields.name])
+    .catch(console.log)
+  }
+
+  const getUserDetails = userId => {
+    return  adminBase('users')
+    .find(userId)
+    .then(([record]) => [record.fields.email, record.fields.name])
+    .catch(console.log)
+  }
+
+  return await Promise.all([getMentorDetails(mentorId), getUserDetails(userId)])
+  
+}
+
+getEmailDetails(["reciXLNDuZfTJLGcR", "recd7JeRiJi3Hfvvy"]);
 
 // const getUserAppointments = user_id => {
 // 	return db.query(
