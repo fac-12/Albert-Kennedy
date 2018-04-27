@@ -2,21 +2,20 @@ import React, { Component } from "react";
 
 import {
   Container,
-  DesktopBg,
   Card,
   LogIn,
   StyledLink,
   Subtitle,
   DesktopButton,
   LinkButton,
-  H2, BackgroundStyle
+  H2
 } from "../styling/onboardingpages"
 
 export default class Landing extends Component {
   render() {
     return (
       <Container>
-        <DesktopBg>
+
           <Card>
             <H2>inter-AKT</H2>
             <Subtitle>
@@ -27,7 +26,6 @@ export default class Landing extends Component {
               Returning user? <StyledLink to="/signin">Log in</StyledLink>
             </LogIn>
           </Card>
-        </DesktopBg>
       </Container>
     );
   }

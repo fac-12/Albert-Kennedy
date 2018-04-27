@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import {Container,
-DesktopBg,
 Card,
 Subtitle,
 DesktopButton,
@@ -11,14 +10,14 @@ export default class LGBT extends Component {
   render() {
     return (
       <Container>
-        <DesktopBg>
+
           <Card>
             <H2>inter-AKT</H2>
             <Subtitle><p>Do you identify as part of the LGBT+ community?</p></Subtitle>
             <DesktopButton text="yes" url="/topics" primary />
             <DesktopButton text="no" url="/lgbtredirect" />
           </Card>
-        </DesktopBg>
+
       </Container>
     );
   }
