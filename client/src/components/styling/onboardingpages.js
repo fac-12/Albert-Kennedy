@@ -1,8 +1,5 @@
 import styled from 'styled-components';
 import LinkButton from "../LinkButton";
-import backgroundImage from "../../assets/images/raw/landing-background.jpg";
-import ageImage from "../../assets/images/raw/age-background.jpg"
-import lgbtImage from "../../assets/images/raw/lgbt-flag.jpg"
 
 
 const Container = styled.div`

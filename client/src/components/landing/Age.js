@@ -6,8 +6,6 @@ Mask,
 DesktopBg,
 Card,
 Img,
-LogIn,
-StyledLink,
 Subtitle,
 DesktopButton,
 H2} from "../styling/onboardingpages";
