@@ -1,4 +1,4 @@
-// const queries = require("./queries");
+
 const airtable = require("../airtable/airtable_helpers");
 const request = require("request");
 
@@ -6,7 +6,6 @@ exports.getMentors = (req, res) => {
   airtable
     .getMentors()
     .then(mentors => {
-      console.log("in get mentors");
       res.send(JSON.stringify(mentors));
     })
     .catch(console.log);
@@ -14,11 +13,15 @@ exports.getMentors = (req, res) => {
 
 exports.getAvailabilities = (req, res) => {
   const { mentor } = req.query;
-  const apppointmentObj = airtable.filterAvailabilities(mentor)
-
-    if (!appointmentObj) {
+   airtable
+  .filterAvailabilities(mentor)
+  .then(availabilityObj => {
+    if (availabilityObj === []) {
       return res.send("none");
     } else {
-    res.send(JSON.stringify(appointmentObj));
+      console.log("appObj", availabilityObj)
+    res.send(JSON.stringify(availabilityObj));
       }
-    };
+  })        
+  .catch(console.log)
+};

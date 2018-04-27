@@ -1,4 +1,5 @@
 const Airtable = require('airtable');
+const r = require('ramda')
 require('env2')('config.env');
 
 const adminBase = new Airtable({ apiKey: process.env.AIRTABLE_API }).base(
@@ -9,41 +10,32 @@ const mentorBase = new Airtable({ apiKey: process.env.AIRTABLE_API }).base(
   process.env.AIRTABLE_MENTOR_BASE
 );
 
+
 // gets all mentors for 'choose a mentor' page
 
-const getMentors = () => {
-  const mentorObj = [];
-  return mentorBase('mentor_list')
+const getMentors = async () => {
+  return await mentorBase('mentor_list')
     .select({
       fields: ['name', 'description', 'img_url']
     })
     .all()
-    .then(records => {
-      records.forEach(record => {
-        mentorObj.push(record.fields);
-      });
-      return mentorObj;
-    })
+    .then(r.map(record => record.fields))
     .catch(err => {
       console.log(err);
     });
 };
 
+
 // gets all availabilites of chosen mentor
 
 const getAvailabilities = mentor => {
-  const availabilityObj = [];
   return mentorBase(mentor)
     .select()
     .all()
-    .then(records => {
-      records.map(record => {
-        availabilityObj.push(record.fields.date);
-      });
-      return availabilityObj;
-    })
+    .then(records => records.map(record => record.fields.date))
     .catch(console.log);
 };
+
 
 // gets mentor id of chosen mentor
 
@@ -54,62 +46,44 @@ const getMentorId = mentor => {
       fields: ['id']
     })
     .all()
-    .then(record => {
-      return record[0].fields.id;
-    });
+    .then(([record]) => record.fields.id)
+    .catch(console.log);
 };
+
 
 // gets all booked appointments of chosen mentor
 
-const getAppointments = id => {
-  const appointmentObj = [];
+const getAppointments =  id => {
   return adminBase('appointments')
     .select({
       filterByFormula: `{mentor_id} = \"${id}\"`,
       fields: ['date']
     })
     .all()
-    .then(records => {
-      records.map(record => {
-        appointmentObj.push(record.fields.date);
-      });
-      return appointmentObj;
-    })
+    .then(records => records.map(record => record.fields.date))
     .catch(console.log);
 };
 
 // filters out already selected appointments 
 
-const filterOutApps = (availabilityObj, appointmentObj) => {
-  console.log('avObj', availabilityObj);
-  console.log('appObj', appointmentObj);
-  const filteredAvailabilities = availabilityObj.filter(
-    availability => !appointmentObj.includes(availability)
+const compareAvailabilitesAppointments = ({availabilityObj, appointmentObj}) => {
+  return availabilityObj.filter(availability => !appointmentObj.includes(availability)
   );
-  console.log("filtered", filteredAvailabilities)
-  return filteredAvailabilities;
 };
 
 // calls all the above functions in order to return to display available time slots on 'choose a time'
 
-const filterAvailabilities = mentor => {
-  let availabilityObj = [];
-  let mentorId = 0;
-  let appointmentObj = [];
-
-  return Promise.all([getAvailabilities(mentor), getMentorId(mentor)])
-    .then(values => {
-      availabilityObj = values[0];
-      mentorId = values[1];
+const filterAvailabilities =  mentor => {
+  return  Promise.all([getAvailabilities(mentor), getMentorId(mentor)])
+    .then(async ([availabilityObj, mentorId]) => {
+      const appointmentObj = await getAppointments(mentorId)
+      return { availabilityObj, appointmentObj }
     })
-    .then(() => getAppointments(mentorId))
-    .then(appObj => {
-      appointmentObj = appObj;
-    })
-    .then(() => {
-      filterOutApps(availabilityObj, appointmentObj);
-    })
+    .then(compareAvailabilitesAppointments)
+    .catch(console.log)
 };
+
+console.log(filterAvailabilities("Max"))
 
 
 // const getEmailDetails = (mentor_name, user_id) => {

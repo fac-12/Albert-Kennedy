@@ -106,13 +106,13 @@ class ScheduleForm extends Component {
     return (
       <Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
       <div>
-         {_.map(dates, datetime => (
+         {_.map(dates, (datetime, index) => (
                     <Field
                         name="datetime"
                         type="radio"
-                        key={datetime}
-                        label={datetime[0] + " at " + datetime[1]}
-                        value={datetime[0] + " at " + datetime[1]}
+                        key={datetime + index}
+                        label={datetime}
+                        value={datetime}
                         component={this.renderField}
                     />
                 ))}
@@ -143,28 +143,7 @@ class ScheduleForm extends Component {
     this.props.updateAptTime(value, this.props.auth, this.props.newApt);
   };
 
-  convertDates = dateArr => {
-        const dateOptions = {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        };
-        const timeOptions = {
-            hour: "numeric",
-            minute: "numeric",
-            hour12: true
-        };
-
-        let dates = dateArr.map(date => {
-            const datetime = new Date(date);
-            const dateStr = datetime.toLocaleString("en-gb", dateOptions);
-            const timeStr = datetime.toLocaleString("en-gb", timeOptions);
-            return [dateStr, timeStr];
-        });
-
-        return dates;
-    };
+  convertDates = dateArr => dateArr.map(date => date.replace(/,{1} {1}\d{4}/, " at"))
 
 }
 

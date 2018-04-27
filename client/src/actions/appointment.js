@@ -42,7 +42,6 @@ export const fetchMentors = () => {
 		axios
 			.get("/getmentordata")
 			.then(res => {
-				console.log("in here!! ");
 				dispatch({
 					type: MENTORLIST,
 					payload: res.data
