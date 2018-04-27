@@ -22,40 +22,37 @@ exports.addAppt = (req, res) => {
     user_id: userId,
     mentor: scheduledAppt.mentor,
     date_and_time: scheduledAppt.date_and_time,
-    topics: Object.keys(scheduledAppt.topics),
+    topics: (Object.keys(scheduledAppt.topics)).toString(),
     chat_string: chatString
   };
 
   airtable
     .addAppointment(newApptObj)
-    .then(() => {
-      queries
-        .getEmailDetails(newApptObj.mentor, userId)
-        .then(res => {
+    .then(airtable.getEmailDetails)
+    .then(([mentorDetails, userDetails]) => {
           console.log('here in emails');
           mentorConfirmationEmail(
-            res[0].mentor_email,
-            res[0].user_name,
+            mentorDetails[0],
+            userDetails[1],
             newApptObj.date_and_time,
             newApptObj.chat_string,
             newApptObj.topics
           );
           userConfirmationEmail(
-            res[0].user_email,
-            res[0].user_name,
+            userDetails[0],
+            userDetails[1],
             newApptObj.mentor,
             newApptObj.date_and_time,
             newApptObj.chat_string
           );
           aktConfirmationEmail(
-            res[0].user_name,
+            userDetails[1],
             newApptObj.mentor,
             newApptObj.date_and_time
           );
           return;
         })
-        .then(res.send())
-        .catch(err => console.log(err));
-    })
-    .catch(err => console.log('error', err));
+      .then(res.send())
+      .catch(err => console.log(err));
 };
+

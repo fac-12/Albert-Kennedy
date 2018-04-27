@@ -144,25 +144,18 @@ return Promise.all(
 
 const getEmailDetails = async ([mentorId, userId]) => {
 
-  const getMentorDetails = mentorId => {
-    return  adminBase('mentors')
-    .find(mentorId)
-    .then(([record]) => [record.fields.email, record.fields.name])
+  const getDetails = (table, id) => {
+    return adminBase(table)
+    .find(id)
+    .then(record => [record.fields.email, record.fields.name])
     .catch(console.log)
   }
 
-  const getUserDetails = userId => {
-    return  adminBase('users')
-    .find(userId)
-    .then(([record]) => [record.fields.email, record.fields.name])
-    .catch(console.log)
-  }
-
-  return await Promise.all([getMentorDetails(mentorId), getUserDetails(userId)])
+  return await Promise.all([getDetails("mentors", mentorId), getDetails("users", userId)])
+  .catch(console.log)
   
 }
 
-getEmailDetails(["reciXLNDuZfTJLGcR", "recd7JeRiJi3Hfvvy"]);
 
 // const getUserAppointments = user_id => {
 // 	return db.query(
@@ -202,6 +195,7 @@ getMentors,
 // getAppointments,
 // getAvailabilities
 // getEmailDetails,
-addAppointment
+addAppointment, 
+getEmailDetails
 // getUserAppointments
 };

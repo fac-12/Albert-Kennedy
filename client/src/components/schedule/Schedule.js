@@ -102,7 +102,7 @@ class ScheduleForm extends Component {
 
   renderForm() {
     const { handleSubmit } = this.props;
-    const dates = this.convertDates(this.props.availibility);
+    const dates = this.props.availibility;
     return (
       <Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
       <div>
@@ -111,7 +111,7 @@ class ScheduleForm extends Component {
                         name="datetime"
                         type="radio"
                         key={datetime + index}
-                        label={datetime}
+                        label={datetime.replace(/,{1} {1}\d{4}/, " at")}
                         value={datetime}
                         component={this.renderField}
                     />
@@ -142,8 +142,6 @@ class ScheduleForm extends Component {
   onSubmit = value => {
     this.props.updateAptTime(value, this.props.auth, this.props.newApt);
   };
-
-  convertDates = dateArr => dateArr.map(date => date.replace(/,{1} {1}\d{4}/, " at"))
 
 }
 
