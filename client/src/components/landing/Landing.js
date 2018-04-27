@@ -1,27 +1,22 @@
 import React, { Component } from "react";
-import backgroundImage from "../../assets/images/raw/landing-background.jpg";
 
 import {
   Container,
-  Mask,
   DesktopBg,
   Card,
-  Img,
   LogIn,
   StyledLink,
   Subtitle,
   DesktopButton,
   LinkButton,
-  H2
+  H2, BackgroundStyle
 } from "../styling/onboardingpages"
 
 export default class Landing extends Component {
   render() {
     return (
       <Container>
-        <Img src={backgroundImage}/>
         <DesktopBg>
-          <Mask />
           <Card>
             <H2>inter-AKT</H2>
             <Subtitle>

@@ -45,6 +45,8 @@ const Register = styled.p`
   margin-top: 0;
 `;
 
+
+
 class RegisterForm extends Component {
   render() {
     const { handleSubmit } = this.props;
@@ -66,7 +68,7 @@ class RegisterForm extends Component {
           />
           <Field
             name="ethnicity"
-            type="checked"
+            type="select"
             label="Ethnicity"
             placeholder="Ethnicity"
             component={this.renderField}
