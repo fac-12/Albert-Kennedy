@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import LinkButton from "../LinkButton";
 
 const Container = styled.div`
@@ -15,24 +15,6 @@ const Container = styled.div`
     position: relative;
   }
 `;
-
-// const DesktopBg = styled.div`
-//   padding: 0 5vw 0 5vw;
-//   font-size: 1.2rem;
-//   text-align: center;
-//   display: flex;
-//   flex-wrap: wrap;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//
-//   @media (min-width: 768px) {
-//     background-repeat: no-repeat;
-//     height: 100vh;
-//     background-size: 200%;
-//     background-position: 50% 50%;
-//   }
-// `;
 
 const Card = styled.div`
   background: white;
@@ -88,7 +70,6 @@ const H2 = styled.h2`
   margin-top: 1rem;
 `;
 
-
 export {
   Container,
   Card,
@@ -98,4 +79,4 @@ export {
   DesktopButton,
   LinkButton,
   H2
-}
+};
