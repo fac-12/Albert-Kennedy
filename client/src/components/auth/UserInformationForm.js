@@ -63,10 +63,10 @@ const ethnicities = [
   "Traveller - Irish Traveller",
   "Traveller - Romany/Gyspy",
   "Prefer not to say",
-  "Other (please specify)"
+  "Other"
 ];
 
-class RegisterForm2 extends Component {
+class UserInformationForm extends Component {
   render() {
     const { handleSubmit } = this.props;
     const text = `Just a few more details...`;
@@ -178,5 +178,5 @@ const validate = values => {
 
 export default reduxForm({
   validate,
-  form: "RegisterForm2"
-})(connect(mapStateToProps, { registerUser, resetError })(RegisterForm2));
+  form: "UserInformationForm"
+})(connect(mapStateToProps, { registerUser, resetError })(UserInformationForm));

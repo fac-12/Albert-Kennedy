@@ -8,8 +8,8 @@ import {
   RESET_ERROR
 } from "./types";
 
-export const userInfo = values => {
-  history.push("/register2");
+export const authFormInfo = values => {
+  history.push("/userinfoform");
   return {
     type: USER_INFO,
     payload: values
@@ -25,9 +25,9 @@ export const registerUser = (values, newApt) => {
     };
 
     return (dispatch, getState) => {
-      const userInfoState = getState().auth.user_info;
+      const authFormInfoState = getState().auth.user_info;
       axios
-        .post("/signup", { ...values, ...userInfoState })
+        .post("/signup", { ...values, ...authFormInfoState })
         .then(response => {
           localStorage.setItem("token", response.data.token);
           dispatch({

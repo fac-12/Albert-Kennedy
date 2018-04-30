@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { resetError, userInfo } from "../../actions/auth";
+import { resetError, authFormInfo } from "../../actions/auth";
 import Header from "../Header";
 import SubmitButton from "../SubmitButton";
 import styled from "styled-components";
@@ -45,7 +45,7 @@ const Register = styled.p`
   margin-top: 0;
 `;
 
-class RegisterForm extends Component {
+class AuthForm extends Component {
   render() {
     const { handleSubmit } = this.props;
     const text = `Your contact details will be kept private and will not be shared with your mentor.`;
@@ -124,7 +124,7 @@ class RegisterForm extends Component {
   }
 
   handleFormSubmit(values) {
-    this.props.userInfo(values, this.props.newApt);
+    this.props.authFormInfo(values, this.props.newApt);
   }
 }
 
@@ -148,5 +148,5 @@ const validate = values => {
 
 export default reduxForm({
   validate,
-  form: "RegisterForm"
-})(connect(mapStateToProps, { userInfo, resetError })(RegisterForm));
+  form: "AuthForm"
+})(connect(mapStateToProps, { authFormInfo, resetError })(AuthForm));
