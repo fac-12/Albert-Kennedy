@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import Header from "../Header";
-import { Link } from "react-router-dom";
-import { fetchAppointments } from "../../actions/appointment";
-import { connect } from "react-redux";
-import LinkButton from "../LinkButton";
-import styled from "styled-components";
-import history from "../../history";
+import React, { Component } from 'react';
+import Header from '../Header';
+import { Link } from 'react-router-dom';
+import { fetchAppointments } from '../../actions/appointment';
+import { connect } from 'react-redux';
+import LinkButton from '../LinkButton';
+import styled from 'styled-components';
+import history from '../../history';
 
 const Card = styled.div`
   width: 90vw;
@@ -68,7 +68,6 @@ class Profile extends Component {
     if (!this.props.apts) {
       return <div />;
     } else {
-      console.log(this.props.apts)
       return (
         <div>
           <Header heading="My Appointments" logout />
@@ -84,7 +83,7 @@ class Profile extends Component {
                     <p>{apt.mentor_name}</p>
                     <p>{dates[0]}</p>
                     <p>{dates[1]}</p>
-                    <a href={"https://tlk.io/" + apt.chat_string}>
+                    <a href={'https://tlk.io/' + apt.chat_string}>
                       <Button>join chat</Button>
                     </a>
                   </TextWrap>
@@ -94,7 +93,7 @@ class Profile extends Component {
           </FlexWrap>
           <NewAppButton text="new appointment" url="/topics" primary />
           <Crisis>
-            Immediate crisis? Don't use this site -{" "}
+            Immediate crisis? Don't use this site -{' '}
             <Link to="/crisis">use these resources instead</Link>
           </Crisis>
         </div>
@@ -108,19 +107,19 @@ class Profile extends Component {
 
   convertDates = date => {
     const dateOptions = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric"
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     };
     const timeOptions = {
-      hour: "numeric",
-      minute: "numeric",
+      hour: 'numeric',
+      minute: 'numeric',
       hour12: true
     };
     const dateObj = new Date(date);
-    const dateStr = dateObj.toLocaleString("en-gb", dateOptions);
-    const timeStr = dateObj.toLocaleString("en-gb", timeOptions);
+    const dateStr = dateObj.toLocaleString('en-gb', dateOptions);
+    const timeStr = dateObj.toLocaleString('en-gb', timeOptions);
     return [dateStr, timeStr];
   };
 }
