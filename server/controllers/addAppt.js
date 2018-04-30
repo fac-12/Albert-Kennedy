@@ -1,11 +1,11 @@
-const jwt = require('jwt-simple');
-const crypto = require('crypto');
-const queries = require('./queries');
+const jwt = require("jwt-simple");
+const crypto = require("crypto");
+const queries = require("./queries");
 const {
   mentorConfirmationEmail,
   userConfirmationEmail,
   aktConfirmationEmail
-} = require('../emails');
+} = require("../emails");
 
 exports.addAppt = (req, res) => {
   const { headers, scheduledAppt } = req.body;
@@ -13,7 +13,7 @@ exports.addAppt = (req, res) => {
   const userId = jwt.decode(headers.authorization, process.env.SECRET).sub;
   const chatString = crypto
     .randomBytes(Math.ceil(3))
-    .toString('hex')
+    .toString("hex")
     .slice(0, 6);
 
   const newApptObj = {
@@ -30,7 +30,6 @@ exports.addAppt = (req, res) => {
       queries
         .getEmailDetails(newApptObj.mentor, userId)
         .then(res => {
-          console.log('here in emails');
           mentorConfirmationEmail(
             res[0].mentor_email,
             res[0].user_name,
@@ -55,5 +54,5 @@ exports.addAppt = (req, res) => {
         .then(res.send())
         .catch(err => console.log(err));
     })
-    .catch(err => console.log('error', err));
+    .catch(err => console.log("error", err));
 };

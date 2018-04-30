@@ -9,6 +9,7 @@ import MentorForm from "./schedule/Mentor";
 import ScheduleForm from "./schedule/Schedule";
 import Success from "./schedule/Success";
 import RegisterForm from "./auth/Register";
+import RegisterForm2 from "./auth/Register2";
 import SigninForm from "./auth/Signin";
 import Profile from "./profile/Profile";
 import Landing from "./landing/Landing";
@@ -48,6 +49,7 @@ class App extends Component {
           <Route exact path="/schedule" component={ScheduleForm} />
           <Route exact path="/success" component={Success} />
           <Route exact path="/register" component={RegisterForm} />
+          <Route exact path="/register2" component={RegisterForm2} />
           <Route exact path="/signin" component={SigninForm} />
         </div>
       </Router>

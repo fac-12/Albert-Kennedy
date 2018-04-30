@@ -45,15 +45,43 @@ const Register = styled.p`
   margin-top: 0;
 `;
 
+const ethnicities = [
+  "Arab",
+  "Asian - Bangladeshi",
+  "Asian - British",
+  "Asian - Chinese",
+  "Asian - Indian",
+  "Asian - Pakistani",
+  "Black - African",
+  "Black - British",
+  "Black - Caribbean",
+  "Mixed/Multiple - White and Asian",
+  "Mixed/Multiple - White and Black African",
+  "Mixed/Multiple - White and Black Caribbean",
+  "White - British",
+  "White - Irish",
+  "Traveller - Irish Traveller",
+  "Traveller - Romany/Gyspy",
+  "Prefer not to say",
+  "Other (please specify)"
+];
 
-
-class RegisterForm extends Component {
+class RegisterForm2 extends Component {
   render() {
     const { handleSubmit } = this.props;
     const text = `Just a few more details...`;
     return (
       <div className="container__div">
         <Header heading="Personal Information" text={text} />
+        <p>
+          AKT is asking for this information because it's important for us to
+          know who is accessing this service so that we can provide the most
+          appropriate support. By completing this form you are consenting to The
+          Albert Kennedy Trust storing a record of your details and contacting
+          you regarding related support. If you wish to withdraw your consent,
+          please contact:{" "}
+          <a href="mailto:onlinesupport@akt.org.uk">onlinesupport@akt.org.uk</a>
+        </p>
         <Register>
           Returning user? <Link to="/signin">Log in</Link>
         </Register>
@@ -66,13 +94,20 @@ class RegisterForm extends Component {
             placeholder="Date of birth"
             component={this.renderField}
           />
-          <Field
-            name="ethnicity"
-            type="select"
-            label="Ethnicity"
-            placeholder="Ethnicity"
-            component={this.renderField}
-          />
+          <div>
+            <label>Ethnicity</label>
+            <div>
+              <Field name="ethnicity" component="select">
+                <option value="">Select one that applies...</option>
+                {ethnicities.map(ethnicityOption => (
+                  <option value={ethnicityOption} key={ethnicityOption}>
+                    {ethnicityOption}
+                  </option>
+                ))}
+              </Field>
+            </div>
+          </div>
+
           <Field
             name="sexuality"
             type="text"
@@ -125,7 +160,8 @@ class RegisterForm extends Component {
 
 const mapStateToProps = state => ({
   error: state.error,
-  newApt: state.newApt
+  newApt: state.newApt,
+  user_info: state.auth.user_info
 });
 
 const validate = values => {
@@ -135,12 +171,12 @@ const validate = values => {
     errors.ethnicity = "Please choose an option in the list";
   if (!values.sexuality)
     errors.sexuality = "Choose an option that you feel you relate to";
-  if (!values.gender) errors.dob = "Choose any that apply";
+  if (!values.gender) errors.gender = "Choose any that apply";
 
   return errors;
 };
 
 export default reduxForm({
   validate,
-  form: "RegisterForm"
-})(connect(mapStateToProps, { registerUser, resetError })(RegisterForm));
+  form: "RegisterForm2"
+})(connect(mapStateToProps, { registerUser, resetError })(RegisterForm2));

@@ -5,7 +5,7 @@ import { fetchAppointments } from "../../actions/appointment";
 import { connect } from "react-redux";
 import LinkButton from "../LinkButton";
 import styled from "styled-components";
-import history from "../../history";
+// import history from "../../history";
 
 const Card = styled.div`
   width: 90vw;

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { registerUser, resetError } from "../../actions/auth";
+import { resetError, userInfo } from "../../actions/auth";
 import Header from "../Header";
 import SubmitButton from "../SubmitButton";
 import styled from "styled-components";
@@ -72,31 +72,10 @@ class RegisterForm extends Component {
             component={this.renderField}
           />
           <Field
-            name="dob"
-            type="date"
-            label="Date of Birth"
-            placeholder="Date of birth"
-            component={this.renderField}
-          />
-          <Field
             name="postcode"
             type="text"
             label="Postcode"
             placeholder="Postcode"
-            component={this.renderField}
-          />
-          <Field
-            name="gender"
-            type="text"
-            label="Gender"
-            placeholder="Gender"
-            component={this.renderField}
-          />
-          <Field
-            name="sexuality"
-            type="text"
-            label="Sexuality"
-            placeholder="Sexuality"
             component={this.renderField}
           />
           <Field
@@ -145,7 +124,7 @@ class RegisterForm extends Component {
   }
 
   handleFormSubmit(values) {
-    this.props.registerUser(values, this.props.newApt);
+    this.props.userInfo(values, this.props.newApt);
   }
 }
 
@@ -158,7 +137,6 @@ const validate = values => {
   const errors = {};
   if (!values.name) errors.name = "Enter your name";
   if (!values.email) errors.email = "Enter an email";
-  if (!values.dob) errors.dob = "Enter your date of birth";
   if (!values.postcode) errors.postcode = "Enter a postcode";
   if (!values.password) errors.password = "Enter your password";
   if (values.password !== values.confirmPassword)
@@ -171,4 +149,4 @@ const validate = values => {
 export default reduxForm({
   validate,
   form: "RegisterForm"
-})(connect(mapStateToProps, { registerUser, resetError })(RegisterForm));
+})(connect(mapStateToProps, { userInfo, resetError })(RegisterForm));
