@@ -30,4 +30,5 @@ const userEmailTemplate = appt => {
   <p>If you have any questions ahead of your appointment, or if you need to rearrange, you can get in touch with AKT by emailing tomj@akt.org.uk</p>
   `;
 };
+
 module.exports = { mentorEmailTemplate, userEmailTemplate };

@@ -2,12 +2,9 @@
 
 const nodemailer = require('nodemailer');
 const Airtable = require('airtable');
+const { mentorEmailTemplate, userEmailTemplate } = require('../server/emails/reminder_emails');
+const { isAppointmentTomorrow, transporterFunction } = require('../server/emails/helpers');
 require('env2')('config.env');
-const {
-  mentorEmailTemplate,
-  userEmailTemplate
-} = require('../server/emails/reminder_emails');
-const { isAppointmentTomorrow } = require('../server/emails/helpers');
 
 // connect to admin Airtable
 
@@ -89,7 +86,9 @@ const getUserDetails = async allAppointmentsTomorrow => {
 // sends reminder emails to every user and mentor with an appointment tomorrow
 
 const sendMentorAndUserEmails = () => {
+
   const sendMentorReminderEmail = appt => {
+    
     const mentorEmail = {
       from: 'hellointerakt@gmail.com',
       to: `${appt.mentor_email}`,
@@ -97,13 +96,7 @@ const sendMentorAndUserEmails = () => {
       html: mentorEmailTemplate(appt)
     };
 
-    transporter.sendMail(mentorEmail, function(error, info) {
-      if (error) {
-        throw error;
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
+    transporterFunction(mentorEmail);
   };
 
   const senduserReminderEmail = appt => {
@@ -114,13 +107,7 @@ const sendMentorAndUserEmails = () => {
       html: userEmailTemplate(appt)
     };
 
-    transporter.sendMail(userEmail, function(error, info) {
-      if (error) {
-        throw error;
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
+    transporterFunction(userEmail)
   };
 
   getAllAppointmentsTomorrow()
