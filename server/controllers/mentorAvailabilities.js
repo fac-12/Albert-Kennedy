@@ -19,7 +19,6 @@ exports.getAvailabilities = (req, res) => {
     if (availabilityObj === []) {
       return res.send("none");
     } else {
-      console.log("appObj", availabilityObj)
     res.send(JSON.stringify(availabilityObj));
       }
   })        

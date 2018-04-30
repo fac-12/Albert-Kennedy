@@ -9,7 +9,7 @@ const getUser = email => {
 const addUser = (name, email, password) => {
 	return db
 		.query(
-			`INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING NAME, ID`,
+			`INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING NAME, ID, EMAIL`,
 			[name, email, password]
 		)
 		.then(user => user[0]);

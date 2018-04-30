@@ -2,7 +2,7 @@ const router = require("express").Router();
 const passport = require("passport");
 const passportService = require("../services/passport");
 const { signUp, signIn, getUser } = require("./auth");
-const { getMentors, getAvailabilities } = require("./api");
+const { getMentors, getAvailabilities } = require("./mentorAvailabilities");
 const { addAppt } = require("./addAppt");
 const { profileAppointments } = require("./profileAppointments");
 

@@ -17,7 +17,7 @@ exports.addAppt = (req, res) => {
     .randomBytes(Math.ceil(3))
     .toString('hex')
     .slice(0, 6);
-
+ 
   const newApptObj = {
     user_id: userId,
     mentor: scheduledAppt.mentor,
@@ -30,7 +30,6 @@ exports.addAppt = (req, res) => {
     .addAppointment(newApptObj)
     .then(airtable.getEmailDetails)
     .then(([mentorDetails, userDetails]) => {
-          console.log('here in emails');
           mentorConfirmationEmail(
             mentorDetails[0],
             userDetails[1],

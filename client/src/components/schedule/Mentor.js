@@ -57,7 +57,6 @@ class MentorForm extends Component {
 
 	render() {
 
-	console.log("mentor props", this.props.mentors)
 		if (!this.props.mentors) {
 			return <div />;
 		}

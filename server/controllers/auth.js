@@ -1,10 +1,12 @@
+
 const queries = require("./queries");
+const airtable = require("../airtable/airtable_helpers");
 const { hashPassword } = require("../services/bcrypt");
 const jwt = require("jwt-simple");
 
-const userToken = user => {
+const userToken = id => {
   const timestamp = new Date().getTime();
-  return jwt.encode({ sub: user.id, iat: timestamp }, process.env.SECRET);
+  return jwt.encode({ sub: id, iat: timestamp }, process.env.SECRET);
 };
 
 exports.signUp = (req, res) => {
@@ -37,7 +39,10 @@ exports.signUp = (req, res) => {
       return queries.addUser(name, email, hash);
     })
     .then(user => {
-      res.json({ token: userToken(user) });
+      return airtable.addUser(user);
+    })
+    .then(userId => {
+      res.json({ token: userToken(userId) });
     })
     .catch(console.log);
   }

@@ -37,7 +37,6 @@ export const fetchAvailibilites = mentor => {
 };
 
 export const fetchMentors = () => {
-	console.log("in fetchMentors");
 	return dispatch => {
 		axios
 			.get("/getmentordata")
@@ -53,7 +52,6 @@ export const fetchMentors = () => {
 
 export const updateAptTime = (value, loggedin, newApt) => {
 	localStorage.setItem("endOfFlow", "finished");
-	console.log(value.datetime);
 	if (loggedin) {
 		const scheduledAppt = {
 			mentor: newApt.mentor,

@@ -98,6 +98,7 @@ const getMentorRecordId = async mentor => {
 // gets airtable record id for user by database id
 
 const getUserRecordId = async user_id => {
+
   return await adminBase('users')
     .select({
       filterByFormula: `{id} = \"${user_id}\"`,
@@ -128,7 +129,6 @@ const insertAppointment = ({ user_id, mentor_id, date_and_time, topics, chat_str
 // gets necessary info to format newApptObj from the front end before putting it into airtable
 
 const addAppointment = (newApptObj) => {
-
 return Promise.all(
   [getMentorRecordId(newApptObj.mentor), getUserRecordId(newApptObj.user_id)]
 )
@@ -143,7 +143,6 @@ return Promise.all(
 // get user and mentor emails 
 
 const getEmailDetails = async ([mentorId, userId]) => {
-
   const getDetails = (table, id) => {
     return adminBase(table)
     .find(id)
@@ -155,6 +154,19 @@ const getEmailDetails = async ([mentorId, userId]) => {
   .catch(console.log)
   
 }
+
+// add user (database id/name/email) to adminBase
+
+const addUser = (user) => {
+	return adminBase('users')
+		.create({
+      "id": user.id,
+      "name": user.name,
+      "email": user.email,
+    })
+    .then(() => user.id)
+    .catch(console.log)
+};
 
 
 // const getUserAppointments = user_id => {
@@ -186,10 +198,15 @@ const getEmailDetails = async ([mentorId, userId]) => {
 // }
 // getUserAppointments("receGY3BBjfIZErlK");
 
+const trace = (x, message) => {
+console.log(message, x)
+return x;
+}
+
 module.exports = {
 // getUser,
 filterAvailabilities,
-// addUser,
+addUser,
 // getUserById,
 getMentors,
 // getAppointments,
