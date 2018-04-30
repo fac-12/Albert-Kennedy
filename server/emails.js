@@ -13,14 +13,16 @@ const mentorConfirmationEmail = (
   userName,
   dateTime,
   chatString,
-  topics
+  topics, 
+  info
 ) => {
+  const infoContent = info.content ? "They gave the following additional info: " + info.content : ""
   const mentorEmail = {
     from: 'hellointerakt@gmail.com',
     to: `${emailAddress}`,
     subject: 'New AKT online mentoring appointment',
     html: `<p> Hi there, </p>
-	<p>One of your time slots has been booked. You are now scheduled to connect with ${userName} on ${dateTime}. ${userName} has said they would like to discuss ${topics}.</p>
+  <p>One of your time slots has been booked. You are now scheduled to connect with ${userName} on ${dateTime}. ${userName} has said they would like to discuss ${topics}. ${infoContent}</p>
   <p>At the time of your appointment, click on this link: https://tlk.io/${chatString}. It is advised that you click on the link a few minutes before the time of your appointment so that you can greet the young person once they arrive. Please allow up to 15 minutes for the young person to join as they may be running late.</p>
   <p>Please be sure to follow the steps below during your session. If you have any questions you can contact Tom: tomj@akt.org.uk.</p>
   <ol>

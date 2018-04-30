@@ -10,7 +10,6 @@ const {
 
 exports.addAppt = (req, res) => {
   const { headers, scheduledAppt } = req.body;
-
   const userId = jwt.decode(headers.authorization, process.env.SECRET).sub;
   const chatString = crypto
     .randomBytes(Math.ceil(3))
@@ -22,6 +21,7 @@ exports.addAppt = (req, res) => {
     mentor: scheduledAppt.mentor,
     date_and_time: scheduledAppt.date_and_time,
     topics: Object.keys(scheduledAppt.topics).toString(),
+    info: scheduledAppt.topics.info,
     chat_string: chatString
   };
 
@@ -29,12 +29,16 @@ exports.addAppt = (req, res) => {
     .addAppointment(newApptObj)
     .then(airtable.getEmailDetails)
     .then(([mentorDetails, userDetails]) => {
+      const info = {
+        content: newApptObj.info
+      }
       mentorConfirmationEmail(
         mentorDetails[0],
         userDetails[1],
         newApptObj.date_and_time,
         newApptObj.chat_string,
-        newApptObj.topics
+        newApptObj.topics,
+        info
       );
       userConfirmationEmail(
         userDetails[0],
