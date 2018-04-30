@@ -41,13 +41,14 @@ const getEmailDetails = (mentor_name, user_id) => {
 
 const addAppointment = newApptObj => {
 	return db.query(
-		`INSERT INTO appointments (user_id, mentor_id, date_and_time, topics, chat_string) VALUES ($1, (SELECT id FROM mentors WHERE name = $2),
-    $3, $4, $5)`,
+		`INSERT INTO appointments (user_id, mentor_id, date_and_time, topics, info, chat_string) VALUES ($1, (SELECT id FROM mentors WHERE name = $2),
+    $3, $4, $5, $6)`,
 		[
 			newApptObj.user_id,
 			newApptObj.mentor,
 			newApptObj.date_and_time,
 			newApptObj.topics,
+			newApptObj.info,
 			newApptObj.chat_string
 		]
 	);
