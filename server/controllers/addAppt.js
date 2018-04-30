@@ -21,6 +21,7 @@ exports.addAppt = (req, res) => {
     mentor: scheduledAppt.mentor,
     date_and_time: scheduledAppt.date_and_time,
     topics: Object.keys(scheduledAppt.topics),
+    info: scheduledAppt.topics.info,
     chat_string: chatString
   };
 
@@ -30,14 +31,17 @@ exports.addAppt = (req, res) => {
       queries
         .getEmailDetails(newApptObj.mentor, userId)
         .then(res => {
-          console.log('here in emails');
+          const info = {
+            content: newApptObj.info
+          }
           mentorConfirmationEmail(
             {
             emailAddress: res[0].mentor_email,
             userName: res[0].user_name,
             date: newApptObj.date_and_time,
             chatString: newApptObj.chat_string,
-            topics: newApptObj.topics
+            topics: newApptObj.topics, 
+            info: info
             }
           );
           userConfirmationEmail(

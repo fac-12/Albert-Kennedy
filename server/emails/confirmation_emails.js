@@ -1,6 +1,7 @@
 const mentorEmailTemplate = appt => {
+    const infoContent = appt.info.content ? "They gave the following additional info: " + appt.info.content : ""
   return `<p> Hi there, </p>
-	<p>One of your time slots has been booked. You are now scheduled to connect with ${appt.userName} on ${appt.date}. ${appt.userName} has said they would like to discuss ${appt.topics}.</p>
+	<p>One of your time slots has been booked. You are now scheduled to connect with ${appt.userName} on ${appt.date}. ${appt.userName} has said they would like to discuss ${appt.topics}. ${infoContent}</p>
   <p>At the time of your appointment, click on this link: https://tlk.io/${appt.chatString}. It is advised that you click on the link a few minutes before the time of your appointment so that you can greet the young person once they arrive. Please allow up to 15 minutes for the young person to join as they may be running late.</p>
   <p>Please be sure to follow the steps below during your session. If you have any questions you can contact Tom: tomj@akt.org.uk.</p>
   <ol>

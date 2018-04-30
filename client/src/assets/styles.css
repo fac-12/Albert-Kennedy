@@ -1,12 +1,15 @@
 * {
 	font-family: "Quicksand", sans-serif;
 	box-sizing: border-box;
+	margin: 0;
 }
+
 
 .root {
 	width: 100vw;
 	height: fit-content;
 	overflow-y: scroll;
+	margin: 0;
 }
 
 .root__div {
