@@ -30,7 +30,7 @@ export default class AgeRedirect extends Component {
 
         <p>
           Stonewall Housing is a specialist lesbian, gay, bisexual and
-          transgender (LGBT) housing advice and support provider:{" "}
+          transgender (LGBT) housing advice and support provider:
           <p>
             <a href="http://www.stonewallhousing.org">
               www.stonewallhousing.org
@@ -43,7 +43,7 @@ export default class AgeRedirect extends Component {
 
         <p>
           Shelter provides practical assistance, advice, information and
-          advocacy to people experiencing homelessness:{" "}
+          advocacy to people experiencing homelessness:
           <p>
             <a href="http://www.shelter.org.uk">www.shelter.org.uk</a>
           </p>
@@ -54,7 +54,7 @@ export default class AgeRedirect extends Component {
 
         <p>
           Stonewall can offer information and support for members of the LGBT
-          community:{" "}
+          community:
           <p>
             <a href="https://www.stonewall.org.uk">www.stonewall.org.uk</a>
           </p>

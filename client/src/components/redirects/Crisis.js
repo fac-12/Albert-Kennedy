@@ -38,8 +38,9 @@ export default class Crisis extends Component {
         </p>
         <p>
           National LGBT Domestic Violence Helpline:{" "}
-          <a href="tel:0300 999 5428">0300 999 5428</a>{" "}
-          <a href="tel:08009995428">0800 999 5428</a>{" "}
+          <a href="tel:0300 999 5428">0300 999 5428</a>
+          {" or on "}
+          <a href="tel:08009995428">0800 999 5428</a>
         </p>
         <p>
           LGBT SwitchBoard listen to all kinds of calls, and we take every one
