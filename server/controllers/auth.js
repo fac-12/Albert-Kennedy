@@ -50,7 +50,7 @@ exports.signUp = (req, res) => {
 };
 
 exports.signIn = (req, res) => {
-  res.json({ token: userToken(req.user) });
+  res.json({ token: userToken(req.user.id) });
 };
 
 exports.getUser = (req, res) => {
