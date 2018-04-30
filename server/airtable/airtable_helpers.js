@@ -203,6 +203,35 @@ const addMentorDetailsToAppointments = async userApptObj => {
   ).catch(console.log);
 };
 
+// gets record id of an appointment using the chat_string
+
+const getApptRecordId = async chat_string => {
+  return await adminBase('appointments')
+    .select({
+      filterByFormula: `{chat_string} = \"${chat_string}\"`
+    })
+    .all()
+    .then(x => trace("record", x))
+    .then(([record]) => record.id)
+    .then(x => trace("record.id", x))
+    .catch(console.log);
+};
+
+
+// deletes appointment specified by the id from the appointments table
+
+const deleteAppointment = id => {
+  return adminBase('appointments')
+  .destroy(id)
+  .then(x => trace("destroyed", x))
+  .catch(console.log)
+}
+
+const trace = (message, x) => {
+  console.log(message, x);
+  return x;
+}
+
 
 
 module.exports = {
@@ -212,5 +241,7 @@ module.exports = {
   getUserAppointments,
   addMentorDetailsToAppointments,
   addAppointment,
-  getEmailDetails
+  getEmailDetails, 
+  getApptRecordId, 
+  deleteAppointment
 };

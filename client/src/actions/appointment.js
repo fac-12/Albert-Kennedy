@@ -92,3 +92,21 @@ export const fetchAppointments = () => {
 			});
 	};
 };
+
+export const cancelAppointment = (chat_string) => {
+	console.log("in cancelappt action", chat_string)
+	console.log("token", localStorage.getItem("token"))
+	return dispatch => {
+	axios
+		.post("/cancelappt", { 
+			chat_string, 
+			headers: { authorization: localStorage.getItem("token") } 
+		})
+		.then(res => {
+			dispatch({
+				type: USER_APTS,
+				payload: res.data
+			});
+		});
+	};
+}
