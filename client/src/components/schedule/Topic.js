@@ -65,6 +65,24 @@ const Form = styled.form`
 	height: 70vh;
 `;
 
+const Text = styled.label`
+	width: 90vw;
+	font-size: 16px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+`;
+
+const TextInput = styled.input`
+	display: block;
+	width: 330px;
+	margin: auto;
+	height: 40px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	-webkit-appearance: none;
+	padding-left: 5px;
+	autocomplete: off;
+`;
 
 class TopicForm extends Component {
 	render() {
@@ -110,6 +128,11 @@ class TopicForm extends Component {
 							src={other}
 							component={this.renderField}
 						/>
+						<Field 
+							name="info"
+							label="Share any further information or other things you'd like to talk about here:"
+							component={this.renderTextInput}
+						/>
 					</FlexWrapper>
 					<SubmitButton text="next" />
 				</Form>
@@ -131,6 +154,14 @@ class TopicForm extends Component {
 		];
 	};
 
+	renderTextInput = field => {
+		return [
+			<Text htmlFor={field.name} key={1}>
+				<Label>{field.label}</Label>
+				<TextInput id={field.name} type="text" {...field.input} />
+			</Text>
+		];
+	}
 	onSubmit = values => {
 		this.props.updateTopics(values);
 	};
