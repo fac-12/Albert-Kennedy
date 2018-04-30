@@ -1,5 +1,5 @@
 
-const queries = require("./queries");
+const queries = require("../database/db_queries");
 const airtable = require("../airtable/airtable_helpers");
 const { hashPassword } = require("../services/bcrypt");
 const jwt = require("jwt-simple");

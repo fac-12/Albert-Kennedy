@@ -1,6 +1,5 @@
 const jwt = require('jwt-simple');
 const crypto = require('crypto');
-const queries = require('./queries');
 const airtable = require('../airtable/airtable_helpers');
 
 const {
