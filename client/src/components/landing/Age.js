@@ -6,7 +6,7 @@ import {
   Subtitle,
   DesktopButton,
   H2
-} from "../styling/OnboardingPages";
+} from "../styling/onboardingpages";
 
 export default class Age extends Component {
   render() {

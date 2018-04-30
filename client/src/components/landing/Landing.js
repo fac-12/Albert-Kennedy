@@ -9,7 +9,7 @@ import {
   DesktopButton,
   LinkButton,
   H2
-} from "../styling/OnboardingPages";
+} from "../styling/onboardingpages";
 
 export default class Landing extends Component {
   render() {

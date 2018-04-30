@@ -7,7 +7,7 @@ import {
   DesktopButton,
   H2,
   BackgroundStyle
-} from "../styling/OnboardingPages";
+} from "../styling/onboardingpages";
 
 export default class LGBT extends Component {
   render() {
