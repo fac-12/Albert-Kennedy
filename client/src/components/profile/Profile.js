@@ -68,6 +68,7 @@ class Profile extends Component {
     if (!this.props.apts) {
       return <div />;
     } else {
+      console.log(this.props.apts)
       return (
         <div>
           <Header heading="My Appointments" logout />
@@ -80,7 +81,7 @@ class Profile extends Component {
                     <Img src={apt.img_url} />
                   </div>
                   <TextWrap>
-                    <p>{apt.name}</p>
+                    <p>{apt.mentor_name}</p>
                     <p>{dates[0]}</p>
                     <p>{dates[1]}</p>
                     <a href={"https://tlk.io/" + apt.chat_string}>

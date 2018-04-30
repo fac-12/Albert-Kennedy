@@ -168,35 +168,37 @@ const addUser = (user) => {
     .catch(console.log)
 };
 
+// get user appointments from adminBase
 
-// const getUserAppointments = user_id => {
-// 	return db.query(
-// 		`SELECT mentors.name, appointments.date_and_time, appointments.chat_string, mentors.img_url
-//     FROM appointments
-//     INNER JOIN mentors ON (appointments.mentor_id = mentors.id) WHERE appointments.user_id = $1`,
-// 		[user_id]
-// 	);
-// };
+const getUserAppointments = async user_id => {
 
-// adminBase('users').find('recd7JeRiJi3Hfvvy', function(err, record) {
-// 	    if (err) { console.error(err); return; }
-// 	    console.log("getUserAppointments", record.fields.appointments);
-// 	});
-// }
-// const getUserAppointments = (appointments) => {
-// adminBase('appointments').select({
-// 	fields : ["mentor_id", "date_and_time"]
-// }).eachPage(function page (records, fetchNextPage) {
-// 	records.forEach(function(record) {
-// 		console.log("getUserAppointments", record.fields);
-// 		return record;
-// 	})
-// 	fetchNextPage();
-// }, function done(err){
-// 	if (err) {console.error(err); return; }
-// })
-// }
-// getUserAppointments("receGY3BBjfIZErlK");
+  return await adminBase('appointments')
+    .select({
+      filterByFormula: `{user_id} = \"${user_id}\"`,
+      fields: ['mentor_id', "chat_string", "date_and_time"]
+    })
+    .all()
+    .then(records => records.map(record => record.fields))
+    .catch(console.log)
+}
+
+// add extra details to user appointments for rendering on profile page
+
+const addMentorDetailsToAppointments = async userApptObj => {
+
+    return await Promise.all(
+      userApptObj.map(appt => {
+        return adminBase('mentors')
+          .find([appt.mentor_id])
+          .then(record => {
+            appt.mentor_name = record.fields.name;
+            appt.mentor_img_url = record.fields.img_url;
+            return appt;
+          })
+      })
+    )
+    .catch(console.log);
+  };
 
 const trace = (x, message) => {
 console.log(message, x)
@@ -204,15 +206,11 @@ return x;
 }
 
 module.exports = {
-// getUser,
 filterAvailabilities,
 addUser,
-// getUserById,
 getMentors,
-// getAppointments,
-// getAvailabilities
-// getEmailDetails,
+getUserAppointments,
+addMentorDetailsToAppointments,
 addAppointment, 
 getEmailDetails
-// getUserAppointments
 };

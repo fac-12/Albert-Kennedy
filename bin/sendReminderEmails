@@ -7,8 +7,8 @@ require("env2")("config.env");
 
 // connect to admin Airtable 
 
-const adminBase = new Airtable({ apiKey: "keyrTEGPBVowroQzb" }).base(
-  "appms40YF7qdII2xB"
+const adminBase = new Airtable({ apiKey: process.env.AIRTABLE_API }).base(
+  process.env.AIRTABLE_ADMIN_BASE
 );
 
 //set up nodemailer connection
