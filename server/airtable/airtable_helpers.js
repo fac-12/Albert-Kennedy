@@ -114,6 +114,7 @@ const insertAppointment = ({
   mentor_id,
   date_and_time,
   topics,
+  info, 
   chat_string
 }) => {
   return adminBase('appointments')
@@ -122,7 +123,8 @@ const insertAppointment = ({
       mentor_id: [mentor_id],
       date_and_time: date_and_time,
       topics: topics,
-      chat_string: chat_string
+      chat_string: chat_string, 
+      info: info
     })
     .then(() => [mentor_id, user_id])
     .catch(console.log);
