@@ -7,12 +7,12 @@ import SubmitButton from "../SubmitButton";
 import _ from "lodash";
 import styled from "styled-components";
 
-import bullying from "../../assets/bullying.png";
-import comingout from "../../assets/comingout.png";
-import housing from "../../assets/house.png";
-import other from "../../assets/other.png";
-import skills from "../../assets/skills.png";
-import wellbeing from "../../assets/wellbeing.png";
+import bullying from "../../assets/icons/bullying.svg";
+import comingout from "../../assets/icons/comingout.svg";
+import housing from "../../assets/icons/house.svg";
+import other from "../../assets/icons/other.svg";
+import skills from "../../assets/icons/skills.svg";
+import wellbeing from "../../assets/icons/wellbeing.svg";
 
 const Input = styled.input`
 	display: none;
