@@ -39,6 +39,7 @@
     "passport-jwt": "^3.0.1",
     "passport-local": "^1.0.0",
     "pg-promise": "^7.4.1",
+    "ramda": "^0.25.0",
     "redux-thunk": "^2.2.0",
     "request": "^2.83.0"
   },
