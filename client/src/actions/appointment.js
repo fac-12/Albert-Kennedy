@@ -46,13 +46,12 @@ export const fetchMentors = () => {
 					payload: res.data
 				});
 			})
-			.catch(error => console.log(error));
+			.catch(error => console.log(error)); 
 	};
 };
 
 export const updateAptTime = (value, loggedin, newApt) => {
 	localStorage.setItem("endOfFlow", "finished");
-	console.log(value.datetime);
 	if (loggedin) {
 		const scheduledAppt = {
 			mentor: newApt.mentor,

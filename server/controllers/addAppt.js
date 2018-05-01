@@ -1,11 +1,12 @@
 const jwt = require("jwt-simple");
 const crypto = require("crypto");
-const queries = require("./queries");
+const airtable = require("../airtable/airtable_helpers");
+
 const {
   mentorConfirmationEmail,
   userConfirmationEmail,
   aktConfirmationEmail
-} = require("../emails");
+} = require("../emails/sendConfirmationEmails");
 
 exports.addAppt = (req, res) => {
   const { headers, scheduledAppt } = req.body;
@@ -20,39 +21,40 @@ exports.addAppt = (req, res) => {
     user_id: userId,
     mentor: scheduledAppt.mentor,
     date_and_time: scheduledAppt.date_and_time,
-    topics: Object.keys(scheduledAppt.topics),
+    topics: Object.keys(scheduledAppt.topics).toString(),
+    info: scheduledAppt.topics.info,
     chat_string: chatString
   };
 
-  queries
+  airtable
     .addAppointment(newApptObj)
-    .then(() => {
-      queries
-        .getEmailDetails(newApptObj.mentor, userId)
-        .then(res => {
-          mentorConfirmationEmail(
-            res[0].mentor_email,
-            res[0].user_name,
-            newApptObj.date_and_time,
-            newApptObj.chat_string,
-            newApptObj.topics
-          );
-          userConfirmationEmail(
-            res[0].user_email,
-            res[0].user_name,
-            newApptObj.mentor,
-            newApptObj.date_and_time,
-            newApptObj.chat_string
-          );
-          aktConfirmationEmail(
-            res[0].user_name,
-            newApptObj.mentor,
-            newApptObj.date_and_time
-          );
-          return;
-        })
-        .then(res.send())
-        .catch(err => console.log(err));
+    .then(airtable.getEmailDetails)
+    .then(([mentorDetails, userDetails]) => {
+      const info = {
+        content: newApptObj.info
+      };
+      mentorConfirmationEmail(
+        mentorDetails[0],
+        userDetails[1],
+        newApptObj.date_and_time,
+        newApptObj.chat_string,
+        newApptObj.topics,
+        info
+      );
+      userConfirmationEmail(
+        userDetails[0],
+        userDetails[1],
+        newApptObj.mentor,
+        newApptObj.date_and_time,
+        newApptObj.chat_string
+      );
+      aktConfirmationEmail(
+        userDetails[1],
+        newApptObj.mentor,
+        newApptObj.date_and_time
+      );
+      return;
     })
-    .catch(err => console.log("error", err));
+    .then(res.send())
+    .catch(err => console.log(err));
 };

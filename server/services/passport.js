@@ -1,7 +1,7 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const { Strategy, ExtractJwt } = require("passport-jwt");
-const queries = require("../controllers/queries");
+const queries = require("../database/db_queries");
 const { comparePassword } = require("./bcrypt");
 
 const localOptions = { usernameField: "email" };

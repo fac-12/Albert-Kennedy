@@ -1,0 +1,125 @@
+#!/usr/bin/env node
+
+const nodemailer = require('nodemailer');
+const Airtable = require('airtable');
+const { mentorEmailTemplate, userEmailTemplate } = require('../server/emails/reminder_emails');
+const { isAppointmentTomorrow, transporterFunction } = require('../server/emails/helpers');
+require('env2')('config.env');
+
+// connect to admin Airtable
+
+const adminBase = new Airtable({ apiKey: process.env.AIRTABLE_API }).base(
+  process.env.AIRTABLE_ADMIN_BASE
+);
+
+//set up nodemailer connection
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'hellointerakt@gmail.com',
+    pass: process.env.PASSWORD
+  }
+});
+
+// first get all appointments in the DB, then call getMentorDetails
+
+const getAllAppointmentsTomorrow = () => {
+  return adminBase('appointments')
+    .select({
+      fields: [
+        'user_id',
+        'mentor_id',
+        'date_and_time',
+        'topics',
+        'chat_string',
+        'date'
+      ]
+    })
+    .all()
+    .then(records => {
+      return records.reduce((acc, record) => {
+        const fullDate = new Date(record.fields.date_and_time);
+        if (isAppointmentTomorrow(fullDate)) return [...acc, record.fields];
+        return acc;
+      }, []);
+    })
+    .catch(console.log);
+};
+
+// get mentor email and add to appt object, then call getUserDetails
+
+const getMentorEmails = async allAppointmentsTomorrow => {
+  return await Promise.all(
+    allAppointmentsTomorrow.map(appt => {
+      const mentorId = appt.mentor_id[0];
+      return adminBase('mentors')
+        .find(mentorId)
+        .then(record => {
+          appt.mentor_email = record.fields.email;
+          return appt;
+        });
+    })
+  ).catch(console.log);
+};
+
+// gets user details (email and name) and adds to appt object, then calls sendMentorAndUserEmails
+
+const getUserDetails = async allAppointmentsTomorrow => {
+  return await Promise.all(
+    allAppointmentsTomorrow.map(appt => {
+      const userId = appt.user_id[0];
+      return adminBase('users')
+        .find(userId)
+        .then(record => {
+          appt.user_name = record.fields.name;
+          appt.user_email = record.fields.email;
+          delete appt.user_id;
+          delete appt.mentor_id;
+          delete appt.date_and_time;
+          return appt;
+        });
+    })
+  ).catch(err => console.log(err));
+};
+
+// sends reminder emails to every user and mentor with an appointment tomorrow
+
+const sendMentorAndUserEmails = () => {
+
+  const sendMentorReminderEmail = appt => {
+    
+    const mentorEmail = {
+      from: 'hellointerakt@gmail.com',
+      to: `${appt.mentor_email}`,
+      subject: 'Reminder: AKT online mentoring appointment',
+      html: mentorEmailTemplate(appt)
+    };
+
+    transporterFunction(mentorEmail);
+  };
+
+  const senduserReminderEmail = appt => {
+    const userEmail = {
+      from: 'hellointerakt@gmail.com',
+      to: `${appt.user_email}`,
+      subject: 'Reminder: AKT online mentoring appointment',
+      html: userEmailTemplate(appt)
+    };
+
+    transporterFunction(userEmail)
+  };
+
+  getAllAppointmentsTomorrow()
+    .then(getMentorEmails)
+    .then(getUserDetails)
+    .then(appts => {
+      appts.forEach(appt => {
+        sendMentorReminderEmail(appt);
+        senduserReminderEmail(appt);
+      });
+    })
+    .catch(console.log);
+};
+
+sendMentorAndUserEmails();

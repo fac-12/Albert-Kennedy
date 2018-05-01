@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/fac-12/Albert-Kennedy#readme",
   "dependencies": {
+    "airtable": "^0.5.3",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
     "env2": "^2.2.0",
@@ -38,6 +39,7 @@
     "passport-jwt": "^3.0.1",
     "passport-local": "^1.0.0",
     "pg-promise": "^7.4.1",
+    "ramda": "^0.25.0",
     "redux-thunk": "^2.2.0",
     "request": "^2.83.0"
   },

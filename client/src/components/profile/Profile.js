@@ -5,7 +5,6 @@ import { fetchAppointments } from "../../actions/appointment";
 import { connect } from "react-redux";
 import LinkButton from "../LinkButton";
 import styled from "styled-components";
-// import history from "../../history";
 
 const Card = styled.div`
   width: 90vw;
@@ -80,7 +79,7 @@ class Profile extends Component {
                     <Img src={apt.img_url} />
                   </div>
                   <TextWrap>
-                    <p>{apt.name}</p>
+                    <p>{apt.mentor_name}</p>
                     <p>{dates[0]}</p>
                     <p>{dates[1]}</p>
                     <a href={"https://tlk.io/" + apt.chat_string}>
