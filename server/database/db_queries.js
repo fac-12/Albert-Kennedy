@@ -21,8 +21,19 @@ const getUserById = id => {
     .then(user => user[0]);
 };
 
+const addToken = (email, token, token_expires) => {
+  return db
+  .query(`UPDATE users SET (reset_password_token, reset_password_expires) = ($1, to_timestamp($2)) WHERE email = $3 RETURNING NAME, EMAIL, RESET_PASSWORD_TOKEN`, 
+  [token, token_expires, email])
+  .then(user => {
+    return user[0];
+  })
+}
+
 module.exports = {
   getUser,
   addUser,
-  getUserById
+  getUserById, 
+  addToken
 };
+

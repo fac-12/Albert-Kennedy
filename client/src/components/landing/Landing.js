@@ -23,6 +23,7 @@ export default class Landing extends Component {
           <LogIn>
             Returning user? <StyledLink to="/signin">Log in</StyledLink>
           </LogIn>
+          <p>Forgot your password? <StyledLink to="/forgotpassword">Reset here</StyledLink></p>
         </Card>
       </Container>
     );

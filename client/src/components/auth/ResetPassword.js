@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { signinUser, resetError } from "../../actions/auth";
+import { resetError, authFormInfo } from "../../actions/auth";
+import SubmitButton from "../SubmitButton";
 import styled from "styled-components";
+import { forgotPassword } from "../../actions/auth";
 
 const Container = styled.div`
   position: absolute;
@@ -87,80 +89,81 @@ const Header = styled.h1`
   margin-bottom: 10vh;
 `;
 
-class SigninForm extends Component {
-  render() {
-    const { handleSubmit } = this.props;
-    return (
-      <Container>
-        <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-          <Header>inter-AKT</Header>
-          <Field
-            name="email"
-            type="email"
-            label="Email"
-            placeholder="Email"
-            component={this.renderField}
+
+
+class ResetPasswordForm extends Component {
+    render() {
+      const { handleSubmit } = this.props;
+      return (
+        <Container>
+          <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+            <Header>inter-AKT</Header>
+            <Field
+              name="email"
+              type="email"
+              label="Email"
+              placeholder="Email"
+              component={this.renderField}
+            />
+            <p>{this.renderAlert()}</p>
+  
+            <Button type="submit">reset</Button>
+  
+            <Register>
+              New to inter-AKT? <Link to="/">Start here</Link>
+            </Register>
+          </Form>
+        </Container>
+      );
+    }
+  
+    renderField(field) {
+      const { meta: { touched, error } } = field;
+      return (
+        <div>
+          <Input
+            {...field.input}
+            type={field.type}
+            placeholder={field.placeholder}
           />
-          <Field
-            name="password"
-            type="password"
-            label="Password"
-            placeholder="Password"
-            component={this.renderField}
-          />
-          <p>{this.renderAlert()}</p>
-
-          <Button type="submit">login</Button>
-
-          <Register>
-            New to inter-AKT? <Link to="/">Start here</Link>
-          </Register>
-
-          <p>Forgot your password? <Link to="/forgotpassword">Reset here</Link></p>
-        </Form>
-      </Container>
-    );
-  }
-
-  renderField(field) {
-    const { meta: { touched, error } } = field;
-    return (
-      <div>
-        <Input
-          {...field.input}
-          type={field.type}
-          placeholder={field.placeholder}
-        />
-        <Error>{touched ? error : ""}</Error>
-      </div>
-    );
-  }
-
-  renderAlert() {
-    if (this.props.error) {
-      return <span>{this.props.error}</span>;
+          <Error>{touched ? error : ""}</Error>
+        </div>
+      );
+    }
+  
+    renderAlert() {
+      if (this.props.error) {
+        return <span>{this.props.error}</span>;
+      }
+    }
+  
+    handleFormSubmit(values) {
+      this.props.forgotPassword(values);
+    }
+  
+    componentDidMount() {
+      this.props.resetError();
     }
   }
 
-  handleFormSubmit(values) {
-    this.props.signinUser(values);
-  }
+  const mapStateToProps = state => ({
+    error: state.error
+  });
+  
+//   const validate = values => {
+//     const errors = {};
+//     if (!values.dob) errors.dob = "Enter your date of birth";
+//     if (!values.ethnicity)
+//       errors.ethnicity = "Please choose an option in the list";
+//     if (!values.sexuality)
+//       errors.sexuality = "Choose an option that you feel you relate to";
+//     if (!values.gender) errors.gender = "Choose any that apply";
+  
+//     return errors;
+//   };
 
-  componentDidMount() {
-    this.props.resetError();
-  }
-}
-
-const validate = values => {
-  const errors = {};
-  if (!values.email) errors.email = "Enter your email";
-  if (!values.password) errors.password = "Enter your password";
-  return errors;
-};
-
-const mapStateToProps = state => ({ error: state.error });
-
-export default reduxForm({
-  validate,
-  form: "SigninForm"
-})(connect(mapStateToProps, { signinUser, resetError })(SigninForm));
+  export default reduxForm({
+    // validate,
+    form: "ResetPasswordForm"
+  })(connect(mapStateToProps, { forgotPassword, resetError })(ResetPasswordForm));
+  

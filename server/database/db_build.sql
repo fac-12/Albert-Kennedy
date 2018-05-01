@@ -8,8 +8,12 @@ CREATE TABLE users (
   name VARCHAR(100) NOT NULL,
   email VARCHAR(100) NOT NULL UNIQUE,
   password VARCHAR(100) NOT NULL,
+  reset_password_token VARCHAR(40),
+  reset_password_expires TIMESTAMP,
   date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
 COMMIT;
+
+

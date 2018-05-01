@@ -2,6 +2,10 @@ const queries = require('../database/db_queries');
 const airtable = require('../airtable/airtable_helpers');
 const { hashPassword } = require('../services/bcrypt');
 const jwt = require('jwt-simple');
+const { generateToken } = require('./helpers');
+const {
+  userUpdatePasswordEmail
+} = require('../emails/sendUpdatePasswordEmails');
 
 const userToken = id => {
   const timestamp = new Date().getTime();
@@ -47,4 +51,29 @@ exports.signIn = (req, res) => {
 
 exports.getUser = (req, res) => {
   res.send(req.user);
+};
+
+exports.forgotPassword = (req, res) => {
+  const { email } = req.body;
+  queries
+    .getUser(email)
+    .catch(res.status(404).send({ error: 'YO! this email does not exist.' }))
+    .then(generateToken)
+    .then(token => {
+      const token_expires = Date.now() + 24 * 60 * 60 * 1000;
+      return queries.addToken(email, token, token_expires);
+    })
+    .then(user => {
+      const emailObject = {
+        name: user.name,
+        email: user.email,
+        passwordLink:
+          'http://localhost:3000/resetpassword?token=' +
+          user.reset_password_token
+      };
+
+      userUpdatePasswordEmail(emailObject);
+    })
+    .then(res.send())
+    .catch(console.log);
 };

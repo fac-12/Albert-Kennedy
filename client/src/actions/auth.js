@@ -146,3 +146,16 @@ export const getUser = () => {
       });
   };
 };
+
+export const forgotPassword = (user) => {
+  return dispatch => {
+    axios
+    .post("/forgotpassword", user)
+    .then(response => {
+      dispatch(displayError("An email has been sent with instructions on resetting your password"));
+    })
+    .catch(err => {
+      dispatch(displayError("Sorry, there was a problem. Please try again later!"));
+    });
+  }
+} 
