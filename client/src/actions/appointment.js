@@ -93,13 +93,11 @@ export const fetchAppointments = () => {
 	};
 };
 
-export const cancelAppointment = (chat_string) => {
-	console.log("in cancelappt action", chat_string)
-	console.log("token", localStorage.getItem("token"))
+export const cancelAppointment = (appt) => {
 	return dispatch => {
 	axios
 		.post("/cancelappt", { 
-			chat_string, 
+			appt, 
 			headers: { authorization: localStorage.getItem("token") } 
 		})
 		.then(res => {

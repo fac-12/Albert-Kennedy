@@ -5,7 +5,7 @@ import { fetchAppointments, cancelAppointment } from '../../actions/appointment'
 import { connect } from 'react-redux';
 import LinkButton from '../LinkButton';
 import styled from 'styled-components';
-import history from '../../history';
+
 
 const Card = styled.div`
   width: 90vw;
@@ -66,7 +66,6 @@ const NewAppButton = styled(LinkButton)`
 class Profile extends Component {
 
   render() {
-    console.log("props", this.props)
     if (!this.props.apts) {
       return <div />;
     } else {
@@ -88,7 +87,7 @@ class Profile extends Component {
                     <a href={'https://tlk.io/' + apt.chat_string}>
                       <Button>join chat</Button>
                     </a>
-                    <Button onClick={() => this.handleClick(apt.chat_string)}>cancel appointment</Button>
+                    <Button onClick={() => this.handleClick(apt)}>cancel appointment</Button>
                   </TextWrap>
                 </Card>
               );
@@ -108,8 +107,9 @@ class Profile extends Component {
     this.props.fetchAppointments();
   }
 
-  handleClick = chat_string => {
-    this.props.cancelAppointment(chat_string);
+  handleClick = apt => {
+    apt.date_and_time = this.props.convertDates(apt.date_and_time)
+    this.props.cancelAppointment(apt);
   };
 
   convertDates = date => {

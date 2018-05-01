@@ -3,7 +3,6 @@ import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { signinUser, resetError } from "../../actions/auth";
-import SubmitButton from "../SubmitButton";
 import styled from "styled-components";
 
 const Container = styled.div`

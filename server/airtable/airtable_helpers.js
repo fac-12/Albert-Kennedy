@@ -98,12 +98,14 @@ const getMentorRecordId = async mentor => {
 // gets airtable record id for user by database id
 
 const getUserRecordId = async user_id => {
+  console.log("in getUserRecordId", user_id)
   return await adminBase('users')
     .select({
       filterByFormula: `{id} = \"${user_id}\"`
     })
     .all()
     .then(([record]) => record.id)
+    .then(x => trace("user record id ", x))
     .catch(console.log);
 };
 
@@ -148,10 +150,12 @@ const addAppointment = newApptObj => {
 // get user and mentor emails
 
 const getEmailDetails = async ([mentorId, userId]) => {
+  console.log("in get email details", mentorId, userId)
   const getDetails = (table, id) => {
     return adminBase(table)
       .find(id)
       .then(record => [record.fields.email, record.fields.name])
+      .then(x => trace("record details", x))
       .catch(console.log);
   };
 
@@ -184,7 +188,6 @@ const getUserAppointments = async user_id => {
     })
     .all()
     .then(records => records.map(record => record.fields))
-    .then(x => trace("record fields", x))
     .catch(console.log);
 };
 
@@ -200,7 +203,6 @@ const addMentorDetailsToAppointments = async userApptObj => {
           appt.mentor_img_url = record.fields.img_url;
           return appt;
         })
-        .then(x => trace("added mentor details", x))
     })
   ).catch(console.log);
 };
@@ -213,9 +215,7 @@ const getApptRecordId = async chat_string => {
       filterByFormula: `{chat_string} = \"${chat_string}\"`
     })
     .all()
-    .then(x => trace("record", x))
     .then(([record]) => record.id)
-    .then(x => trace("record.id", x))
     .catch(console.log);
 };
 
@@ -225,7 +225,6 @@ const getApptRecordId = async chat_string => {
 const deleteAppointment = id => {
   return adminBase('appointments')
   .destroy(id)
-  .then(x => trace("destroyed", x))
   .catch(console.log)
 }
 
@@ -245,5 +244,6 @@ module.exports = {
   addAppointment,
   getEmailDetails, 
   getApptRecordId, 
-  deleteAppointment
+  deleteAppointment, 
+  getUserRecordId
 };

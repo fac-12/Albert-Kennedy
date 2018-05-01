@@ -1,19 +1,20 @@
-const jwt = require('jwt-simple');
-const crypto = require('crypto');
-const airtable = require('../airtable/airtable_helpers');
+const jwt = require("jwt-simple");
+const crypto = require("crypto");
+const airtable = require("../airtable/airtable_helpers");
 
 const {
   mentorConfirmationEmail,
   userConfirmationEmail,
   aktConfirmationEmail
-} = require('../emails');
+} = require("../emails/sendConfirmationEmails");
 
 exports.addAppt = (req, res) => {
   const { headers, scheduledAppt } = req.body;
+
   const userId = jwt.decode(headers.authorization, process.env.SECRET).sub;
   const chatString = crypto
     .randomBytes(Math.ceil(3))
-    .toString('hex')
+    .toString("hex")
     .slice(0, 6);
 
   const newApptObj = {
@@ -31,26 +32,29 @@ exports.addAppt = (req, res) => {
     .then(([mentorDetails, userDetails]) => {
       const info = {
         content: newApptObj.info
-      }
+      };
       mentorConfirmationEmail(
-        mentorDetails[0],
-        userDetails[1],
-        newApptObj.date_and_time,
-        newApptObj.chat_string,
-        newApptObj.topics,
-        info
+     {  emailAddress: mentorDetails[0],
+        userName: userDetails[1],
+        date: newApptObj.date_and_time,
+        chatString: newApptObj.chat_string,
+        topics: newApptObj.topics,
+        info: info
+      }
       );
       userConfirmationEmail(
-        userDetails[0],
-        userDetails[1],
-        newApptObj.mentor,
-        newApptObj.date_and_time,
-        newApptObj.chat_string
+      { emailAddress: userDetails[0],
+        userName: userDetails[1],
+        mentorName: newApptObj.mentor,
+        date: newApptObj.date_and_time,
+        chat_string: newApptObj.chat_string
+      }
       );
       aktConfirmationEmail(
-        userDetails[1],
-        newApptObj.mentor,
-        newApptObj.date_and_time
+      { userName: userDetails[1],
+        mentorName: newApptObj.mentor,
+        date: newApptObj.date_and_time
+      }
       );
       return;
     })

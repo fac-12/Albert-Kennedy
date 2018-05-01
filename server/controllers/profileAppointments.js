@@ -1,4 +1,5 @@
 const airtable = require('../airtable/airtable_helpers');
+const { mentorCancellationEmail, userCancellationEmail } = require('../emails/sendCancellationEmails')
 const jwt = require('jwt-simple')
 
 exports.profileAppointments = (req, res) => {
@@ -12,15 +13,40 @@ exports.profileAppointments = (req, res) => {
 };
 
 exports.cancelAppointment = (req, res) => {
-  const { headers, chat_string } = req.body;
+  const { headers, appt } = req.body;
   const userId = jwt.decode(headers.authorization, process.env.SECRET).sub;
 
+  console.log("appt", appt, userId)
 
   airtable
-    .getApptRecordId(chat_string)
+    .getApptRecordId(appt.chat_string)
     .then(async id => {
       return await airtable.deleteAppointment(id)
     })
+    .then(() => airtable.getUserRecordId(userId))
+    .then(async userRecordId => {
+      return await airtable.getEmailDetails([ appt.mentor_id[0], userRecordId ])
+    })
+    .then(([mentorDetails, userDetails]) => {
+
+        console.log("mentor details", mentorDetails)
+        console.log("user details", userDetails)
+
+        mentorCancellationEmail(
+          { emailAddress: mentorDetails[0],
+            userName: userDetails[1],
+            date: appt.date_and_time
+          }
+          );
+        userCancellationEmail(
+          { emailAddress: userDetails[0],
+            userName: userDetails[1],
+            mentorName: appt.mentor,
+            date: appt.date_and_time 
+          }
+          );
+          return;
+      })
     .then(async userId => {
       return await airtable
       .getUserAppointments(userId)
@@ -30,4 +56,5 @@ exports.cancelAppointment = (req, res) => {
         })
       .catch(console.log)
   })
+  .catch(console.log)
 }

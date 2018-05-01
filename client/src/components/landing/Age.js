@@ -15,10 +15,7 @@ export default class Age extends Component {
         <Card>
           <H2>inter-AKT</H2>
           <Subtitle>
-            <p>
-              Great! Just a couple more questions. Are you aged between 13 and
-              25?
-            </p>
+            Great! Just a couple more questions. Are you aged between 13 and 25?
           </Subtitle>
           <DesktopButton text="yes" url="/lgbt" primary />
           <DesktopButton text="no" url="/ageredirect" />
