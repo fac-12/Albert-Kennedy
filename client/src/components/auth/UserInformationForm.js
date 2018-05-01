@@ -74,7 +74,7 @@ class UserInformationForm extends Component {
       <div className="container__div">
         <Header heading="Personal Information" text={text} />
         <p>
-          AKT is asking for this information because it's important for us to
+          AKT is asking for this information because it is important for us to
           know who is accessing this service so that we can provide the most
           appropriate support. By completing this form you are consenting to The
           Albert Kennedy Trust storing a record of your details and contacting
