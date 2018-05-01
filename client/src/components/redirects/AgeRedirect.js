@@ -31,36 +31,22 @@ export default class AgeRedirect extends Component {
         <p>
           Stonewall Housing is a specialist lesbian, gay, bisexual and
           transgender (LGBT) housing advice and support provider:
-          <p>
-            <a href="http://www.stonewallhousing.org">
-              www.stonewallhousing.org
-            </a>
-          </p>
-          <p>
-            <a href="tel:020 7359 5767">020 7359 5767</a>
-          </p>
+          <a href="http://www.stonewallhousing.org">www.stonewallhousing.org</a>
+          <a href="tel:020 7359 5767">020 7359 5767</a>
         </p>
 
         <p>
           Shelter provides practical assistance, advice, information and
           advocacy to people experiencing homelessness:
-          <p>
-            <a href="http://www.shelter.org.uk">www.shelter.org.uk</a>
-          </p>
-          <p>
-            <a href="tel:0808 800 4444">0808 800 4444</a>
-          </p>
+          <a href="http://www.shelter.org.uk">www.shelter.org.uk</a>
+          <a href="tel:0808 800 4444">0808 800 4444</a>
         </p>
 
         <p>
           Stonewall can offer information and support for members of the LGBT
           community:
-          <p>
-            <a href="https://www.stonewall.org.uk">www.stonewall.org.uk</a>
-          </p>
-          <p>
-            <a href="tel:020 7593 1850">020 7593 1850</a>
-          </p>
+          <a href="https://www.stonewall.org.uk">www.stonewall.org.uk</a>
+          <a href="tel:020 7593 1850">020 7593 1850</a>
         </p>
       </Container>
     );
