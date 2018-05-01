@@ -15,17 +15,19 @@ exports.cancelAppointment = (req, res) => {
   const { headers, chat_string } = req.body;
   const userId = jwt.decode(headers.authorization, process.env.SECRET).sub;
 
-  console.log("cancel", chat_string, userId)
 
   airtable
     .getApptRecordId(chat_string)
     .then(async id => {
       return await airtable.deleteAppointment(id)
     })
-    .then(airtable.getUserAppointments(userId)
-        .then(airtable.addMentorDetailsToAppointments)
-        .then(appointments => {
-      res.send(JSON.stringify(appointments));
-    })
-        .catch(console.log)
-  )};
+    .then(async userId => {
+      return await airtable
+      .getUserAppointments(userId)
+      .then(airtable.addMentorDetailsToAppointments)
+      .then(appointments => {
+        res.send(JSON.stringify(appointments));
+        })
+      .catch(console.log)
+  })
+}

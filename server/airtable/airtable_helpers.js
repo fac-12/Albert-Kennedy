@@ -184,6 +184,7 @@ const getUserAppointments = async user_id => {
     })
     .all()
     .then(records => records.map(record => record.fields))
+    .then(x => trace("record fields", x))
     .catch(console.log);
 };
 
@@ -198,7 +199,8 @@ const addMentorDetailsToAppointments = async userApptObj => {
           appt.mentor_name = record.fields.name;
           appt.mentor_img_url = record.fields.img_url;
           return appt;
-        });
+        })
+        .then(x => trace("added mentor details", x))
     })
   ).catch(console.log);
 };
