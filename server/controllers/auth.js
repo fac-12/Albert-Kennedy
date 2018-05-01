@@ -1,11 +1,11 @@
-const queries = require('../database/db_queries');
-const airtable = require('../airtable/airtable_helpers');
-const { hashPassword } = require('../services/bcrypt');
-const jwt = require('jwt-simple');
-const { generateToken } = require('./helpers');
+const queries = require("../database/db_queries");
+const airtable = require("../airtable/airtable_helpers");
+const { hashPassword } = require("../services/bcrypt");
+const jwt = require("jwt-simple");
+const { generateToken } = require("./helpers");
 const {
   userUpdatePasswordEmail
-} = require('../emails/sendUpdatePasswordEmails');
+} = require("../emails/sendUpdatePasswordEmails");
 
 const userToken = id => {
   const timestamp = new Date().getTime();
@@ -18,7 +18,7 @@ exports.signUp = (req, res) => {
   if (!name || !email || !password || !confirmPassword || !postcode) {
     return res
       .status(422)
-      .send({ error: 'You must provide a name, email, location and password' });
+      .send({ error: "You must provide a name, email, location and password" });
   } else if (password !== confirmPassword) {
     return res.status(422).send({ error: "Your passwords don't match!" });
   } else {
@@ -27,8 +27,8 @@ exports.signUp = (req, res) => {
       .then(user => {
         return new Promise((resolve, reject) => {
           if (user) {
-            res.status(422).send({ error: 'Email is in use. Please log in.' });
-            reject('Email is in use. Please log in');
+            res.status(422).send({ error: "Email is in use. Please log in." });
+            reject("Email is in use. Please log in");
           } else resolve(hashPassword(password));
         });
       })
@@ -57,7 +57,7 @@ exports.forgotPassword = (req, res) => {
   const { email } = req.body;
   queries
     .getUser(email)
-    .catch(res.status(404).send({ error: 'YO! this email does not exist.' }))
+    .catch(res.status(404).send({ error: "YO! this email does not exist." }))
     .then(generateToken)
     .then(token => {
       const token_expires = Date.now() + 24 * 60 * 60 * 1000;
@@ -68,7 +68,7 @@ exports.forgotPassword = (req, res) => {
         name: user.name,
         email: user.email,
         passwordLink:
-          'http://localhost:3000/resetpassword?token=' +
+          "http://localhost:3000/resetpassword?token=" +
           user.reset_password_token
       };
 
