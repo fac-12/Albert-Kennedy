@@ -8,7 +8,6 @@ const generateToken = () => {
             return reject("Sorry, there's been a problem on our end! Please try again in a few minutes or contact AKT")
             };
         const token = buffer.toString('hex');
-        console.log("token in generate", token)
         return resolve(token);
         });  
     });

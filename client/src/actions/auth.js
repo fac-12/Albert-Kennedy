@@ -152,10 +152,11 @@ export const forgotPassword = (user) => {
     axios
     .post("/forgotpassword", user)
     .then(response => {
-      dispatch(displayError("An email has been sent with instructions on resetting your password"));
+      console.log(response)
+      dispatch(displayError(response.data.message));
     })
-    .catch(err => {
-      dispatch(displayError("Sorry, there was a problem. Please try again later!"));
+    .catch(error => {
+        dispatch(displayError(error.response.data.err));
     });
   }
 } 

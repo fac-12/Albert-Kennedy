@@ -53,11 +53,18 @@ exports.getUser = (req, res) => {
   res.send(req.user);
 };
 
+const trace = label => x => {
+  console.log(label, x);
+  return x;
+};
+
 exports.forgotPassword = (req, res) => {
   const { email } = req.body;
   queries
     .getUser(email)
-    .catch(res.status(404).send({ error: "YO! this email does not exist." }))
+    .catch(() => {
+      return Promise.reject(new Error('email not found'))
+    })
     .then(generateToken)
     .then(token => {
       const token_expires = Date.now() + 24 * 60 * 60 * 1000;
@@ -73,7 +80,18 @@ exports.forgotPassword = (req, res) => {
       };
 
       userUpdatePasswordEmail(emailObject);
+      res.send({ message: "An email has been sent with instructions"})
     })
-    .then(res.send())
-    .catch(console.log);
-};
+    .catch(err => {
+
+      if (err.message === "email not found") {
+      return res
+      .status(404)
+      .send({ err: "This email address doesn't exist in the database" })
+      }
+
+      else return res
+      .status(422)
+      .send({ err: "Sorry, there was a problem on our end!" })
+     })
+}

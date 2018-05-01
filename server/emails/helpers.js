@@ -25,7 +25,6 @@ const transporter = nodemailer.createTransport({
 // defines function to send emails
 
 const transporterFunction = (emailToSend) => {
-console.log("in transporter", emailToSend)
   transporter.sendMail(emailToSend, function(error, info) {
   if (error) {
     throw error;

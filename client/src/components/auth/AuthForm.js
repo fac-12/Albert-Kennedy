@@ -130,8 +130,6 @@ class AuthForm extends Component {
 
 const checkPassword = string => {
   let regex = new RegExp("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$");
-  console.log("in regex func");
-  console.log(regex.test(string), string);
   return regex.test(string);
 };
 
