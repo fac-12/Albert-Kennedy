@@ -6,10 +6,11 @@ const {
   mentorConfirmationEmail,
   userConfirmationEmail,
   aktConfirmationEmail
-} = require('../emails');
+} = require('../emails/sendConfirmationEmails');
 
 exports.addAppt = (req, res) => {
   const { headers, scheduledAppt } = req.body;
+
   const userId = jwt.decode(headers.authorization, process.env.SECRET).sub;
   const chatString = crypto
     .randomBytes(Math.ceil(3))
