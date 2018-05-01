@@ -5,10 +5,11 @@ const {
   mentorConfirmationEmail,
   userConfirmationEmail,
   aktConfirmationEmail
-} = require('../emails');
+} = require('../emails/sendConfirmationEmails');
 
 exports.addAppt = (req, res) => {
   const { headers, scheduledAppt } = req.body;
+
   const userId = jwt.decode(headers.authorization, process.env.SECRET).sub;
   const chatString = crypto
     .randomBytes(Math.ceil(3))
@@ -34,24 +35,30 @@ exports.addAppt = (req, res) => {
             content: newApptObj.info
           }
           mentorConfirmationEmail(
-            res[0].mentor_email,
-            res[0].user_name,
-            newApptObj.date_and_time,
-            newApptObj.chat_string,
-            newApptObj.topics,
-            info
+            {
+            emailAddress: res[0].mentor_email,
+            userName: res[0].user_name,
+            date: newApptObj.date_and_time,
+            chatString: newApptObj.chat_string,
+            topics: newApptObj.topics, 
+            info: info
+            }
           );
           userConfirmationEmail(
-            res[0].user_email,
-            res[0].user_name,
-            newApptObj.mentor,
-            newApptObj.date_and_time,
-            newApptObj.chat_string
+            {
+            emailAddress: res[0].user_email,
+            userName: res[0].user_name,
+            mentorName: newApptObj.mentor,
+            date: newApptObj.date_and_time,
+            chatString: newApptObj.chat_string
+            }
           );
           aktConfirmationEmail(
-            res[0].user_name,
-            newApptObj.mentor,
-            newApptObj.date_and_time
+           {
+            userName: res[0].user_name,
+            mentorName: newApptObj.mentor,
+            date: newApptObj.date_and_time
+           }
           );
           return;
         })
