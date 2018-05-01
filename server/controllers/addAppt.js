@@ -1,12 +1,12 @@
-const jwt = require('jwt-simple');
-const crypto = require('crypto');
-const airtable = require('../airtable/airtable_helpers');
+const jwt = require("jwt-simple");
+const crypto = require("crypto");
+const airtable = require("../airtable/airtable_helpers");
 
 const {
   mentorConfirmationEmail,
   userConfirmationEmail,
   aktConfirmationEmail
-} = require('../emails/sendConfirmationEmails');
+} = require("../emails/sendConfirmationEmails");
 
 exports.addAppt = (req, res) => {
   const { headers, scheduledAppt } = req.body;
@@ -14,7 +14,7 @@ exports.addAppt = (req, res) => {
   const userId = jwt.decode(headers.authorization, process.env.SECRET).sub;
   const chatString = crypto
     .randomBytes(Math.ceil(3))
-    .toString('hex')
+    .toString("hex")
     .slice(0, 6);
 
   const newApptObj = {
@@ -32,7 +32,7 @@ exports.addAppt = (req, res) => {
     .then(([mentorDetails, userDetails]) => {
       const info = {
         content: newApptObj.info
-      }
+      };
       mentorConfirmationEmail(
         mentorDetails[0],
         userDetails[1],

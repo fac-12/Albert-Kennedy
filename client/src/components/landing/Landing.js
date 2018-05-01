@@ -7,7 +7,6 @@ import {
   StyledLink,
   Subtitle,
   DesktopButton,
-  LinkButton,
   H2
 } from "../styling/onboardingpages";
 
@@ -18,7 +17,7 @@ export default class Landing extends Component {
         <Card>
           <H2>inter-AKT</H2>
           <Subtitle>
-            <p>A mentoring platform for young people in the LGBT+ community</p>
+            A mentoring platform for young people in the LGBT+ community
           </Subtitle>
           <DesktopButton text="get started" url="/age" primary />
           <LogIn>

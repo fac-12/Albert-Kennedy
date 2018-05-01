@@ -5,8 +5,7 @@ import {
   Card,
   Subtitle,
   DesktopButton,
-  H2,
-  BackgroundStyle
+  H2
 } from "../styling/onboardingpages";
 
 export default class LGBT extends Component {
@@ -15,9 +14,7 @@ export default class LGBT extends Component {
       <Container>
         <Card>
           <H2>inter-AKT</H2>
-          <Subtitle>
-            <p>Do you identify as part of the LGBT+ community?</p>
-          </Subtitle>
+          <Subtitle>Do you identify as part of the LGBT+ community?</Subtitle>
           <DesktopButton text="yes" url="/topics" primary />
           <DesktopButton text="no" url="/lgbtredirect" />
         </Card>

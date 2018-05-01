@@ -31,11 +31,11 @@ const Input = styled.input`
 
 const Label = styled.div``;
 
-const Img = styled.img`
-  height: auto;
-  width: 50px;
-  padding: 5px;
-`;
+// const Img = styled.img`
+//   height: auto;
+//   width: 50px;
+//   padding: 5px;
+// `;
 
 const Form = styled.form`
   min-height: 70vh;
@@ -46,17 +46,17 @@ const Form = styled.form`
 `;
 
 const NoAptsCard = styled.div`
-    width: 340px;
-    height: 200px;
-    border-radius: 10px;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
-    margin: 15px;
-    display: flex;
-    align-items: center;
+  width: 340px;
+  height: 200px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+  margin: 15px;
+  display: flex;
+  align-items: center;
 `;
 
 const TextWrap = styled.div`
-    padding: 20px;
+  padding: 20px;
 `;
 
 class ScheduleForm extends Component {
@@ -83,43 +83,42 @@ class ScheduleForm extends Component {
     }
   }
 
-
   renderNoApts() {
     return (
-        <NoAptsCard>
-            <TextWrap>
-                <p>
-                    Whoops! There are no appointments currently available for this
-                    mentor
-                </p>
-                <p>
-                    Please <Link to="/mentors">pick another.</Link>
-                </p>
-            </TextWrap>
-        </NoAptsCard>
+      <NoAptsCard>
+        <TextWrap>
+          <p>
+            Whoops! There are no appointments currently available for this
+            mentor
+          </p>
+          <p>
+            Please <Link to="/mentors">pick another.</Link>
+          </p>
+        </TextWrap>
+      </NoAptsCard>
     );
-}
+  }
 
   renderForm() {
     const { handleSubmit } = this.props;
     const dates = this.props.availibility;
     return (
       <Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-      <div>
-         {_.map(dates, (datetime, index) => (
-                    <Field
-                        name="datetime"
-                        type="radio"
-                        key={datetime + index}
-                        label={datetime.replace(/,{1} {1}\d{4}/, " at")}
-                        value={datetime}
-                        component={this.renderField}
-                    />
-                ))}
+        <div>
+          {_.map(dates, (datetime, index) => (
+            <Field
+              name="datetime"
+              type="radio"
+              key={datetime + index}
+              label={datetime.replace(/,{1} {1}\d{4}/, " at")}
+              value={datetime}
+              component={this.renderField}
+            />
+          ))}
         </div>
         <div>
-        <Field name="error" component={this.renderError} />
-        <SubmitButton text="next" />
+          <Field name="error" component={this.renderError} />
+          <SubmitButton text="next" />
         </div>
       </Form>
     );
@@ -142,7 +141,6 @@ class ScheduleForm extends Component {
   onSubmit = value => {
     this.props.updateAptTime(value, this.props.auth, this.props.newApt);
   };
-
 }
 
 const validate = values => {
