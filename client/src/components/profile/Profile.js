@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import Header from '../Header';
 import { Link } from 'react-router-dom';
-import {
-  fetchAppointments,
-  cancelAppointment
-} from '../../actions/appointment';
+import { fetchAppointments, cancelAppointment } from '../../actions/appointment';
 import { connect } from 'react-redux';
 import LinkButton from '../LinkButton';
 import styled from 'styled-components';
+
 
 const Card = styled.div`
   width: 90vw;
@@ -66,6 +64,7 @@ const NewAppButton = styled(LinkButton)`
 `;
 
 class Profile extends Component {
+
   render() {
     if (!this.props.apts) {
       return <div />;
@@ -88,9 +87,7 @@ class Profile extends Component {
                     <a href={'https://tlk.io/' + apt.chat_string}>
                       <Button>join chat</Button>
                     </a>
-                    <Button onClick={() => this.handleClick(apt)}>
-                      cancel appointment
-                    </Button>
+                    <Button onClick={() => this.handleClick(apt)}>cancel appointment</Button>
                   </TextWrap>
                 </Card>
               );
@@ -111,6 +108,7 @@ class Profile extends Component {
   }
 
   handleClick = apt => {
+    console.log("apt", apt)
     this.props.cancelAppointment(apt);
   };
 
@@ -139,7 +137,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {
-  fetchAppointments,
-  cancelAppointment
-})(Profile);
+export default connect(mapStateToProps, { fetchAppointments, cancelAppointment })(Profile);

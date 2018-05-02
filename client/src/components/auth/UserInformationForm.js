@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { registerUser, resetError } from '../../actions/auth';
-import Header from '../Header';
-import SubmitButton from '../SubmitButton';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { registerUser, resetError } from "../../actions/auth";
+import Header from "../Header";
+import SubmitButton from "../SubmitButton";
+import styled from "styled-components";
 
 const FormElement = styled.div`
   height: 10vh;
@@ -46,24 +46,24 @@ const Register = styled.p`
 `;
 
 const ethnicities = [
-  'Arab',
-  'Asian - Bangladeshi',
-  'Asian - British',
-  'Asian - Chinese',
-  'Asian - Indian',
-  'Asian - Pakistani',
-  'Black - African',
-  'Black - British',
-  'Black - Caribbean',
-  'Mixed/Multiple - White and Asian',
-  'Mixed/Multiple - White and Black African',
-  'Mixed/Multiple - White and Black Caribbean',
-  'White - British',
-  'White - Irish',
-  'Traveller - Irish Traveller',
-  'Traveller - Romany/Gyspy',
-  'Prefer not to say',
-  'Other'
+  "Arab",
+  "Asian - Bangladeshi",
+  "Asian - British",
+  "Asian - Chinese",
+  "Asian - Indian",
+  "Asian - Pakistani",
+  "Black - African",
+  "Black - British",
+  "Black - Caribbean",
+  "Mixed/Multiple - White and Asian",
+  "Mixed/Multiple - White and Black African",
+  "Mixed/Multiple - White and Black Caribbean",
+  "White - British",
+  "White - Irish",
+  "Traveller - Irish Traveller",
+  "Traveller - Romany/Gyspy",
+  "Prefer not to say",
+  "Other"
 ];
 
 class UserInformationForm extends Component {
@@ -79,7 +79,7 @@ class UserInformationForm extends Component {
           appropriate support. By completing this form you are consenting to The
           Albert Kennedy Trust storing a record of your details and contacting
           you regarding related support. If you wish to withdraw your consent,
-          please contact:{' '}
+          please contact:{" "}
           <a href="mailto:onlinesupport@akt.org.uk">onlinesupport@akt.org.uk</a>
         </p>
         <Register>
@@ -130,9 +130,7 @@ class UserInformationForm extends Component {
   }
 
   renderField(field) {
-    const {
-      meta: { touched, error }
-    } = field;
+    const { meta: { touched, error } } = field;
     return (
       <FormElement>
         <Input
@@ -140,7 +138,7 @@ class UserInformationForm extends Component {
           type={field.type}
           placeholder={field.placeholder}
         />
-        <Error>{touched ? error : ''}</Error>
+        <Error>{touched ? error : ""}</Error>
       </FormElement>
     );
   }
@@ -168,17 +166,17 @@ const mapStateToProps = state => ({
 
 const validate = values => {
   const errors = {};
-  if (!values.dob) errors.dob = 'Enter your date of birth';
+  if (!values.dob) errors.dob = "Enter your date of birth";
   if (!values.ethnicity)
-    errors.ethnicity = 'Please choose an option in the list';
+    errors.ethnicity = "Please choose an option in the list";
   if (!values.sexuality)
-    errors.sexuality = 'Choose an option that you feel you relate to';
-  if (!values.gender) errors.gender = 'Choose any that apply';
+    errors.sexuality = "Choose an option that you feel you relate to";
+  if (!values.gender) errors.gender = "Choose any that apply";
 
   return errors;
 };
 
 export default reduxForm({
   validate,
-  form: 'UserInformationForm'
+  form: "UserInformationForm"
 })(connect(mapStateToProps, { registerUser, resetError })(UserInformationForm));

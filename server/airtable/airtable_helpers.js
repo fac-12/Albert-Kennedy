@@ -114,7 +114,7 @@ const insertAppointment = ({
   mentor_id,
   date_and_time,
   topics,
-  info,
+  info, 
   chat_string
 }) => {
   return adminBase('appointments')
@@ -123,7 +123,7 @@ const insertAppointment = ({
       mentor_id: [mentor_id],
       date_and_time: date_and_time,
       topics: topics,
-      chat_string: chat_string,
+      chat_string: chat_string, 
       info: info
     })
     .then(() => [mentor_id, user_id])
@@ -198,7 +198,7 @@ const addMentorDetailsToAppointments = async userApptObj => {
           appt.mentor_name = record.fields.name;
           appt.mentor_img_url = record.fields.img_url;
           return appt;
-        });
+        })
     })
   ).catch(console.log);
 };
@@ -215,13 +215,14 @@ const getApptRecordId = async chat_string => {
     .catch(console.log);
 };
 
+
 // deletes appointment specified by the id from the appointments table
 
 const deleteAppointment = id => {
   return adminBase('appointments')
-    .destroy(id)
-    .catch(console.log);
-};
+  .destroy(id)
+  .catch(console.log)
+}
 
 module.exports = {
   filterAvailabilities,
@@ -230,8 +231,8 @@ module.exports = {
   getUserAppointments,
   addMentorDetailsToAppointments,
   addAppointment,
-  getEmailDetails,
-  getApptRecordId,
-  deleteAppointment,
+  getEmailDetails, 
+  getApptRecordId, 
+  deleteAppointment, 
   getUserRecordId
 };

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { signinUser, resetError } from '../../actions/auth';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { signinUser, resetError } from "../../actions/auth";
+import styled from "styled-components";
 
 const Container = styled.div`
   position: absolute;
@@ -121,9 +121,7 @@ class SigninForm extends Component {
   }
 
   renderField(field) {
-    const {
-      meta: { touched, error }
-    } = field;
+    const { meta: { touched, error } } = field;
     return (
       <div>
         <Input
@@ -131,7 +129,7 @@ class SigninForm extends Component {
           type={field.type}
           placeholder={field.placeholder}
         />
-        <Error>{touched ? error : ''}</Error>
+        <Error>{touched ? error : ""}</Error>
       </div>
     );
   }
@@ -153,8 +151,8 @@ class SigninForm extends Component {
 
 const validate = values => {
   const errors = {};
-  if (!values.email) errors.email = 'Enter your email';
-  if (!values.password) errors.password = 'Enter your password';
+  if (!values.email) errors.email = "Enter your email";
+  if (!values.password) errors.password = "Enter your password";
   return errors;
 };
 
@@ -162,5 +160,5 @@ const mapStateToProps = state => ({ error: state.error });
 
 export default reduxForm({
   validate,
-  form: 'SigninForm'
+  form: "SigninForm"
 })(connect(mapStateToProps, { signinUser, resetError })(SigninForm));

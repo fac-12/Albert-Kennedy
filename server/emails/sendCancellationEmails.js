@@ -1,8 +1,6 @@
-const {
-  userEmailTemplate,
-  mentorEmailTemplate
-} = require('./cancellation_emails');
-const { transporterFunction } = require('./helpers');
+const { userEmailTemplate, mentorEmailTemplate } = require('./cancellation_emails')
+const { transporterFunction } = require('./helpers')
+
 
 const mentorCancellationEmail = appt => {
   const mentorEmail = {
@@ -25,6 +23,7 @@ const userCancellationEmail = appt => {
 
   transporterFunction(userEmail);
 };
+
 
 module.exports = {
   mentorCancellationEmail,

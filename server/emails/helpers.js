@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer')
 require('env2')('config.env');
 
 // checks if the date of the appointment is tomorrow
@@ -6,8 +6,8 @@ require('env2')('config.env');
 const isAppointmentTomorrow = date => {
   const currentDate = new Date();
   const tomorrowDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
-  const tomorrowDateString = tomorrowDate.toISOString().slice(0, 10);
-  const apptDateString = date.toISOString().slice(0, 10);
+  const tomorrowDateString = tomorrowDate.toISOString().slice(0,10);
+  const apptDateString = date.toISOString().slice(0,10);
 
   return apptDateString === tomorrowDateString;
 };
@@ -24,15 +24,15 @@ const transporter = nodemailer.createTransport({
 
 // defines function to send emails
 
-const transporterFunction = emailToSend => {
+const transporterFunction = (emailToSend) => {
   transporter.sendMail(emailToSend, function(error, info) {
-    if (error) {
-      throw error;
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
-};
+  if (error) {
+    throw error;
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
+}
 
 // defines function to format date
 
@@ -55,3 +55,6 @@ convertDate = date => {
 };
 
 module.exports = { isAppointmentTomorrow, transporterFunction, convertDate };
+
+
+

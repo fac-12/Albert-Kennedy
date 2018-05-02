@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 import {
   Container,
@@ -8,7 +8,7 @@ import {
   Subtitle,
   DesktopButton,
   H2
-} from '../styling/onboardingpages';
+} from "../styling/onboardingpages";
 
 export default class Landing extends Component {
   render() {

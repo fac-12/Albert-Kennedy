@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
-import { Router, Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { getUser } from '../actions/auth';
+import React, { Component } from "react";
+import { Router, Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { getUser } from "../actions/auth";
 
-import history from '../history';
-import TopicForm from './schedule/Topic';
-import MentorForm from './schedule/Mentor';
-import ScheduleForm from './schedule/Schedule';
-import Success from './schedule/Success';
-import AuthForm from './auth/AuthForm';
-import UserInformationForm from './auth/UserInformationForm';
-import SigninForm from './auth/Signin';
-import Profile from './profile/Profile';
-import Landing from './landing/Landing';
-import Age from './landing/Age';
-import LGBT from './landing/LGBT';
-import AgeRedirect from './redirects/AgeRedirect';
-import LGBTRedirect from './redirects/LGBTRedirect';
-import Crisis from './redirects/Crisis';
+import history from "../history";
+import TopicForm from "./schedule/Topic";
+import MentorForm from "./schedule/Mentor";
+import ScheduleForm from "./schedule/Schedule";
+import Success from "./schedule/Success";
+import AuthForm from "./auth/AuthForm";
+import UserInformationForm from "./auth/UserInformationForm";
+import SigninForm from "./auth/Signin";
+import Profile from "./profile/Profile";
+import Landing from "./landing/Landing";
+import Age from "./landing/Age";
+import LGBT from "./landing/LGBT";
+import AgeRedirect from "./redirects/AgeRedirect";
+import LGBTRedirect from "./redirects/LGBTRedirect";
+import Crisis from "./redirects/Crisis";
 
 class App extends Component {
   render() {
