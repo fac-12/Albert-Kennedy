@@ -1,11 +1,11 @@
-const { userEmailTemplate } = require('./forgot_password_email');
-const { transporterFunction } = require('./helpers');
+const { userEmailTemplate } = require("./update_password_email");
+const { transporterFunction } = require("./helpers");
 
 const userUpdatePasswordEmail = user => {
   const userEmail = {
-    from: 'hellointerakt@gmail.com',
+    from: "hellointerakt@gmail.com",
     to: `${user.email}`,
-    subject: 'AKT online mentoring appointment confirmed',
+    subject: "Reset your AKT password",
     html: userEmailTemplate(user)
   };
 

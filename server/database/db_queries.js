@@ -1,11 +1,6 @@
 const db = require("../database/db_connections");
 const r = require("ramda");
 
-const trace = label => x => {
-  console.log(label, x);
-  return x;
-};
-
 const getUser = email => {
   return new Promise((resolve, reject) => {
     db.query("SELECT * FROM users WHERE email = $1", [email]).then(users => {
@@ -42,19 +37,30 @@ const addToken = (email, token) => {
 };
 
 const getUserByToken = token => {
-  return new Promise ((resolve, reject) => {
-    db.query(`SELECT reset_password_expires, (EXTRACT(EPOCH FROM current_timestamp - reset_password_expires)/3600)::Integer AS "time_passed" FROM users WHERE reset_password_token = $1`, [token])
-      .then(timePassed => {
-        return resolve(timePassed)
+  return new Promise((resolve, reject) => {
+    db
+      .query(
+        `SELECT id, reset_password_expires, (EXTRACT(EPOCH FROM current_timestamp - reset_password_expires)/3600)::Integer AS "time_passed" FROM users WHERE reset_password_token = $1`,
+        [token]
+      )
+      .then(tokenExpiry => {
+        return resolve(tokenExpiry[0]);
       });
-    });
-}
+  });
+};
+
+const updatePassword = (token, hash) => {
+  db.query(
+    `UPDATE users SET (password, reset_password_token, reset_password_expires) = ($1, null, null) WHERE reset_password_token = $2`,
+    [hash, token]
+  );
+};
 
 module.exports = {
   getUser,
   addUser,
   getUserById,
-  addToken, 
-  getUserByToken
+  addToken,
+  getUserByToken,
+  updatePassword
 };
-

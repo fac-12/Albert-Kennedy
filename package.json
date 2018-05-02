@@ -42,6 +42,7 @@
     "pg-promise": "^7.4.1",
     "ramda": "^0.25.0",
     "redux-thunk": "^2.2.0",
+    "req-flash": "0.0.3",
     "request": "^2.83.0"
   },
   "devDependencies": {

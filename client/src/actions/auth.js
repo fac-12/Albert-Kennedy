@@ -147,34 +147,33 @@ export const getUser = () => {
   };
 };
 
-export const forgotPassword = (userEmail) => {
+export const forgotPassword = userEmail => {
   return dispatch => {
     axios
-    .post("/forgotpassword", userEmail)
-    .then(response => {
-      dispatch(displayError(response.data.message));
-    })
-    .catch(error => {
+      .post("/forgotpassword", userEmail)
+      .then(response => {
+        dispatch(displayError(response.data.message));
+      })
+      .catch(error => {
         dispatch(displayError(error.response.data.error));
-    });
-  }
-} 
+      });
+  };
+};
 
 export const resetPassword = newPasswordValues => {
-
-  const params = (new URL(document.location)).searchParams;
+  const params = new URL(document.location).searchParams;
   const token = params.get("token");
-  const updatePasswordValues = {...newPasswordValues, token}
+  const updatePasswordValues = { ...newPasswordValues, token };
 
   return dispatch => {
-    axios 
-    .post(window.location.href, updatePasswordValues)
-    .then(response => {
-      dispatch(displayError(response.data.message));
-    })
-    .catch(error => {
+    axios
+      .post(window.location.href, updatePasswordValues)
+      .then(response => {
+        dispatch(displayError(response.data.message));
+        history.push("/signin");
+      })
+      .catch(error => {
         dispatch(displayError(error.response.data.error));
-    });
-  }
-
-}
+      });
+  };
+};

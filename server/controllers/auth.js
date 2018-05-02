@@ -1,13 +1,17 @@
-const queries = require('../database/db_queries');
-const airtable = require('../airtable/airtable_helpers');
-const { hashPassword } = require('../services/bcrypt');
-const jwt = require('jwt-simple');
-const { generateToken } = require('./helpers');
+const queries = require("../database/db_queries");
+const airtable = require("../airtable/airtable_helpers");
+const { hashPassword } = require("../services/bcrypt");
+const jwt = require("jwt-simple");
+const { generateToken } = require("./helpers");
 const {
   userUpdatePasswordEmail
-} = require('../emails/sendUpdatePasswordEmails');
-const { EmailNotFoundError, TokenNotFoundError, TokenExpiredError } = require('./customErrors');
-const ExtendPromise = require('bluebird').resolve();
+} = require("../emails/sendUpdatePasswordEmails");
+const {
+  EmailNotFoundError,
+  TokenNotFoundError,
+  TokenExpiredError
+} = require("./customErrors");
+const ExtendPromise = require("bluebird").resolve();
 
 // const makeFancyPromise = promise => x => ExtendPromise.then(() => promise(x));
 const makeFancyPromise = function(promise) {
@@ -29,7 +33,7 @@ exports.signUp = (req, res) => {
   if (!name || !email || !password || !confirmPassword || !postcode) {
     return res
       .status(422)
-      .send({ error: 'You must provide a name, email, location and password' });
+      .send({ error: "You must provide a name, email, location and password" });
   } else if (password !== confirmPassword) {
     return res.status(422).send({ error: "Your passwords don't match!" });
   } else {
@@ -38,8 +42,8 @@ exports.signUp = (req, res) => {
       .then(user => {
         return new Promise((resolve, reject) => {
           if (user) {
-            res.status(422).send({ error: 'Email is in use. Please log in.' });
-            reject('Email is in use. Please log in');
+            res.status(422).send({ error: "Email is in use. Please log in." });
+            reject("Email is in use. Please log in");
           } else resolve(hashPassword(password));
         });
       })
@@ -64,85 +68,91 @@ exports.getUser = (req, res) => {
   res.send(req.user);
 };
 
-const trace = label => x => {
-  console.log(label, x);
-  return x;
-};
-
 exports.forgotPassword = (req, res) => {
   const { email } = req.body;
   const getUser = makeFancyPromise(queries.getUser);
 
   getUser(email)
-    .catch(() => { 
-      throw new EmailNotFoundError() 
+    .catch(() => {
+      throw new EmailNotFoundError();
     })
     .then(generateToken)
     .then(token => {
       return queries.addToken(email, token);
     })
     .then(user => {
-      console.log("user", user)
       const emailObject = {
         name: user.name,
         email: user.email,
         passwordLink:
-          'http://localhost:3000/resetpassword?token=' +
+          "http://localhost:3000/resetpassword?token=" +
           user.reset_password_token
       };
 
       userUpdatePasswordEmail(emailObject);
-      res.send({ message: 'An email has been sent with instructions on changing your password.' });
+      res.send({
+        message:
+          "An email has been sent with instructions on changing your password."
+      });
     })
     .catch(EmailNotFoundError, () => {
-      return res
-        .status(404)
-        .send({ error: "We don't have a user with this email, please sign up!" });
+      return res.status(404).send({
+        error: "We don't have a user with this email, please sign up!"
+      });
     })
     .catch(err => {
       return res
         .status(422)
-        .send({ error: 'Sorry, there was a problem sending your email!' });
+        .send({ error: "Sorry, there was a problem sending your email!" });
     })
     .catch(err => {
       return res
         .status(422)
-        .send({ error: 'Sorry, there was a problem on our end!' });
-    })
+        .send({ error: "Sorry, there was a problem on our end!" });
+    });
 };
-
 
 exports.resetPassword = (req, res) => {
   const { newPassword, confirmPassword, token } = req.body;
+  const getUserByToken = makeFancyPromise(queries.getUserByToken);
 
-  console.log("apsswords", newPassword, confirmPassword, token)
-
-  const getUserByToken = makeFancyPromise(queries.getUserByToken)
- 
-  getUserByToken(token)
-    .catch(() => { 
-      throw new TokenNotFoundError() 
-    })
-    .then(timePassed => {
-      console.log("timePassed", timePassed)
-      if (timePassed.time_passed >= 24) throw new TokenExpiredError()
-    })
-    // .then(user => {
-    //  res.send({ message: 'An email has been sent with instructions on changing your password.' });
-    // })
-    .catch(TokenNotFoundError, () => {
-      return res
-        .status(404)
-        .send({ error: "We don't have a user with this email, please sign up!" });
-    })
-    .catch(TokenExpiredError, () => {
-      return res
-        .status(404)
-        .send({ error: "Your token has expired, please try again" });
-    })
-    .catch(err => {
-      return res
-        .status(422)
-        .send({ error: 'Sorry, there was a problem on our end!' });
-    });
-}
+  if (!newPassword || !confirmPassword) {
+    return res
+      .status(422)
+      .send({ error: "You must provide a new password and confirm it" });
+  } else if (newPassword !== confirmPassword) {
+    return res.status(422).send({ error: "Your passwords don't match!" });
+  } else {
+    getUserByToken(token)
+      .catch(() => {
+        throw new TokenNotFoundError();
+      })
+      .then(tokenExpiry => {
+        if (tokenExpiry.time_passed >= 24) throw new TokenExpiredError();
+      })
+      .then(async () => await hashPassword(newPassword))
+      .then(hash => {
+        return queries.updatePassword(token, hash);
+      })
+      .then(() => {
+        return res.send({
+          message: "Your password has been updated, please sign in! "
+        });
+      })
+      .catch(TokenNotFoundError, () => {
+        return res.status(404).send({
+          error: "We don't have a user with this email, please sign up!"
+        });
+      })
+      .catch(TokenExpiredError, () => {
+        return res
+          .status(404)
+          .send({ error: "Your token has expired, please try again" });
+      })
+      .catch(err => {
+        return res
+          .status(422)
+          .send({ error: "Sorry, there was a problem on our end!" });
+      });
+  }
+};
