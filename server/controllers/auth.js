@@ -1,7 +1,7 @@
-const queries = require('../database/db_queries');
-const airtable = require('../airtable/airtable_helpers');
-const { hashPassword } = require('../services/bcrypt');
-const jwt = require('jwt-simple');
+const queries = require("../database/db_queries");
+const airtable = require("../airtable/airtable_helpers");
+const { hashPassword } = require("../services/bcrypt");
+const jwt = require("jwt-simple");
 
 const userToken = id => {
   const timestamp = new Date().getTime();
@@ -14,7 +14,7 @@ exports.signUp = (req, res) => {
   if (!name || !email || !password || !confirmPassword || !postcode) {
     return res
       .status(422)
-      .send({ error: 'You must provide a name, email, location and password' });
+      .send({ error: "You must provide a name, email, postcode and password" });
   } else if (password !== confirmPassword) {
     return res.status(422).send({ error: "Your passwords don't match!" });
   } else {
@@ -23,8 +23,8 @@ exports.signUp = (req, res) => {
       .then(user => {
         return new Promise((resolve, reject) => {
           if (user) {
-            res.status(422).send({ error: 'Email is in use. Please log in.' });
-            reject('Email is in use. Please log in');
+            res.status(422).send({ error: "Email is in use. Please log in." });
+            reject("Email is in use. Please log in");
           } else resolve(hashPassword(password));
         });
       })
