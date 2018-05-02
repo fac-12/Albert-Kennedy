@@ -130,8 +130,14 @@ class AuthForm extends Component {
 
 const checkPassword = string => {
   let regex = new RegExp("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$");
-  console.log("in regex func");
-  console.log(regex.test(string), string);
+
+  return regex.test(string);
+};
+
+const checkPostcode = string => {
+  let regex = new RegExp(
+    "([Gg][Ii][Rr]0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]))))s?[0-9][A-Za-z]{2}$)"
+  );
   return regex.test(string);
 };
 
@@ -144,7 +150,9 @@ const validate = values => {
   const errors = {};
   if (!values.name) errors.name = "Enter your name";
   if (!values.email) errors.email = "Enter an email";
-  if (!values.postcode) errors.postcode = "Enter a valid postcode";
+  if (!checkPostcode(values.postcode)) {
+    errors.postcode = "Enter a valid postcode";
+  }
   if (!values.password) errors.password = "Enter your password";
   if (!checkPassword(values.password)) {
     errors.password =
