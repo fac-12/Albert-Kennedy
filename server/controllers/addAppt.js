@@ -34,24 +34,27 @@ exports.addAppt = (req, res) => {
         content: newApptObj.info
       };
       mentorConfirmationEmail(
-        mentorDetails[0],
-        userDetails[1],
-        newApptObj.date_and_time,
-        newApptObj.chat_string,
-        newApptObj.topics,
-        info
+     {  emailAddress: mentorDetails[0],
+        userName: userDetails[1],
+        date: newApptObj.date_and_time,
+        chatString: newApptObj.chat_string,
+        topics: newApptObj.topics,
+        info: info
+      }
       );
       userConfirmationEmail(
-        userDetails[0],
-        userDetails[1],
-        newApptObj.mentor,
-        newApptObj.date_and_time,
-        newApptObj.chat_string
+      { emailAddress: userDetails[0],
+        userName: userDetails[1],
+        mentorName: newApptObj.mentor,
+        date: newApptObj.date_and_time,
+        chat_string: newApptObj.chat_string
+      }
       );
       aktConfirmationEmail(
-        userDetails[1],
-        newApptObj.mentor,
-        newApptObj.date_and_time
+      { userName: userDetails[1],
+        mentorName: newApptObj.mentor,
+        date: newApptObj.date_and_time
+      }
       );
       return;
     })
