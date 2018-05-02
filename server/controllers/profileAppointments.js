@@ -16,8 +16,6 @@ exports.cancelAppointment = (req, res) => {
   const { headers, appt } = req.body;
   const userId = jwt.decode(headers.authorization, process.env.SECRET).sub;
 
-  console.log("appt", appt, userId)
-
   airtable
     .getApptRecordId(appt.chat_string)
     .then(async id => {
@@ -28,9 +26,6 @@ exports.cancelAppointment = (req, res) => {
       return await airtable.getEmailDetails([ appt.mentor_id[0], userRecordId ])
     })
     .then(([mentorDetails, userDetails]) => {
-
-        console.log("mentor details", mentorDetails)
-        console.log("user details", userDetails)
 
         mentorCancellationEmail(
           { emailAddress: mentorDetails[0],

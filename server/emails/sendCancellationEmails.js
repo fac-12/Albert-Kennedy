@@ -6,7 +6,7 @@ const mentorCancellationEmail = appt => {
   const mentorEmail = {
     from: 'hellointerakt@gmail.com',
     to: `${appt.emailAddress}`,
-    subject: 'New AKT online mentoring appointment',
+    subject: 'Cancelled AKT online mentoring appointment',
     html: mentorEmailTemplate(appt)
   };
 
@@ -17,7 +17,7 @@ const userCancellationEmail = appt => {
   const userEmail = {
     from: 'hellointerakt@gmail.com',
     to: `${appt.emailAddress}`,
-    subject: 'AKT online mentoring appointment confirmed',
+    subject: 'Cancelled AKT online mentoring appointment',
     html: userEmailTemplate(appt)
   };
 

@@ -25,7 +25,6 @@ const transporter = nodemailer.createTransport({
 // defines function to send emails
 
 const transporterFunction = (emailToSend) => {
-  console.log("in transporter")
   transporter.sendMail(emailToSend, function(error, info) {
   if (error) {
     throw error;
@@ -57,5 +56,5 @@ convertDate = date => {
 
 module.exports = { isAppointmentTomorrow, transporterFunction, convertDate };
 
-// sets transporter function
+
 
