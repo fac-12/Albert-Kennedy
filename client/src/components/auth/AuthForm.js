@@ -128,6 +128,19 @@ class AuthForm extends Component {
   }
 }
 
+const checkPassword = string => {
+  let regex = new RegExp("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$");
+
+  return regex.test(string);
+};
+
+const checkPostcode = string => {
+  let regex = new RegExp(
+    "([Gg][Ii][Rr]0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]))))s?[0-9][A-Za-z]{2}$)"
+  );
+  return regex.test(string);
+};
+
 const mapStateToProps = state => ({
   error: state.error,
   newApt: state.newApt
@@ -138,9 +151,15 @@ const validate = values => {
   if (!values.name) errors.name = "Enter your name";
   if (!values.email) errors.email = "Enter an email";
   if (!values.postcode) errors.postcode = "Enter a postcode";
+  if (!checkPostcode(values.postcode))
+    errors.postcode = "That's not a valid postcode";
   if (!values.password) errors.password = "Enter your password";
+  if (!checkPassword(values.password)) {
+    errors.password =
+      "Include one uppercase letter, one number and a minimum of 6 characters.";
+  }
   if (values.password !== values.confirmPassword)
-    errors.confirmPassword = "Passwords do not match";
+    errors.confirmPassword = "Oops! These passwords don't match.";
   if (!values.confirmPassword)
     errors.confirmPassword = "Enter your password again";
   return errors;
