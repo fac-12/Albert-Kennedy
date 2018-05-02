@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { resetError } from "../../actions/auth";
 import styled from "styled-components";
-import { resetPassword } from "../../actions/auth";
+import { forgotPassword } from "../../actions/auth";
 
 const Container = styled.div`
   position: absolute;
@@ -49,7 +49,7 @@ const Input = styled.input`
 const Error = styled.p`
   margin: 0;
   width: 90vw;
-  color: white;
+  line-height: 5vh;
   height: 5vh;
   font-size: 0.75em;
   text-align: left;
@@ -90,7 +90,7 @@ const Header = styled.h1`
 
 
 
-class ResetPasswordForm extends Component {
+class ForgotPasswordForm extends Component {
     render() {
       const { handleSubmit } = this.props;
       return (
@@ -98,23 +98,15 @@ class ResetPasswordForm extends Component {
           <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
             <Header>inter-AKT</Header>
             <Field
-              name="newPassword"
-              type="password"
-              label="New password:"
-              placeholder="Enter a new password"
-              component={this.renderField}
-            />
-
-            <Field
-              name="confirmPassword"
-              type="password"
-              label="Confirm your password:"
-              placeholder="Confirm your password"
+              name="email"
+              type="email"
+              label="Email"
+              placeholder="Email"
               component={this.renderField}
             />
             <p>{this.renderAlert()}</p>
   
-            <Button type="submit">Reset</Button>
+            <Button type="submit">reset</Button>
   
             <Register>
               New to inter-AKT? <Link to="/">Start here</Link>
@@ -145,7 +137,7 @@ class ResetPasswordForm extends Component {
     }
   
     handleFormSubmit(values) {
-      this.props.resetPassword(values);
+      this.props.forgotPassword(values);
     }
   
     componentDidMount() {
@@ -153,33 +145,12 @@ class ResetPasswordForm extends Component {
     }
   }
 
-  const checkPassword = string => {
-    let regex = new RegExp("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$");
-    return regex.test(string);
-  };
-  
-  const validate = values => {
-    const errors = {};
-    if (!values.newPassword) errors.newPassword = "Enter your password";
-    if (!checkPassword(values.newPassword)) {
-      errors.newPassword =
-        "Include one uppercase letter, one number and a minimum of 6 characters.";
-    }
-    if (values.newPassword !== values.confirmPassword)
-      errors.confirmPassword = "Oops! These passwords don't match.";
-    if (!values.confirmPassword)
-      errors.confirmPassword = "Enter your password again";
-    return errors;
-  };
-
   const mapStateToProps = state => ({
     error: state.error
   });
   
 
   export default reduxForm({
-    validate,
-    form: "ResetPasswordForm"
-  })(connect(mapStateToProps, { resetPassword, resetError })(ResetPasswordForm));
+    form: "ForgotPasswordForm"
+  })(connect(mapStateToProps, { forgotPassword, resetError })(ForgotPasswordForm));
   
-

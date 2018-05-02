@@ -6,7 +6,7 @@ const { generateToken } = require('./helpers');
 const {
   userUpdatePasswordEmail
 } = require('../emails/sendUpdatePasswordEmails');
-const { EmailNotFoundError } = require('./customErrors');
+const { EmailNotFoundError, TokenNotFoundError, TokenExpiredError } = require('./customErrors');
 const ExtendPromise = require('bluebird').resolve();
 
 // const makeFancyPromise = promise => x => ExtendPromise.then(() => promise(x));
@@ -72,16 +72,17 @@ const trace = label => x => {
 exports.forgotPassword = (req, res) => {
   const { email } = req.body;
   const getUser = makeFancyPromise(queries.getUser);
-  console.log('getUser', getUser);
 
   getUser(email)
-    .catch(() => Promise.reject(new EmailNotFoundError()))
+    .catch(() => { 
+      throw new EmailNotFoundError() 
+    })
     .then(generateToken)
     .then(token => {
-      const token_expires = Date.now() + 24 * 60 * 60 * 1000;
-      return queries.addToken(email, token, token_expires);
+      return queries.addToken(email, token);
     })
     .then(user => {
+      console.log("user", user)
       const emailObject = {
         name: user.name,
         email: user.email,
@@ -91,16 +92,57 @@ exports.forgotPassword = (req, res) => {
       };
 
       userUpdatePasswordEmail(emailObject);
-      res.send({ message: 'An email has been sent with instructions' });
+      res.send({ message: 'An email has been sent with instructions on changing your password.' });
     })
     .catch(EmailNotFoundError, () => {
       return res
         .status(404)
-        .send({ err: "This email address doesn't exist in the database" });
+        .send({ error: "We don't have a user with this email, please sign up!" });
     })
     .catch(err => {
       return res
         .status(422)
-        .send({ err: 'Sorry, there was a problem on our end!' });
-    });
+        .send({ error: 'Sorry, there was a problem sending your email!' });
+    })
+    .catch(err => {
+      return res
+        .status(422)
+        .send({ error: 'Sorry, there was a problem on our end!' });
+    })
 };
+
+
+exports.resetPassword = (req, res) => {
+  const { newPassword, confirmPassword, token } = req.body;
+
+  console.log("apsswords", newPassword, confirmPassword, token)
+
+  const getUserByToken = makeFancyPromise(queries.getUserByToken)
+ 
+  getUserByToken(token)
+    .catch(() => { 
+      throw new TokenNotFoundError() 
+    })
+    .then(timePassed => {
+      console.log("timePassed", timePassed)
+      if (timePassed.time_passed >= 24) throw new TokenExpiredError()
+    })
+    // .then(user => {
+    //  res.send({ message: 'An email has been sent with instructions on changing your password.' });
+    // })
+    .catch(TokenNotFoundError, () => {
+      return res
+        .status(404)
+        .send({ error: "We don't have a user with this email, please sign up!" });
+    })
+    .catch(TokenExpiredError, () => {
+      return res
+        .status(404)
+        .send({ error: "Your token has expired, please try again" });
+    })
+    .catch(err => {
+      return res
+        .status(422)
+        .send({ error: 'Sorry, there was a problem on our end!' });
+    });
+}

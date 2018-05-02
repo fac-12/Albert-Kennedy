@@ -1,3 +1,7 @@
 class EmailNotFoundError extends Error {}
 
-module.exports = { EmailNotFoundError };
+class TokenNotFoundError extends Error {}
+
+class TokenExpiredError extends Error {}
+
+module.exports = { EmailNotFoundError, TokenNotFoundError, TokenExpiredError };

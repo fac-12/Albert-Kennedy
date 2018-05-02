@@ -30,20 +30,31 @@ const getUserById = id => {
     .then(user => user[0]);
 };
 
-const addToken = (email, token, token_expires) => {
+const addToken = (email, token) => {
   return db
     .query(
-      `UPDATE users SET (reset_password_token, reset_password_expires) = ($1, to_timestamp($2)) WHERE email = $3 RETURNING NAME, EMAIL, RESET_PASSWORD_TOKEN`,
-      [token, token_expires, email]
+      `UPDATE users SET (reset_password_token, reset_password_expires) = ($1, current_timestamp) WHERE email = $2 RETURNING NAME, EMAIL, RESET_PASSWORD_TOKEN`,
+      [token, email]
     )
     .then(user => {
       return user[0];
     });
 };
 
+const getUserByToken = token => {
+  return new Promise ((resolve, reject) => {
+    db.query(`SELECT reset_password_expires, (EXTRACT(EPOCH FROM current_timestamp - reset_password_expires)/3600)::Integer AS "time_passed" FROM users WHERE reset_password_token = $1`, [token])
+      .then(timePassed => {
+        return resolve(timePassed)
+      });
+    });
+}
+
 module.exports = {
   getUser,
   addUser,
   getUserById,
-  addToken
+  addToken, 
+  getUserByToken
 };
+
