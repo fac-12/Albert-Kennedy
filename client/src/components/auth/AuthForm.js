@@ -150,9 +150,9 @@ const validate = values => {
   const errors = {};
   if (!values.name) errors.name = "Enter your name";
   if (!values.email) errors.email = "Enter an email";
-  if (!checkPostcode(values.postcode)) {
-    errors.postcode = "Enter a valid postcode";
-  }
+  if (!values.postcode) errors.postcode = "Enter a postcode";
+  if (!checkPostcode(values.postcode))
+    errors.postcode = "That's not a valid postcode";
   if (!values.password) errors.password = "Enter your password";
   if (!checkPassword(values.password)) {
     errors.password =
