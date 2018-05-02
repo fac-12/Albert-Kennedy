@@ -98,14 +98,12 @@ const getMentorRecordId = async mentor => {
 // gets airtable record id for user by database id
 
 const getUserRecordId = async user_id => {
-  console.log("in getUserRecordId", user_id)
   return await adminBase('users')
     .select({
       filterByFormula: `{id} = \"${user_id}\"`
     })
     .all()
     .then(([record]) => record.id)
-    .then(x => trace("user record id ", x))
     .catch(console.log);
 };
 
@@ -150,12 +148,10 @@ const addAppointment = newApptObj => {
 // get user and mentor emails
 
 const getEmailDetails = async ([mentorId, userId]) => {
-  console.log("in get email details", mentorId, userId)
   const getDetails = (table, id) => {
     return adminBase(table)
       .find(id)
       .then(record => [record.fields.email, record.fields.name])
-      .then(x => trace("record details", x))
       .catch(console.log);
   };
 
@@ -227,13 +223,6 @@ const deleteAppointment = id => {
   .destroy(id)
   .catch(console.log)
 }
-
-const trace = (message, x) => {
-  console.log(message, x);
-  return x;
-}
-
-
 
 module.exports = {
   filterAvailabilities,

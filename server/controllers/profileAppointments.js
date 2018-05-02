@@ -41,7 +41,7 @@ exports.cancelAppointment = (req, res) => {
         userCancellationEmail(
           { emailAddress: userDetails[0],
             userName: userDetails[1],
-            mentorName: appt.mentor,
+            mentorName: appt.mentor_name,
             date: appt.date_and_time 
           }
           );

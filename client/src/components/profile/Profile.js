@@ -108,7 +108,7 @@ class Profile extends Component {
   }
 
   handleClick = apt => {
-    apt.date_and_time = this.props.convertDates(apt.date_and_time)
+    console.log("apt", apt)
     this.props.cancelAppointment(apt);
   };
 
