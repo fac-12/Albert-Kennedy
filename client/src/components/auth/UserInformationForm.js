@@ -154,7 +154,6 @@ class UserInformationForm extends Component {
   }
 
   handleFormSubmit(values) {
-    console.log("values", values);
     this.props.registerUser(values, this.props.newApt);
   }
 }
