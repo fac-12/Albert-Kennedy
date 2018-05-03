@@ -161,6 +161,26 @@ const getEmailDetails = async ([mentorId, userId]) => {
   ]).catch(console.log);
 };
 
+// const getUserRecordId = async user_id => {
+//   return await adminBase("users")
+//     .select({
+//       filterByFormula: `{id} = \"${user_id}\"`
+//     })
+//     .all()
+//     .then(([record]) => record.id)
+//     .catch(console.log);
+// };
+
+const getExtraUserInformation = userId => {
+  console.log("in get extra info", userId);
+  return adminBase("users")
+    .select({
+      filterByFormula: `{id} = \"${userId}\"`
+    })
+    .all()
+    .then(([record]) => record.fields)
+    .catch(console.log);
+};
 // add user (database id/name/email) to adminBase
 
 const addUser = user => {
@@ -172,7 +192,8 @@ const addUser = user => {
       dob: user.dob,
       ethnicity: user.ethnicity,
       gender: user.gender,
-      sexuality: user.sexuality
+      sexuality: user.sexuality,
+      postcode: user.postcode
     })
     .then(() => user.id)
     .catch(console.log);
@@ -214,5 +235,6 @@ module.exports = {
   getUserAppointments,
   addMentorDetailsToAppointments,
   addAppointment,
-  getEmailDetails
+  getEmailDetails,
+  getExtraUserInformation
 };
