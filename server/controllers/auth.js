@@ -137,7 +137,7 @@ exports.resetPassword = (req, res) => {
       .then(tokenExpiry => {
         if (tokenExpiry.time_passed >= 24) throw new TokenExpiredError();
       })
-      .then(async () => await hashPassword(newPassword))
+      .then(() => hashPassword(newPassword))
       .then(hash => {
         return queries.updatePassword(token, hash);
       })
