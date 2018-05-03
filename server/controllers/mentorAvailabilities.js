@@ -1,4 +1,4 @@
-const airtable = require('../airtable/airtable_helpers');
+const airtable = require("../airtable/airtable_helpers");
 
 exports.getMentors = (req, res) => {
   airtable
@@ -6,6 +6,7 @@ exports.getMentors = (req, res) => {
     .then(mentors => {
       res.send(JSON.stringify(mentors));
     })
+    .then(airtable.updateAdminMentors)
     .catch(console.log);
 };
 
@@ -15,7 +16,7 @@ exports.getAvailabilities = (req, res) => {
     .filterAvailabilities(mentor)
     .then(availabilityObj => {
       if (availabilityObj === []) {
-        return res.send('none');
+        return res.send("none");
       } else {
         res.send(JSON.stringify(availabilityObj));
       }
