@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import LinkButton from "../LinkButton";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   font-size: 1rem;
@@ -37,7 +38,7 @@ const LogIn = styled.p`
   margin: 0.5rem;
 `;
 
-const StyledLink = styled.a`
+const StyledLink = styled(Link)`
   color: #0000ee;
   text-decoration: underline;
 `;

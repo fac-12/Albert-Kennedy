@@ -38,6 +38,9 @@ const Text = styled.p`
 
 const Wrapper = styled.div`
   min-height: 30vh;
+  @media (min-width: 546px) {
+    min-height: 20vh;
+  }
   width: 100vw;
 `;
 
