@@ -60,14 +60,14 @@ class SigninForm extends Component {
   renderField(field) {
     const { meta: { touched, error } } = field;
     return (
-      <div>
+      <FormElement>
         <Input
           {...field.input}
           type={field.type}
           placeholder={field.placeholder}
         />
         <Error>{touched ? error : ""}</Error>
-      </div>
+      </FormElement>
     );
   }
 

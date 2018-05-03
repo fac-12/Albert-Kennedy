@@ -26,15 +26,13 @@ const Card = styled.div`
   height: 20rem;
   width: 18rem;
   @media (min-width: 546px) {
-    padding: 2rem 4rem;
-    margin: 1.5rem;
+    width: 28rem;
+    height: 30rem;
   }
 `;
 
 const LogIn = styled.p`
-  font-size: 1rem;
-  bottom: 3vh;
-  margin: 0.5rem;
+  margin-top: 1rem;
 `;
 
 const StyledLink = styled.a`
@@ -63,15 +61,19 @@ const DesktopButton = styled(LinkButton)`
 const H2 = styled.h2`
   color: #7c53a2;
   margin-top: 1rem;
+  @media (min-width: 768px) {
+    font-size: 2rem;
+  }
 `;
 
 const Input = styled.input`
-  height: 5vh;
   box-shadow: none;
   border-top: none;
   border-left: none;
   border-right: none;
+  margin-top: 1rem;
   font-size: 1rem;
+  width: 100%;
   ::placeholder {
     color: black;
     font-size: 1rem;
@@ -84,21 +86,19 @@ const Input = styled.input`
 `;
 
 const FormElement = styled.div`
-  height: 10vh;
-  padding: 0 10vw 0 10vw;
+  width: 80%;
+  @media (min-width: 768px) {
+  }
 `;
 
 const Error = styled.p`
   margin: 0;
   color: #fb8b24;
-  line-height: 5vh;
   font-size: 0.75em;
 `;
 
 const Register = styled.p`
-  text-align: center;
-  margin: 1.5rem;
-  position: bottom;
+  margin-top: 1rem;
 `;
 
 const Header = styled.h1`
@@ -114,6 +114,10 @@ const Button = styled.button`
   width: 90%;
   height: 60px;
   font-size: 16px;
+  margin-top: 2rem;
+  @media (min-width: 768px) {
+    width: 90%;
+  }
 `;
 
 const Form = styled.form`

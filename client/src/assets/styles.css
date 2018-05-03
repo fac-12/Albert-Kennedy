@@ -2,7 +2,6 @@
   font-family: "Quicksand", sans-serif;
   box-sizing: border-box;
   margin: 0;
-  color: #333333;
 }
 
 .root {
@@ -25,6 +24,7 @@
   height: fit-content;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   align-items: space-between;
 }
