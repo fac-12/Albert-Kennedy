@@ -53,9 +53,9 @@ class SigninForm extends Component {
               New to inter-AKT? <Link to="/">Start here</Link>
             </Register>
 
-            <p>
+            <Register>
               Forgot your password? <Link to="/forgotpassword">Reset here</Link>
-            </p>
+            </Register>
           </Card>
         </Form>
       </Container>
@@ -63,9 +63,7 @@ class SigninForm extends Component {
   }
 
   renderField(field) {
-    const {
-      meta: { touched, error }
-    } = field;
+    const { meta: { touched, error } } = field;
     return (
       <FormElement>
         <Input

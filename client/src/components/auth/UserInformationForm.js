@@ -19,7 +19,8 @@ import {
   Input,
   FormElement,
   Error,
-  Register
+  Register,
+  Form
 } from "../styling/components";
 
 const ethnicities = [
@@ -73,7 +74,7 @@ class UserInformationForm extends Component {
           Returning user? <Link to="/signin">Log in</Link>
         </Register>
 
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+        <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <Field
             name="dob"
             type="date"
@@ -109,15 +110,13 @@ class UserInformationForm extends Component {
           />
           <p>{this.renderAlert()}</p>
           <SubmitButton text="next" />
-        </form>
+        </Form>
       </div>
     );
   }
 
   renderField(field) {
-    const {
-      meta: { touched, error }
-    } = field;
+    const { meta: { touched, error } } = field;
     return (
       <FormElement>
         <Input

@@ -8,6 +8,8 @@ import styled from "styled-components";
 const TextWrapper = styled.div`
   width: 88%;
   margin: auto;
+  text-align: center;
+  justify-content: center;
 `;
 
 const Button = styled(LinkButton)`
@@ -22,7 +24,7 @@ class Success extends Component {
       return <div />;
     } else {
       return (
-        <div>
+        <div className="container__div">
           <Header heading="Success!" />
           <TextWrapper>
             <p>
@@ -35,8 +37,8 @@ class Success extends Component {
               Or, log back in at the given time to join the chat from your
               profile page.
             </p>
+            <Button text="done" url="/profile" />
           </TextWrapper>
-          <Button text="done" url="/profile" />
         </div>
       );
     }

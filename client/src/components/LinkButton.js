@@ -11,6 +11,9 @@ const Button = styled.button`
   height: 60px;
   font-size: 16px;
   bottom: ${props => (props.primary ? "15vh" : "3vh")};
+  @media (min-width: 768px) {
+    width: 40%;
+  }
 `;
 
 const LinkButton = props => {
