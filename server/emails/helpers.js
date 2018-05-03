@@ -34,7 +34,27 @@ const transporterFunction = (emailToSend) => {
 });
 }
 
-module.exports = { isAppointmentTomorrow, transporterFunction };
+// defines function to format date
 
-// sets transporter function
+convertDate = date => {
+  const dateOptions = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  };
+  const timeOptions = {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true
+  };
+  const dateObj = new Date(date);
+  const dateStr = dateObj.toLocaleString('en-gb', dateOptions);
+  const timeStr = dateObj.toLocaleString('en-gb', timeOptions);
+  return [dateStr, timeStr];
+};
+
+module.exports = { isAppointmentTomorrow, transporterFunction, convertDate };
+
+
 
