@@ -153,7 +153,6 @@ class Profile extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("state", state.userApts.apts);
   return {
     apts: state.userApts.apts
   };

@@ -1,7 +1,6 @@
 import { USER_APTS, CLEAR_PROFILE_STATE } from "../actions/types";
 
 export default (state = {}, action) => {
-  console.log("here", action.type);
   switch (action.type) {
     case CLEAR_PROFILE_STATE:
       return { ...state, apts: null };
