@@ -161,16 +161,6 @@ const getEmailDetails = async ([mentorId, userId]) => {
   ]).catch(console.log);
 };
 
-// const getUserRecordId = async user_id => {
-//   return await adminBase("users")
-//     .select({
-//       filterByFormula: `{id} = \"${user_id}\"`
-//     })
-//     .all()
-//     .then(([record]) => record.id)
-//     .catch(console.log);
-// };
-
 const getExtraUserInformation = userId => {
   console.log("in get extra info", userId);
   return adminBase("users")
