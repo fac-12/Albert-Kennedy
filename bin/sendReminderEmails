@@ -107,7 +107,7 @@ const sendMentorAndUserEmails = () => {
     const userEmail = {
       from: "hellointerakt@gmail.com",
       to: `${appt.user_email}`,
-      subject: "Reminder: AKT online mentoring appointment",
+      subject: "Reminder: Upcoming AKT online mentoring appointment",
       html: userEmailTemplate(appt)
     };
 

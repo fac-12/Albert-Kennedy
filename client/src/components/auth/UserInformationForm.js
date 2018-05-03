@@ -98,7 +98,7 @@ class UserInformationForm extends Component {
             <label>Ethnicity</label>
             <div>
               <Field name="ethnicity" component="select">
-                <option value="">Select one that applies...</option>
+                <option value="">Please choose one that applies to you</option>
                 {ethnicities.map(ethnicityOption => (
                   <option value={ethnicityOption} key={ethnicityOption}>
                     {ethnicityOption}

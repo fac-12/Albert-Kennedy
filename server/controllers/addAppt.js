@@ -30,26 +30,35 @@ exports.addAppt = (req, res) => {
     .addAppointment(newApptObj)
     .then(airtable.getEmailDetails)
     .then(([mentorDetails, userDetails]) => {
+      return airtable.getExtraUserInformation(userId).then(userInfo => {
+        return [mentorDetails, userInfo];
+      });
+    })
+    .then(([mentorDetails, userDetails]) => {
       const info = {
         content: newApptObj.info
       };
       mentorConfirmationEmail({
         emailAddress: mentorDetails[0],
-        userName: userDetails[1],
+        userName: userDetails.name,
         date: newApptObj.date_and_time,
         chatString: newApptObj.chat_string,
         topics: newApptObj.topics,
-        info: info
+        info: info,
+        postcode: userDetails.postcode,
+        sexuality: userDetails.sexuality,
+        gender: userDetails.gender,
+        dob: userDetails.dob
       });
       userConfirmationEmail({
-        emailAddress: userDetails[0],
-        userName: userDetails[1],
+        emailAddress: userDetails.email,
+        userName: userDetails.name,
         mentorName: newApptObj.mentor,
         date: newApptObj.date_and_time,
-        chat_string: newApptObj.chat_string
+        chatString: newApptObj.chat_string
       });
       aktConfirmationEmail({
-        userName: userDetails[1],
+        userName: userDetails.name,
         mentorName: newApptObj.mentor,
         date: newApptObj.date_and_time
       });
