@@ -8,7 +8,6 @@ import SubmitButton from "../SubmitButton";
 import styled from "styled-components";
 
 import {
-  Container,
   Card,
   LogIn,
   StyledLink,
@@ -27,7 +26,7 @@ class AuthForm extends Component {
     const { handleSubmit } = this.props;
     const text = `Your contact details will be kept private and will not be shared with your mentor.`;
     return (
-      <div className="container_div">
+      <div className="container__div">
         <Header heading="Please fill in your details" text={text} />
         <Register>
           Returning user? <Link to="/signin">Log in</Link>
@@ -77,9 +76,7 @@ class AuthForm extends Component {
   }
 
   renderField(field) {
-    const {
-      meta: { touched, error }
-    } = field;
+    const { meta: { touched, error } } = field;
     return (
       <FormElement>
         <Input

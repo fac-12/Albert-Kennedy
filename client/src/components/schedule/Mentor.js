@@ -9,8 +9,7 @@ import SubmitButton from "../SubmitButton";
 import styled from "styled-components";
 
 const Card = styled.label`
-  width: 340px;
-  height: 140px;
+  height: 8rem;
   border-radius: 10px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
   margin: 15px;
@@ -29,7 +28,6 @@ const Input = styled.input`
 `;
 
 const Label = styled.div`
-  width: 190px;
   margin: 0 0 10px 0;
   font-weight: bold;
 `;
@@ -103,9 +101,7 @@ class MentorForm extends Component {
     );
   }
   renderError(field) {
-    const {
-      meta: { error, submitFailed }
-    } = field;
+    const { meta: { error, submitFailed } } = field;
     return <div>{submitFailed ? error : ""}</div>;
   }
   onSubmit(values) {

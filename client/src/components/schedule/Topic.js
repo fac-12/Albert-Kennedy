@@ -13,6 +13,7 @@ import housing from "../../assets/icons/house.svg";
 import other from "../../assets/icons/other.svg";
 import skills from "../../assets/icons/skills.svg";
 import wellbeing from "../../assets/icons/wellbeing.svg";
+import { FormElement } from "../styling/components";
 
 const Input = styled.input`
   display: none;
@@ -34,6 +35,9 @@ const Card = styled.label`
   text-align: center;
   margin: 5px;
   border-left: solid 8px #f47a20;
+  @media (min-width: 768px) {
+    width: 30%;
+  }
 `;
 
 const Label = styled.div`
@@ -48,36 +52,47 @@ const Img = styled.img`
 `;
 
 const FlexWrapper = styled.div`
-  width: 100vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  @media (min-width: 768px) {
+    max-width: 70%;
+    justify-content: center;
+  }
 `;
 
 const Error = styled.div`
   font-size: 0.8em;
   font-weight: 500;
   align-self: flex-start;
+  max-width: 90%;
+  color: #f47a20;
 `;
 
 const Form = styled.form`
   height: 70vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Text = styled.label`
-  width: 90vw;
   font-size: 16px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 1rem;
 `;
 
 const TextInput = styled.input`
   display: block;
-  width: 100%;
+  width: 90%;
   height: 40px;
   box-sizing: border-box;
   border-radius: 5px;
+  @media (min-width: 768px) {
+    padding: 1.2rem;
+    width: 100%;
+  }
 `;
 
 class TopicForm extends Component {
@@ -85,7 +100,10 @@ class TopicForm extends Component {
     const { handleSubmit } = this.props;
     return (
       <div className="container__div">
-        <Header heading="Let’s talk" text="Choose any that apply" />
+        <Header
+          heading="Let’s talk!"
+          text="Choose any topics that you feel apply"
+        />
         <Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <FlexWrapper>
             <Field
@@ -124,6 +142,7 @@ class TopicForm extends Component {
               src={other}
               component={this.renderField}
             />
+
             <Field
               name="info"
               label="Please share any further information or other things you'd like to talk about:"
@@ -152,10 +171,12 @@ class TopicForm extends Component {
 
   renderTextInput = field => {
     return [
-      <Text htmlFor={field.name} key={1}>
-        <Label>{field.label}</Label>
-        <TextInput id={field.name} type="text" {...field.input} />
-      </Text>
+      <FormElement>
+        <Text htmlFor={field.name} key={1}>
+          <Label>{field.label}</Label>
+          <TextInput id={field.name} type="text" {...field.input} />
+        </Text>
+      </FormElement>
     ];
   };
   onSubmit = values => {

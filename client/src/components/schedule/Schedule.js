@@ -35,14 +35,9 @@ const Input = styled.input`
 
 const Label = styled.div``;
 
-// const Img = styled.img`
-//   height: auto;
-//   width: 50px;
-//   padding: 5px;
-// `;
-
 const Form = styled.form`
   min-height: 70vh;
+  max-width: 70vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
