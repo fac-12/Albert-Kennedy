@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import LinkButton from "../LinkButton";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   position: relative;
@@ -40,7 +41,7 @@ const LogIn = styled.p`
   bottom: 3vh;
 `;
 
-const StyledLink = styled.a`
+const StyledLink = styled(Link)`
   color: #0000ee;
   text-decoration: underline;
 `;

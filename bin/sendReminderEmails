@@ -55,8 +55,8 @@ const getAllAppointmentsTomorrow = () => {
 
 // get mentor email and add to appt object, then call getUserDetails
 
-const getMentorEmails = async allAppointmentsTomorrow => {
-  return await Promise.all(
+const getMentorEmails = allAppointmentsTomorrow => {
+  return Promise.all(
     allAppointmentsTomorrow.map(appt => {
       const mentorId = appt.mentor_id[0];
       return adminBase("mentors")
@@ -71,8 +71,8 @@ const getMentorEmails = async allAppointmentsTomorrow => {
 
 // gets user details (email and name) and adds to appt object, then calls sendMentorAndUserEmails
 
-const getUserDetails = async allAppointmentsTomorrow => {
-  return await Promise.all(
+const getUserDetails = allAppointmentsTomorrow => {
+  return Promise.all(
     allAppointmentsTomorrow.map(appt => {
       const userId = appt.user_id[0];
       return adminBase("users")

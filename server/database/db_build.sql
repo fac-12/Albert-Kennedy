@@ -1,15 +1,16 @@
 BEGIN;
-
-DROP TABLE IF EXISTS users CASCADE;
-
-
-CREATE TABLE users (
+  DROP TABLE IF EXISTS users
+  CASCADE;
+CREATE TABLE users
+(
   id SERIAL PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
   email VARCHAR(100) NOT NULL UNIQUE,
   password VARCHAR(100) NOT NULL,
+  reset_password_token VARCHAR(40),
+  time_token_created TIMESTAMP,
   date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-
-
 COMMIT;
+
+

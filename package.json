@@ -27,6 +27,7 @@
   "dependencies": {
     "airtable": "^0.5.3",
     "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "env2": "^2.2.0",
     "eslint": "^4.17.0",
