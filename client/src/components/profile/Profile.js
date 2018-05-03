@@ -93,7 +93,7 @@ class Profile extends Component {
           <NewAppButton text="new appointment" url="/topics" primary />
           <Crisis>
             In immediate crisis?
-            <Link to="/crisis">use these resources instead</Link>
+            <Link to="/crisis ">Use these resources instead</Link>
           </Crisis>
         </div>
       );
