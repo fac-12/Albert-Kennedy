@@ -1,10 +1,16 @@
 #!/usr/bin/env node
 
-const nodemailer = require('nodemailer');
-const Airtable = require('airtable');
-const { mentorEmailTemplate, userEmailTemplate } = require('../server/emails/reminder_emails');
-const { isAppointmentTomorrow, transporterFunction } = require('../server/emails/helpers');
-require('env2')('config.env');
+const nodemailer = require("nodemailer");
+const Airtable = require("airtable");
+const {
+  mentorEmailTemplate,
+  userEmailTemplate
+} = require("../server/emails/reminder_emails");
+const {
+  isAppointmentTomorrow,
+  transporterFunction
+} = require("../server/emails/helpers");
+require("env2")("config.env");
 
 // connect to admin Airtable
 
@@ -15,9 +21,9 @@ const adminBase = new Airtable({ apiKey: process.env.AIRTABLE_API }).base(
 //set up nodemailer connection
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: "gmail",
   auth: {
-    user: 'hellointerakt@gmail.com',
+    user: "hellointerakt@gmail.com",
     pass: process.env.PASSWORD
   }
 });
@@ -25,15 +31,15 @@ const transporter = nodemailer.createTransport({
 // first get all appointments in the DB, then call getMentorDetails
 
 const getAllAppointmentsTomorrow = () => {
-  return adminBase('appointments')
+  return adminBase("appointments")
     .select({
       fields: [
-        'user_id',
-        'mentor_id',
-        'date_and_time',
-        'topics',
-        'chat_string',
-        'date'
+        "user_id",
+        "mentor_id",
+        "date_and_time",
+        "topics",
+        "chat_string",
+        "date"
       ]
     })
     .all()
@@ -53,7 +59,7 @@ const getMentorEmails = async allAppointmentsTomorrow => {
   return await Promise.all(
     allAppointmentsTomorrow.map(appt => {
       const mentorId = appt.mentor_id[0];
-      return adminBase('mentors')
+      return adminBase("mentors")
         .find(mentorId)
         .then(record => {
           appt.mentor_email = record.fields.email;
@@ -69,7 +75,7 @@ const getUserDetails = async allAppointmentsTomorrow => {
   return await Promise.all(
     allAppointmentsTomorrow.map(appt => {
       const userId = appt.user_id[0];
-      return adminBase('users')
+      return adminBase("users")
         .find(userId)
         .then(record => {
           appt.user_name = record.fields.name;
@@ -86,13 +92,11 @@ const getUserDetails = async allAppointmentsTomorrow => {
 // sends reminder emails to every user and mentor with an appointment tomorrow
 
 const sendMentorAndUserEmails = () => {
-
   const sendMentorReminderEmail = appt => {
-    
     const mentorEmail = {
-      from: 'hellointerakt@gmail.com',
+      from: "hellointerakt@gmail.com",
       to: `${appt.mentor_email}`,
-      subject: 'Reminder: AKT online mentoring appointment',
+      subject: "Reminder: AKT online mentoring appointment",
       html: mentorEmailTemplate(appt)
     };
 
@@ -101,13 +105,13 @@ const sendMentorAndUserEmails = () => {
 
   const senduserReminderEmail = appt => {
     const userEmail = {
-      from: 'hellointerakt@gmail.com',
+      from: "hellointerakt@gmail.com",
       to: `${appt.user_email}`,
-      subject: 'Reminder: AKT online mentoring appointment',
+      subject: "Reminder: Upcoming AKT online mentoring appointment",
       html: userEmailTemplate(appt)
     };
 
-    transporterFunction(userEmail)
+    transporterFunction(userEmail);
   };
 
   getAllAppointmentsTomorrow()

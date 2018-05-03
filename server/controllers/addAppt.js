@@ -55,7 +55,7 @@ exports.addAppt = (req, res) => {
         userName: userDetails.name,
         mentorName: newApptObj.mentor,
         date: newApptObj.date_and_time,
-        chat: newApptObj.chat_string
+        chatString: newApptObj.chat_string
       });
       aktConfirmationEmail({
         userName: userDetails.name,

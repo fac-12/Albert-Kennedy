@@ -92,7 +92,7 @@ class Profile extends Component {
           </FlexWrap>
           <NewAppButton text="new appointment" url="/topics" primary />
           <Crisis>
-            Immediate crisis? Don\'t use this site -{" "}
+            In immediate crisis?
             <Link to="/crisis">use these resources instead</Link>
           </Crisis>
         </div>
