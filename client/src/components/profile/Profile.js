@@ -66,10 +66,24 @@ const NewAppButton = styled(LinkButton)`
   margin: 2vh 5vw 2vh 5vw;
 `;
 
+const PlaceholderDiv = styled.div`
+  height: 45vh;
+`;
+
 class Profile extends Component {
   render() {
     if (!this.props.apts) {
-      return <div />;
+      return (
+        <div>
+          <Header heading="My Appointments" logout />
+          <PlaceholderDiv />
+          <NewAppButton text="new appointment" url="/topics" primary />
+          <Crisis>
+            Immediate crisis? Don't use this site -{" "}
+            <Link to="/crisis">use these resources instead</Link>
+          </Crisis>
+        </div>
+      );
     } else {
       return (
         <div>
@@ -112,7 +126,7 @@ class Profile extends Component {
   }
 
   componentWillUnmount() {
-    this.props.onUnload("PROFILE_PAGE_UNLOADED");
+    this.props.onUnload("clear_profile_state");
   }
 
   handleClick = appt => {
@@ -139,6 +153,7 @@ class Profile extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log("state", state.userApts.apts);
   return {
     apts: state.userApts.apts
   };

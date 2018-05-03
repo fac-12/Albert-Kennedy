@@ -1,6 +1,7 @@
 const Airtable = require("airtable");
 const r = require("ramda");
 require("env2")("config.env");
+const BBPromise = require("bluebird");
 
 const adminBase = new Airtable({ apiKey: process.env.AIRTABLE_API }).base(
   process.env.AIRTABLE_ADMIN_BASE
@@ -9,6 +10,48 @@ const adminBase = new Airtable({ apiKey: process.env.AIRTABLE_API }).base(
 const mentorBase = new Airtable({ apiKey: process.env.AIRTABLE_API }).base(
   process.env.AIRTABLE_MENTOR_BASE
 );
+
+const trace = message => x => {
+  console.log(message, x);
+  return x;
+};
+
+// clears mentor info from adminBase
+
+const notInAdminBase = mentor => {
+  return adminBase("mentors")
+    .select({
+      filterByFormula: `{email} = \"${mentor.email}\"`
+    })
+    .all()
+    .then(mentor => r.isEmpty(mentor))
+    .catch(console.log);
+};
+
+// updates mentor info in adminBase from mentorBase
+
+const updateAdminMentors = () => {
+  return mentorBase("mentor_list")
+    .select({
+      fields: ["name", "email", "description", "img_url"]
+    })
+    .all()
+    .then(r.map(record => record.fields))
+    .then(mentors => {
+      return BBPromise.filter(mentors, notInAdminBase);
+    })
+    .then(
+      r.map(mentorFields => {
+        return adminBase("mentors").create({
+          name: mentorFields.name,
+          email: mentorFields.email,
+          description: mentorFields.description,
+          img_url: mentorFields.img_url
+        });
+      })
+    )
+    .catch(console.log);
+};
 
 // gets all mentors for 'choose a mentor' page
 
@@ -233,5 +276,6 @@ module.exports = {
   getEmailDetails,
   getApptRecordId,
   deleteAppointment,
-  getUserRecordId
+  getUserRecordId,
+  updateAdminMentors
 };

@@ -110,6 +110,7 @@ export const cancelAppointment = appt => {
 };
 
 export const onUnload = typeName => {
-  console.log("in onUnload", typeName);
-  return dispatch => dispatch({ type: typeName });
+  return {
+    type: typeName
+  };
 };
