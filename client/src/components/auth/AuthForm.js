@@ -1,56 +1,33 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
+import Header from "../Header";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { resetError, authFormInfo } from "../../actions/auth";
-import Header from "../Header";
 import SubmitButton from "../SubmitButton";
 import styled from "styled-components";
 
-const FormElement = styled.div`
-  height: 10vh;
-  padding: 0 10vw 0 10vw;
-`;
-
-const Input = styled.input`
-  height: 5vh;
-  width: 80vw;
-  box-shadow: none;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  font-size: 1rem;
-  ::placeholder {
-    color: black;
-    font-size: 1rem;
-  }
-
-  &:focus {
-    -webkit-appearance: none;
-    outline: none;
-  }
-`;
-
-const Error = styled.p`
-  margin: 0;
-  width: 90vw;
-  color: #fb8b24;
-  line-height: 5vh;
-  font-size: 0.75em;
-`;
-
-const Register = styled.p`
-  width: 100vw;
-  text-align: center;
-  margin-top: 0;
-`;
+import {
+  Container,
+  Card,
+  LogIn,
+  StyledLink,
+  Subtitle,
+  DesktopButton,
+  LinkButton,
+  H2,
+  Input,
+  FormElement,
+  Error,
+  Register
+} from "../styling/components";
 
 class AuthForm extends Component {
   render() {
     const { handleSubmit } = this.props;
     const text = `Your contact details will be kept private and will not be shared with your mentor.`;
     return (
-      <div className="container__div">
+      <div className="container_div">
         <Header heading="Please fill in your details" text={text} />
         <Register>
           Returning user? <Link to="/signin">Log in</Link>

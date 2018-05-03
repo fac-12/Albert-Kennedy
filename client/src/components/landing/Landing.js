@@ -8,7 +8,7 @@ import {
   Subtitle,
   DesktopButton,
   H2
-} from "../styling/onboardingpages";
+} from "../styling/components";
 
 export default class Landing extends Component {
   render() {
@@ -17,7 +17,7 @@ export default class Landing extends Component {
         <Card>
           <H2>inter-AKT</H2>
           <Subtitle>
-            A mentoring platform for young people in the LGBT+ community
+            A digital mentoring platform for young people in the LGBT+ community
           </Subtitle>
           <DesktopButton text="get started" url="/age" primary />
           <LogIn>

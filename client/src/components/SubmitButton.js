@@ -7,6 +7,11 @@ const Button = styled.button`
   border-radius: 5px;
   box-sizing: border-box;
   width: 90vw;
+  @media (min-width: 546px) {
+    width: 20vw;
+    margin: 0 40vw;
+    align-self: center;
+  }
   height: 60px;
   font-size: 16px;
   margin: 5vw;
