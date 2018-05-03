@@ -9,3 +9,5 @@ export const UNAUTH_USER = "unauth_user";
 export const DISPLAY_ERROR = "display_error";
 export const USER_APTS = "user_apts";
 export const RESET_ERROR = "reset_error";
+export const CLEAR_PROFILE_STATE = "clear_profile_state";
+export const CLEAR_AVAILABILITIES = "clear_availabilities";

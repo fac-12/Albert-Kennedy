@@ -37,11 +37,9 @@ const updateAdminMentors = () => {
     })
     .all()
     .then(r.map(record => record.fields))
-    .then(trace("before filter"))
     .then(mentors => {
       return BBPromise.filter(mentors, notInAdminBase);
     })
-    .then(trace("after filter"))
     .then(
       r.map(mentorFields => {
         return adminBase("mentors").create({
