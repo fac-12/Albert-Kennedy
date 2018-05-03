@@ -9,7 +9,8 @@ import SubmitButton from "../SubmitButton";
 import styled from "styled-components";
 
 const Card = styled.label`
-  height: 8rem;
+  width: 45%;
+  height: 110px;
   border-radius: 10px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
   margin: 15px;
@@ -19,6 +20,15 @@ const Card = styled.label`
   justify-content: space-around;
 `;
 
+const FlexWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  @media (min-width: 768px) {
+    justify-content: center;
+  }
+`;
 const Input = styled.input`
   display: none;
 
@@ -68,16 +78,18 @@ class MentorForm extends Component {
         <Header heading="Choose a mentor to connect with" />
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           {_.map(this.props.mentors, mentor => (
-            <Field
-              name="mentor"
-              type="radio"
-              key={mentor.id}
-              label={mentor.name}
-              desc={mentor.description}
-              img={mentor.img_url}
-              value={mentor.name}
-              component={this.renderField}
-            />
+            <FlexWrapper>
+              <Field
+                name="mentor"
+                type="radio"
+                key={mentor.id}
+                label={mentor.name}
+                desc={mentor.description}
+                img={mentor.img_url}
+                value={mentor.name}
+                component={this.renderField}
+              />
+            </FlexWrapper>
           ))}
           <Field name="error" component={this.renderError} />
           <SubmitButton text="next" />

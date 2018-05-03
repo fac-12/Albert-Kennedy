@@ -18,7 +18,8 @@ import {
   Input,
   FormElement,
   Error,
-  Register
+  Register,
+  Form
 } from "../styling/components";
 
 class AuthForm extends Component {
@@ -32,7 +33,7 @@ class AuthForm extends Component {
           Returning user? <Link to="/signin">Log in</Link>
         </Register>
 
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+        <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <Field
             name="name"
             type="text"
@@ -70,7 +71,7 @@ class AuthForm extends Component {
           />
           <p>{this.renderAlert()}</p>
           <SubmitButton text="next" />
-        </form>
+        </Form>
       </div>
     );
   }

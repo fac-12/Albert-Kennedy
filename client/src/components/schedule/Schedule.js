@@ -15,7 +15,7 @@ import SubmitButton from "../SubmitButton";
 
 const Card = styled.label`
   width: 90vw;
-  height: 10vh;
+  height: 110px;
   border-radius: 10px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
   margin: 2vh 5vw 2vh 5vw;
@@ -23,6 +23,9 @@ const Card = styled.label`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  @media (min-width: 768px) {
+    width: 45%;
+  }
 `;
 
 const Input = styled.input`
@@ -37,11 +40,11 @@ const Label = styled.div``;
 
 const Form = styled.form`
   min-height: 70vh;
-  max-width: 70vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding-bottom: 3vh;
+  align-items: center;
 `;
 
 const NoAptsCard = styled.div`
@@ -56,6 +59,17 @@ const NoAptsCard = styled.div`
 
 const TextWrap = styled.div`
   padding: 20px;
+`;
+
+const FlexWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  @media (min-width: 768px) {
+    max-width: 70%;
+    justify-content: center;
+  }
 `;
 
 class ScheduleForm extends Component {
@@ -107,7 +121,7 @@ class ScheduleForm extends Component {
     const dates = this.props.availibility;
     return (
       <Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-        <div>
+        <FlexWrapper>
           {_.map(dates, (datetime, index) => (
             <Field
               name="datetime"
@@ -118,7 +132,7 @@ class ScheduleForm extends Component {
               component={this.renderField}
             />
           ))}
-        </div>
+        </FlexWrapper>
         <div>
           <Field name="error" component={this.renderError} />
           <SubmitButton text="next" />
@@ -128,9 +142,7 @@ class ScheduleForm extends Component {
   }
 
   renderError(field) {
-    const {
-      meta: { error, submitFailed }
-    } = field;
+    const { meta: { error, submitFailed } } = field;
     return <div>{submitFailed ? error : ""}</div>;
   }
 

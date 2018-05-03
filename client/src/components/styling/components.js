@@ -23,11 +23,10 @@ const Card = styled.div`
   padding: 1rem;
   text-align: center;
   margin: 1rem;
-  height: 20rem;
-  width: 18rem;
-  @media (min-width: 546px) {
-    width: 28rem;
-    height: 30rem;
+  font-size: 14px;
+  @media (min-width: 768px) {
+    width: 30rem;
+    height: 32rem;
   }
 `;
 
@@ -99,6 +98,8 @@ const Error = styled.p`
 
 const Register = styled.p`
   margin-top: 1rem;
+  align-items: center;
+  text-align: center;
 `;
 
 const Header = styled.h1`
@@ -127,6 +128,10 @@ const Form = styled.form`
   align-items: center;
 `;
 
+const RedirectP = styled.p`
+  padding: 1rem;
+`;
+
 export {
   Container,
   Card,
@@ -142,5 +147,6 @@ export {
   Register,
   Header,
   Button,
-  Form
+  Form,
+  RedirectP
 };
