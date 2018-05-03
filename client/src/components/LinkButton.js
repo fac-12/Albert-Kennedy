@@ -10,16 +10,15 @@ const Button = styled.button`
   width: 90vw;
   height: 60px;
   font-size: 16px;
-  position: absolute;
   bottom: ${props => (props.primary ? "15vh" : "3vh")};
 `;
 
 const LinkButton = props => {
-	return (
-		<Button onClick={() => history.push(props.url)} {...props}>
-			{props.text}
-		</Button>
-	);
+  return (
+    <Button onClick={() => history.push(props.url)} {...props}>
+      {props.text}
+    </Button>
+  );
 };
 
 export default LinkButton;

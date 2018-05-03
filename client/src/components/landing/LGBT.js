@@ -6,7 +6,7 @@ import {
   Subtitle,
   DesktopButton,
   H2
-} from "../styling/onboardingpages";
+} from "../styling/components";
 
 export default class LGBT extends Component {
   render() {

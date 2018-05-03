@@ -6,7 +6,7 @@ import {
   Subtitle,
   DesktopButton,
   H2
-} from "../styling/onboardingpages";
+} from "../styling/components";
 
 export default class Age extends Component {
   render() {
@@ -14,9 +14,7 @@ export default class Age extends Component {
       <Container>
         <Card>
           <H2>inter-AKT</H2>
-          <Subtitle>
-            Great! Just a couple more questions. Are you aged between 13 and 25?
-          </Subtitle>
+          <Subtitle>Great! Are you aged between 13 and 25?</Subtitle>
           <DesktopButton text="yes" url="/lgbt" primary />
           <DesktopButton text="no" url="/ageredirect" />
         </Card>
