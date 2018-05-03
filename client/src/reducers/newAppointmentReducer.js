@@ -1,4 +1,10 @@
-import { TOPICS, MENTOR, AVAILIBILTY, APT_TIME } from "../actions/types";
+import {
+  TOPICS,
+  MENTOR,
+  AVAILIBILTY,
+  APT_TIME,
+  CLEAR_AVAILABILITIES
+} from "../actions/types";
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -10,6 +16,8 @@ export default (state = {}, action) => {
       return { ...state, availibility: action.payload };
     case APT_TIME:
       return { ...state, aptTime: action.payload };
+    case CLEAR_AVAILABILITIES:
+      return { ...state, availibility: null };
     default:
       return state;
   }

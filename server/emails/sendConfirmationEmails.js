@@ -1,12 +1,15 @@
-const { userEmailTemplate, mentorEmailTemplate, aktEmailTemplate } = require('./confirmation_emails')
-const { transporterFunction } = require('./helpers')
-
+const {
+  userEmailTemplate,
+  mentorEmailTemplate,
+  aktEmailTemplate
+} = require("./confirmation_emails");
+const { transporterFunction } = require("./helpers");
 
 const mentorConfirmationEmail = appt => {
   const mentorEmail = {
-    from: 'hellointerakt@gmail.com',
+    from: "hellointerakt@gmail.com",
     to: `${appt.emailAddress}`,
-    subject: 'New AKT online mentoring appointment',
+    subject: "New AKT online mentoring appointment",
     html: mentorEmailTemplate(appt)
   };
 
@@ -15,9 +18,9 @@ const mentorConfirmationEmail = appt => {
 
 const userConfirmationEmail = appt => {
   const userEmail = {
-    from: 'hellointerakt@gmail.com',
+    from: "hellointerakt@gmail.com",
     to: `${appt.emailAddress}`,
-    subject: 'AKT online mentoring appointment confirmed',
+    subject: "AKT online mentoring appointment confirmed",
     html: userEmailTemplate(appt)
   };
 
@@ -26,9 +29,9 @@ const userConfirmationEmail = appt => {
 
 const aktConfirmationEmail = appt => {
   const aktEmail = {
-    from: 'hellointerakt@gmail.com',
-    to: 'hellointerakt@gmail.com',
-    subject: 'inter-AKT appointment scheduled',
+    from: "hellointerakt@gmail.com",
+    to: "hellointerakt@gmail.com",
+    subject: "inter-AKT appointment scheduled",
     html: aktEmailTemplate(appt)
   };
 

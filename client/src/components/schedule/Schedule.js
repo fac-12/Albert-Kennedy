@@ -4,7 +4,11 @@ import { connect } from "react-redux";
 import _ from "lodash";
 import history from "../../history";
 import styled from "styled-components";
-import { fetchAvailibilites, updateAptTime } from "../../actions/appointment";
+import {
+  fetchAvailibilites,
+  updateAptTime,
+  onUnload
+} from "../../actions/appointment";
 import Header from "../Header";
 import { Link } from "react-router-dom";
 import SubmitButton from "../SubmitButton";
@@ -57,7 +61,7 @@ const TextWrap = styled.div`
 class ScheduleForm extends Component {
   render() {
     if (!this.props.availibility) {
-      return <div />;
+      return <Header heading="Schedule an appointment" />;
     } else {
       return (
         <div>
@@ -76,6 +80,10 @@ class ScheduleForm extends Component {
     } else {
       this.props.fetchAvailibilites(this.props.mentor);
     }
+  }
+
+  componentWillUnmount() {
+    this.props.onUnload("clear_availabilities");
   }
 
   renderNoApts() {
@@ -120,7 +128,9 @@ class ScheduleForm extends Component {
   }
 
   renderError(field) {
-    const { meta: { error, submitFailed } } = field;
+    const {
+      meta: { error, submitFailed }
+    } = field;
     return <div>{submitFailed ? error : ""}</div>;
   }
 
@@ -161,6 +171,7 @@ export default reduxForm({
 })(
   connect(mapStateToProps, {
     fetchAvailibilites,
-    updateAptTime
+    updateAptTime,
+    onUnload
   })(ScheduleForm)
 );

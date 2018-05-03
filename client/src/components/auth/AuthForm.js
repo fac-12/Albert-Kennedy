@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
+import Header from "../Header";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { resetError, authFormInfo } from "../../actions/auth";
@@ -17,8 +18,7 @@ import {
   Input,
   FormElement,
   Error,
-  Register,
-  Header
+  Register
 } from "../styling/components";
 
 class AuthForm extends Component {
@@ -112,7 +112,7 @@ const checkPassword = string => {
 
 const checkPostcode = string => {
   let regex = new RegExp(
-    "([Gg][Ii][Rr]0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]))))s?[0-9][A-Za-z]{2}$)"
+    "([Gg][Ii][Rr]0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]))))\\s?[0-9][A-Za-z]{2}$)"
   );
   return regex.test(string);
 };

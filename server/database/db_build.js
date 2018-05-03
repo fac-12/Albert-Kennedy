@@ -16,3 +16,4 @@ const runDbBuild = callback => {
 };
 
 module.exports = runDbBuild;
+

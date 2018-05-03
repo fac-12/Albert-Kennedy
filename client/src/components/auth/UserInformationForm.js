@@ -43,22 +43,32 @@ const ethnicities = [
   "Other"
 ];
 
+const EthnicityField = styled(Field)`
+  height: 5vh;
+  width: 80vw;
+  margin: 0 10vw 5vh 10vw;
+  background-color: white;
+  border: 1px solid #333333;
+  font-size: 1rem;
+
+  > option {
+    margin: 1px;
+  }
+`;
+
 class UserInformationForm extends Component {
   render() {
     const { handleSubmit } = this.props;
-    const text = `Just a few more details...`;
+    const text = `AKT is asking for this information because it is important for us to
+    know who is accessing this service so that we can provide the most
+    appropriate support. By completing this form you are consenting to The
+    Albert Kennedy Trust storing a record of your details and contacting
+    you regarding related support. If you wish to withdraw your consent,
+    please contact onlinesupport@akt.org.uk`;
+
     return (
       <div className="container__div">
         <Header heading="Personal Information" text={text} />
-        <p>
-          AKT is asking for this information because it is important for us to
-          know who is accessing this service so that we can provide the most
-          appropriate support. By completing this form you are consenting to The
-          Albert Kennedy Trust storing a record of your details and contacting
-          you regarding related support. If you wish to withdraw your consent,
-          please contact:{" "}
-          <a href="mailto:onlinesupport@akt.org.uk">onlinesupport@akt.org.uk</a>
-        </p>
         <Register>
           Returning user? <Link to="/signin">Log in</Link>
         </Register>
@@ -71,19 +81,17 @@ class UserInformationForm extends Component {
             placeholder="Date of birth"
             component={this.renderField}
           />
-          <div>
-            <label>Ethnicity</label>
-            <div>
-              <Field name="ethnicity" component="select">
-                <option value="">Select one that applies...</option>
-                {ethnicities.map(ethnicityOption => (
-                  <option value={ethnicityOption} key={ethnicityOption}>
-                    {ethnicityOption}
-                  </option>
-                ))}
-              </Field>
-            </div>
-          </div>
+
+          <EthnicityField name="ethnicity" component="select">
+            <option value="">
+              Please choose the ethnicity that applies to you
+            </option>
+            {ethnicities.map(ethnicityOption => (
+              <option value={ethnicityOption} key={ethnicityOption}>
+                {ethnicityOption}
+              </option>
+            ))}
+          </EthnicityField>
 
           <Field
             name="sexuality"
@@ -107,7 +115,9 @@ class UserInformationForm extends Component {
   }
 
   renderField(field) {
-    const { meta: { touched, error } } = field;
+    const {
+      meta: { touched, error }
+    } = field;
     return (
       <FormElement>
         <Input

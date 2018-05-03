@@ -55,7 +55,11 @@ class MentorForm extends Component {
 
   render() {
     if (!this.props.mentors) {
-      return <div />;
+      return (
+        <div className="container__div">
+          <Header heading="Choose a mentor to connect with" />
+        </div>
+      );
     }
     const { handleSubmit } = this.props;
 
