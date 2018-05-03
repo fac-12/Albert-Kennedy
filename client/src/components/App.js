@@ -18,6 +18,8 @@ import LGBT from "./landing/LGBT";
 import AgeRedirect from "./redirects/AgeRedirect";
 import LGBTRedirect from "./redirects/LGBTRedirect";
 import Crisis from "./redirects/Crisis";
+import ForgotPasswordForm from "./auth/ForgotPassword";
+import ResetPasswordForm from "./auth/ResetPassword";
 
 class App extends Component {
   render() {
@@ -51,6 +53,8 @@ class App extends Component {
           <Route exact path="/register" component={AuthForm} />
           <Route exact path="/userinfoform" component={UserInformationForm} />
           <Route exact path="/signin" component={SigninForm} />
+          <Route exact path="/forgotpassword" component={ForgotPasswordForm} />
+          <Route exact path="/resetpassword" component={ResetPasswordForm} />
         </div>
       </Router>
     );
