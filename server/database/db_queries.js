@@ -2,12 +2,9 @@ const db = require("../database/db_connections");
 const r = require("ramda");
 
 const getUser = email => {
-  return new Promise((resolve, reject) => {
-    db.query("SELECT * FROM users WHERE email = $1", [email]).then(users => {
-      if (r.isEmpty(users)) return reject("No user found");
-      return resolve(users[0]);
-    });
-  });
+  return db
+    .query("SELECT * FROM users WHERE email = $1", [email])
+    .then(users => users[0]);
 };
 
 const addUser = (name, email, password) => {
@@ -28,7 +25,7 @@ const getUserById = id => {
 const addToken = (email, token) => {
   return db
     .query(
-      `UPDATE users SET (reset_password_token, reset_password_expires) = ($1, current_timestamp) WHERE email = $2 RETURNING NAME, EMAIL, RESET_PASSWORD_TOKEN`,
+      `UPDATE users SET (reset_password_token, time_token_created) = ($1, current_timestamp) WHERE email = $2 RETURNING NAME, EMAIL, RESET_PASSWORD_TOKEN`,
       [token, email]
     )
     .then(user => {
@@ -40,7 +37,7 @@ const getUserByToken = token => {
   return new Promise((resolve, reject) => {
     db
       .query(
-        `SELECT reset_password_expires, (EXTRACT(EPOCH FROM current_timestamp - reset_password_expires)/3600)::Integer AS "time_passed" FROM users WHERE reset_password_token = $1`,
+        `SELECT time_token_created, (EXTRACT(EPOCH FROM current_timestamp - time_token_created)/3600)::Integer AS "time_passed" FROM users WHERE reset_password_token = $1`,
         [token]
       )
       .then(tokenExpiry => {
@@ -51,7 +48,7 @@ const getUserByToken = token => {
 
 const updatePassword = (token, hash) => {
   db.query(
-    `UPDATE users SET (password, reset_password_token, reset_password_expires) = ($1, null, null) WHERE reset_password_token = $2`,
+    `UPDATE users SET (password, reset_password_token, time_token_created) = ($1, null, null) WHERE reset_password_token = $2`,
     [hash, token]
   );
 };

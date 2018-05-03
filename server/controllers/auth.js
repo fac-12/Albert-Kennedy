@@ -2,6 +2,7 @@ const queries = require("../database/db_queries");
 const airtable = require("../airtable/airtable_helpers");
 const { hashPassword } = require("../services/bcrypt");
 const jwt = require("jwt-simple");
+const r = require("ramda");
 const { generateToken } = require("./helpers");
 const {
   userUpdatePasswordEmail
@@ -73,6 +74,12 @@ exports.forgotPassword = (req, res) => {
   const getUser = makeFancyPromise(queries.getUser);
 
   getUser(email)
+    .then(user => {
+      return new Promise((resolve, reject) => {
+        if (r.isEmpty(user)) return reject("No user found");
+        return resolve(user);
+      });
+    })
     .catch(() => {
       throw new EmailNotFoundError();
     })
