@@ -57,8 +57,8 @@ const updateAdminMentors = () => {
 
 // gets all mentors for 'choose a mentor' page
 
-const getMentors = async () => {
-  return await mentorBase("mentor_list")
+const getMentors = () => {
+  return mentorBase("mentor_list")
     .select({
       fields: ["name", "description", "img_url"]
     })
@@ -130,8 +130,8 @@ const filterAvailabilities = mentor => {
 
 // gets airtable record id for mentor by name
 
-const getMentorRecordId = async mentor => {
-  return await adminBase("mentors")
+const getMentorRecordId = mentor => {
+  return adminBase("mentors")
     .select({
       filterByFormula: `{name} = \"${mentor}\"`
     })
@@ -142,8 +142,8 @@ const getMentorRecordId = async mentor => {
 
 // gets airtable record id for user by database id
 
-const getUserRecordId = async user_id => {
-  return await adminBase("users")
+const getUserRecordId = user_id => {
+  return adminBase("users")
     .select({
       filterByFormula: `{id} = \"${user_id}\"`
     })
@@ -182,17 +182,17 @@ const addAppointment = newApptObj => {
     getMentorRecordId(newApptObj.mentor),
     getUserRecordId(newApptObj.user_id)
   ])
-    .then(async ([mentorId, userId]) => {
+    .then(([mentorId, userId]) => {
       newApptObj.mentor_id = mentorId;
       newApptObj.user_id = userId;
-      return await insertAppointment(newApptObj);
+      return insertAppointment(newApptObj);
     })
     .catch(console.log);
 };
 
 // get user and mentor emails
 
-const getEmailDetails = async ([mentorId, userId]) => {
+const getEmailDetails = ([mentorId, userId]) => {
   const getDetails = (table, id) => {
     return adminBase(table)
       .find(id)
@@ -200,7 +200,7 @@ const getEmailDetails = async ([mentorId, userId]) => {
       .catch(console.log);
   };
 
-  return await Promise.all([
+  return Promise.all([
     getDetails("mentors", mentorId),
     getDetails("users", userId)
   ]).catch(console.log);
@@ -221,8 +221,8 @@ const addUser = user => {
 
 // get user appointments from adminBase
 
-const getUserAppointments = async user_id => {
-  return await adminBase("appointments")
+const getUserAppointments = user_id => {
+  return adminBase("appointments")
     .select({
       filterByFormula: `{user_id} = \"${user_id}\"`,
       fields: ["mentor_id", "chat_string", "date_and_time"]
@@ -234,8 +234,8 @@ const getUserAppointments = async user_id => {
 
 // add extra details to user appointments for rendering on profile page
 
-const addMentorDetailsToAppointments = async userApptObj => {
-  return await Promise.all(
+const addMentorDetailsToAppointments = userApptObj => {
+  return Promise.all(
     userApptObj.map(appt => {
       return adminBase("mentors")
         .find([appt.mentor_id])
@@ -250,8 +250,8 @@ const addMentorDetailsToAppointments = async userApptObj => {
 
 // gets record id of an appointment using the chat_string
 
-const getApptRecordId = async chat_string => {
-  return await adminBase("appointments")
+const getApptRecordId = chat_string => {
+  return adminBase("appointments")
     .select({
       filterByFormula: `{chat_string} = \"${chat_string}\"`
     })

@@ -2,11 +2,11 @@ const airtable = require("../airtable/airtable_helpers");
 
 exports.getMentors = (req, res) => {
   airtable
-    .updateAdminMentors()
-    .then(airtable.getMentors)
+    .getMentors()
     .then(mentors => {
       res.send(JSON.stringify(mentors));
     })
+    .then(airtable.updateAdminMentors)
     .catch(console.log);
 };
 

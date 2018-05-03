@@ -33,29 +33,26 @@ exports.addAppt = (req, res) => {
       const info = {
         content: newApptObj.info
       };
-      mentorConfirmationEmail(
-     {  emailAddress: mentorDetails[0],
+      mentorConfirmationEmail({
+        emailAddress: mentorDetails[0],
         userName: userDetails[1],
         date: newApptObj.date_and_time,
         chatString: newApptObj.chat_string,
         topics: newApptObj.topics,
         info: info
-      }
-      );
-      userConfirmationEmail(
-      { emailAddress: userDetails[0],
+      });
+      userConfirmationEmail({
+        emailAddress: userDetails[0],
         userName: userDetails[1],
         mentorName: newApptObj.mentor,
         date: newApptObj.date_and_time,
         chat_string: newApptObj.chat_string
-      }
-      );
-      aktConfirmationEmail(
-      { userName: userDetails[1],
+      });
+      aktConfirmationEmail({
+        userName: userDetails[1],
         mentorName: newApptObj.mentor,
         date: newApptObj.date_and_time
-      }
-      );
+      });
       return;
     })
     .then(res.send())
