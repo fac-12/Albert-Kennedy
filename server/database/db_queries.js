@@ -40,7 +40,7 @@ const getUserByToken = token => {
   return new Promise((resolve, reject) => {
     db
       .query(
-        `SELECT id, reset_password_expires, (EXTRACT(EPOCH FROM current_timestamp - reset_password_expires)/3600)::Integer AS "time_passed" FROM users WHERE reset_password_token = $1`,
+        `SELECT reset_password_expires, (EXTRACT(EPOCH FROM current_timestamp - reset_password_expires)/3600)::Integer AS "time_passed" FROM users WHERE reset_password_token = $1`,
         [token]
       )
       .then(tokenExpiry => {

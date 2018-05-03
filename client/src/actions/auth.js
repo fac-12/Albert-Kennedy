@@ -167,10 +167,10 @@ export const resetPassword = newPasswordValues => {
 
   return dispatch => {
     axios
-      .post(window.location.href, updatePasswordValues)
+      .post("/resetpassword", updatePasswordValues)
       .then(response => {
         dispatch(displayError(response.data.message));
-        history.push("/signin");
+        setTimeout(() => history.push("/signin"), 1500);
       })
       .catch(error => {
         dispatch(displayError(error.response.data.error));
