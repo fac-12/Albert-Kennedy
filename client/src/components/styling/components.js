@@ -67,6 +67,7 @@ const H2 = styled.h2`
 
 const Input = styled.input`
   height: 5vh;
+  width: 80vw;
   box-shadow: none;
   border-top: none;
   border-left: none;

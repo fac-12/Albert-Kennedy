@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
+import Header from "../Header";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { resetError, authFormInfo } from "../../actions/auth";
@@ -18,8 +19,7 @@ import {
   Input,
   FormElement,
   Error,
-  Register,
-  Header
+  Register
 } from "../styling/components";
 
 class AuthForm extends Component {
@@ -27,7 +27,7 @@ class AuthForm extends Component {
     const { handleSubmit } = this.props;
     const text = `Your contact details will be kept private and will not be shared with your mentor.`;
     return (
-      <Container>
+      <div className="container_div">
         <Header heading="Please fill in your details" text={text} />
         <Register>
           Returning user? <Link to="/signin">Log in</Link>
@@ -72,12 +72,14 @@ class AuthForm extends Component {
           <p>{this.renderAlert()}</p>
           <SubmitButton text="next" />
         </form>
-      </Container>
+      </div>
     );
   }
 
   renderField(field) {
-    const { meta: { touched, error } } = field;
+    const {
+      meta: { touched, error }
+    } = field;
     return (
       <FormElement>
         <Input
