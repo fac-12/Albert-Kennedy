@@ -1,5 +1,4 @@
 const db = require("../database/db_connections");
-const r = require("ramda");
 
 const getUser = email => {
   return db
