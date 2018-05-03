@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import Header from "../Header";
 import { Link } from "react-router-dom";
-import { fetchAppointments } from "../../actions/appointment";
+import {
+  fetchAppointments,
+  cancelAppointment,
+  onUnload
+} from "../../actions/appointment";
 import { connect } from "react-redux";
 import LinkButton from "../LinkButton";
 import styled from "styled-components";
@@ -62,29 +66,46 @@ const NewAppButton = styled(LinkButton)`
   margin: 2vh 5vw 2vh 5vw;
 `;
 
+const PlaceholderDiv = styled.div`
+  height: 45vh;
+`;
+
 class Profile extends Component {
   render() {
     if (!this.props.apts) {
-      return <div />;
+      return (
+        <div>
+          <Header heading="My Appointments" logout />
+          <PlaceholderDiv />
+          <NewAppButton text="new appointment" url="/topics" primary />
+          <Crisis>
+            Immediate crisis? Don't use this site -{" "}
+            <Link to="/crisis">use these resources instead</Link>
+          </Crisis>
+        </div>
+      );
     } else {
       return (
         <div>
           <Header heading="My Appointments" logout />
           <FlexWrap>
-            {this.props.apts.map(apt => {
-              const dates = this.convertDates(apt.date_and_time);
+            {this.props.apts.map(appt => {
+              const dates = this.convertDates(appt.date_and_time);
               return (
-                <Card key={apt.chat_string}>
+                <Card key={appt.chat_string}>
                   <div>
-                    <Img src={apt.img_url} />
+                    <Img src={appt.img_url} />
                   </div>
                   <TextWrap>
-                    <p>{apt.mentor_name}</p>
+                    <p>{appt.mentor_name}</p>
                     <p>{dates[0]}</p>
                     <p>{dates[1]}</p>
-                    <a href={"https://tlk.io/" + apt.chat_string}>
+                    <a href={"https://tlk.io/" + appt.chat_string}>
                       <Button>join chat</Button>
                     </a>
+                    <Button onClick={() => this.handleClick(appt)}>
+                      cancel appointment
+                    </Button>
                   </TextWrap>
                 </Card>
               );
@@ -103,6 +124,14 @@ class Profile extends Component {
   componentDidMount() {
     this.props.fetchAppointments();
   }
+
+  componentWillUnmount() {
+    this.props.onUnload("clear_profile_state");
+  }
+
+  handleClick = appt => {
+    this.props.cancelAppointment(appt);
+  };
 
   convertDates = date => {
     const dateOptions = {
@@ -129,4 +158,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { fetchAppointments })(Profile);
+export default connect(mapStateToProps, {
+  fetchAppointments,
+  cancelAppointment,
+  onUnload
+})(Profile);

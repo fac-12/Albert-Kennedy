@@ -5,7 +5,7 @@ const userUpdatePasswordEmail = user => {
   const userEmail = {
     from: "hellointerakt@gmail.com",
     to: `${user.email}`,
-    subject: "Reset your AKT password",
+    subject: "Change password for AKT online mentoring",
     html: userEmailTemplate(user)
   };
 

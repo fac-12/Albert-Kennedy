@@ -1,12 +1,12 @@
-
 const userEmailTemplate = user => {
-    return `<p> Hi there ${user.name}, </p>
-    <p>You've requested to change your password.</p>
-    <p>To do so, please follow this link: ${user.passwordLink}. Your token will expire in 24 hours.</p>
-    <p>Best Wishes,</p>
+  return `<p> Hi there ${user.name}, </p>
+    <p>To reset your password please click here: ${
+      user.passwordLink
+    }. This link will expire in 24 hours.</p>
+    <p>Thanks</p>
     <p>The Albert Kennedy Trust</p>
+    <p>https://www.akt.org.uk/</p>
     `;
-  };
+};
 
-
-module.exports = { userEmailTemplate }
+module.exports = { userEmailTemplate };
