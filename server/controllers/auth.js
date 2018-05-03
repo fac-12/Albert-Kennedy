@@ -14,7 +14,6 @@ const {
 } = require("./customErrors");
 const ExtendPromise = require("bluebird").resolve();
 
-// const makeFancyPromise = promise => x => ExtendPromise.then(() => promise(x));
 const makeFancyPromise = function(promise) {
   return function(...args) {
     return ExtendPromise.then(function() {
