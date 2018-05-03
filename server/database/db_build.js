@@ -17,4 +17,3 @@ const runDbBuild = callback => {
 
 module.exports = runDbBuild;
 
-//INSERT INTO USERs (name, email, password) VALUES ('Lucy', 'lucy.m.king92@gmail.com', 'hello');
