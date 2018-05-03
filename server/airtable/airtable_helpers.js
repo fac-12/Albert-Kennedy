@@ -161,6 +161,16 @@ const getEmailDetails = ([mentorId, userId]) => {
   ]).catch(console.log);
 };
 
+const getExtraUserInformation = userId => {
+  console.log("in get extra info", userId);
+  return adminBase("users")
+    .select({
+      filterByFormula: `{id} = \"${userId}\"`
+    })
+    .all()
+    .then(([record]) => record.fields)
+    .catch(console.log);
+};
 // add user (database id/name/email) to adminBase
 
 const addUser = user => {
@@ -168,7 +178,12 @@ const addUser = user => {
     .create({
       id: user.id,
       name: user.name,
-      email: user.email
+      email: user.email,
+      dob: user.dob,
+      ethnicity: user.ethnicity,
+      gender: user.gender,
+      sexuality: user.sexuality,
+      postcode: user.postcode
     })
     .then(() => user.id)
     .catch(console.log);
@@ -230,6 +245,7 @@ module.exports = {
   getUserAppointments,
   addMentorDetailsToAppointments,
   addAppointment,
+  getExtraUserInformation,
   getEmailDetails,
   getApptRecordId,
   deleteAppointment,

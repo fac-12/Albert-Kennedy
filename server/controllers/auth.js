@@ -28,9 +28,31 @@ const userToken = id => {
 };
 
 exports.signUp = (req, res) => {
-  const { name, email, password, confirmPassword, postcode } = req.body;
+  const {
+    name,
+    email,
+    password,
+    confirmPassword,
+    postcode,
+    dob,
+    ethnicity,
+    gender,
+    sexuality
+  } = req.body;
 
-  if (!name || !email || !password || !confirmPassword || !postcode) {
+  const userObject = req.body;
+
+  if (
+    !name ||
+    !email ||
+    !password ||
+    !confirmPassword ||
+    !postcode ||
+    !dob ||
+    !ethnicity ||
+    !gender ||
+    !sexuality
+  ) {
     return res
       .status(422)
       .send({ error: "You must provide a name, email, postcode and password" });
@@ -50,8 +72,9 @@ exports.signUp = (req, res) => {
       .then(hash => {
         return queries.addUser(name, email, hash);
       })
-      .then(user => {
-        return airtable.addUser(user);
+      .then(userDb => {
+        const userObject = { ...req.body, id: userDb.id };
+        return airtable.addUser(userObject);
       })
       .then(userId => {
         res.json({ token: userToken(userId) });

@@ -16,18 +16,27 @@ const mentorEmailTemplate = appt => {
     <li>Wait for young person to leave the online room before leaving yourself.</li>
     <li>Complete session review: https://goo.gl/forms/uEdXig4YxBfptu9l2. This is received by AKT and you will receive a copy as well.</li>
   </ol>
+  <p>Best wishes,</p>
+  <p>The Albert Kennedy Trust</p>
+  <a href="https://www.akt.org.uk/">www.akt.org.uk</a>
     `;
 };
 
 const userEmailTemplate = appt => {
   return `<p> Hi there ${appt.user_name}, </p>
-  <p>Just a reminder of your appointment on ${appt.date}.</p>
+  <p>This email is a reminder of your appointment with ${appt.mentorName} on ${
+    appt.date
+  }.</p>
+    <p> If you need to cancel your appointment, please let us know by visiting your profile and clicking the cancel button.</p>
   <p>At the time of your appointment, click on this link: https://tlk.io/${
     appt.chat_string
   }. This link will take you to a private chat room where your online mentor will be waiting for you. They will greet you and ask whether you want to continue using live chat or would prefer to use audio or video. </p>
   <p>At the end of the session your online mentor will also ask you to complete this feedback form - http://bit.ly/aktfeedback. This is to help AKT understand if you would like any more support and to improve AKT services, so we’d be really grateful if you could fill it in after your session.</p>
   <p>The Albert Kennedy Trust will treat everything you say confidentially. But if your safety or the safety of someone else is at risk, we are obliged to disclose relevant information with organisations such as the police or social services. If you are in immediate danger you should call emergency services on 999.</p>
-  <p>If you have any questions ahead of your appointment, or if you need to rearrange, you can get in touch with AKT by emailing tomj@akt.org.uk</p>
+  <p>If you have any questions, concerns or need any additional help, you can contact The Albert Kennedy Trust directly by emailing mailto:onlinesupport@akt.org.uk</p>
+  <p>Best wishes,</p>
+  <p>The Albert Kennedy Trust</p>
+  <a href="https://www.akt.org.uk/">www.akt.org.uk</a>
   `;
 };
 
