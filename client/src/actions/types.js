@@ -9,3 +9,4 @@ export const UNAUTH_USER = "unauth_user";
 export const DISPLAY_ERROR = "display_error";
 export const USER_APTS = "user_apts";
 export const RESET_ERROR = "reset_error";
+export const PROFILE_PAGE_UNLOADED = "profile_page_unloaded";
