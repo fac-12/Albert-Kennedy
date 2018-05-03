@@ -36,7 +36,7 @@ exports.signUp = (req, res) => {
   ) {
     return res
       .status(422)
-      .send({ error: "You must provide a name, email, location and password" });
+      .send({ error: "You must provide a name, email, postcode and password" });
   } else if (password !== confirmPassword) {
     return res.status(422).send({ error: "Your passwords don't match!" });
   } else {
