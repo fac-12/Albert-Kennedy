@@ -7,6 +7,7 @@ import { fetchMentors, updateMentor } from "../../actions/appointment";
 import Header from "../Header";
 import SubmitButton from "../SubmitButton";
 import styled from "styled-components";
+import { PlaceholderDiv } from "../styling/components";
 
 const Card = styled.label`
   height: 8rem;
@@ -58,6 +59,7 @@ class MentorForm extends Component {
       return (
         <div className="container__div">
           <Header heading="Choose a mentor to connect with" />
+          <PlaceholderDiv> Loading... </PlaceholderDiv>
         </div>
       );
     }
@@ -101,7 +103,9 @@ class MentorForm extends Component {
     );
   }
   renderError(field) {
-    const { meta: { error, submitFailed } } = field;
+    const {
+      meta: { error, submitFailed }
+    } = field;
     return <div>{submitFailed ? error : ""}</div>;
   }
   onSubmit(values) {

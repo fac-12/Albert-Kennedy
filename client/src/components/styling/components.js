@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import LinkButton from "../LinkButton";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   font-size: 1rem;
@@ -33,11 +34,6 @@ const Card = styled.div`
 
 const LogIn = styled.p`
   margin-top: 1rem;
-`;
-
-const StyledLink = styled.a`
-  color: #0000ee;
-  text-decoration: underline;
 `;
 
 const Subtitle = styled.p`
@@ -127,6 +123,14 @@ const Form = styled.form`
   align-items: center;
 `;
 
+const PlaceholderDiv = styled.div`
+  height: 45vh;
+  text-align: center;
+  margin-top: 20vh;
+  color: #f47a20;
+  font-size: 26px;
+`;
+
 export {
   Container,
   Card,
@@ -142,5 +146,6 @@ export {
   Register,
   Header,
   Button,
-  Form
+  Form,
+  PlaceholderDiv
 };
