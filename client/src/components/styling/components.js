@@ -130,7 +130,7 @@ const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 70vh;
+  line-height: 1.4rem;
 `;
 
 const PlaceholderDiv = styled.div`
