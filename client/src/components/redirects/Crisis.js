@@ -12,15 +12,15 @@ export default class Crisis extends Component {
             instead.
           </RedirectP>
           <RedirectP>
-            If you are having suicidal thoughts, call <a href="tel:999">999</a>
+            If you are having suicidal thoughts, call <a href="tel:999">999</a>{" "}
             or visit your nearest A&E department.
           </RedirectP>
           <RedirectP>
             You can also call Samaritans' 24-hour free helpline on
-            <a href="tel:116123">116 123</a>
+            <a href="tel:116123"> 116 123</a>
           </RedirectP>
           <RedirectP>
-            National LGBT Domestic Violence Helpline:
+            National LGBT Domestic Violence Helpline:{" "}
             <a href="tel:0300 999 5428">0300 999 5428</a>
             {" or on "}
             <a href="tel:08009995428">0800 999 5428</a>

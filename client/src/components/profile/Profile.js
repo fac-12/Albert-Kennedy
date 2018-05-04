@@ -48,6 +48,7 @@ const Button = styled.button`
 `;
 
 const FlexWrap = styled.div`
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   width: 100vw;
