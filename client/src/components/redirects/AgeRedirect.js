@@ -19,7 +19,7 @@ export default class AgeRedirect extends Component {
             <a href="http://www.stonewallhousing.org">
               www.stonewallhousing.org
             </a>
-            <br />
+            {" or call them on "}
             <a href="tel:020 7359 5767">020 7359 5767</a>
           </RedirectP>
 
@@ -27,7 +27,7 @@ export default class AgeRedirect extends Component {
             Shelter provides practical assistance, advice, information and
             advocacy to people experiencing homelessness:<br />
             <a href="http://www.shelter.org.uk">www.shelter.org.uk</a>
-            <br />
+            {" or call them on "}
             <a href="tel:0808 800 4444">0808 800 4444</a>
           </RedirectP>
 
@@ -35,7 +35,7 @@ export default class AgeRedirect extends Component {
             Stonewall can offer information and support for members of the LGBT
             community:<br />
             <a href="https://www.stonewall.org.uk">www.stonewall.org.uk</a>
-            <br />
+            {" or call them on "}
             <a href="tel:020 7593 1850">020 7593 1850</a>
           </RedirectP>
         </Card>

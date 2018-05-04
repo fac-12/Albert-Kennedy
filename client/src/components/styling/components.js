@@ -21,12 +21,12 @@ const Card = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  padding: 1rem;
   text-align: center;
   margin: 1rem;
   @media (min-width: 768px) {
     width: 30rem;
     height: 32rem;
+    margin: 1rem;
   }
 `;
 
@@ -142,7 +142,10 @@ const PlaceholderDiv = styled.div`
 `;
 
 const RedirectP = styled.p`
-  padding: 1rem;
+  padding: 0.5rem;
+  @media (min-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 export {
