@@ -56,8 +56,25 @@ const P = styled.p`
   text-decoration: underline;
 `;
 
+const CrisisLink = styled(Link)`
+  color: white;
+  background-color: #a8005d;
+  padding: 9px;
+  border-radius: 5px;
+  text-decoration: none;
+`;
+
 class Header extends Component {
   render() {
+    const subHeader =
+      this.props.text === "crisis" ? (
+        <div>
+          <CrisisLink to="/crisis">I need urgent help</CrisisLink>
+        </div>
+      ) : (
+        <p>{this.props.text}</p>
+      );
+
     return (
       <Wrapper>
         <NavBar>
@@ -76,9 +93,9 @@ class Header extends Component {
         </NavBar>
         <Heading>{this.props.heading}</Heading>
         {this.props.size ? (
-          <SmallText>{this.props.text}</SmallText>
+          <SmallText>{subHeader}</SmallText>
         ) : (
-          <Text>{this.props.text}</Text>
+          <Text>{subHeader}</Text>
         )}
         <h2 className="header__text">{this.props.headerText}</h2>
       </Wrapper>

@@ -41,6 +41,10 @@ const Button = styled.button`
   border: solid 0.1em #f47a20;
   background-color: white;
   border-radius: 0.3rem;
+
+  &:active {
+    background-color: #f47a20;
+  }
 `;
 
 const FlexWrap = styled.div`
@@ -57,10 +61,6 @@ const TextWrap = styled.div`
     margin: 0.5em;
   }
 `;
-const Crisis = styled.p`
-  font-size: 1rem;
-  padding: 0 8vw;
-`;
 
 const NewAppButton = styled(LinkButton)`
   position: inherit;
@@ -72,19 +72,15 @@ class Profile extends Component {
     if (!this.props.apts) {
       return (
         <div>
-          <Header heading="My Appointments" logout />
+          <Header heading="My Appointments" text="crisis" logout />
           <PlaceholderDiv> Loading...</PlaceholderDiv>
           <NewAppButton text="new appointment" url="/topics" primary />
-          <Crisis>
-            Immediate crisis? Don't use this site -{" "}
-            <Link to="/crisis">use these resources instead</Link>
-          </Crisis>
         </div>
       );
     } else {
       return (
         <div>
-          <Header heading="My Appointments" logout />
+          <Header heading="My Appointments" text="crisis" logout />
           <FlexWrap>
             {this.props.apts.map(appt => {
               console.log("appt", appt.img_url);
@@ -110,10 +106,6 @@ class Profile extends Component {
             })}
           </FlexWrap>
           <NewAppButton text="new appointment" url="/topics" primary />
-          <Crisis>
-            In immediate crisis?
-            <Link to="/crisis">Use these resources instead</Link>
-          </Crisis>
         </div>
       );
     }
