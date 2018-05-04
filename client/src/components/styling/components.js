@@ -96,6 +96,7 @@ const Error = styled.p`
   margin: 0;
   color: #fb8b24;
   font-size: 0.75em;
+  text-align: left;
 `;
 
 const Register = styled.p`

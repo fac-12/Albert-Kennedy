@@ -58,6 +58,12 @@ const Img = styled.img`
   width: 80px;
   padding: 5px;
 `;
+const Error = styled.div`
+  font-size: 0.8em;
+  font-weight: 500;
+  width: 50%;
+  color: #f47a20;
+`;
 
 class MentorForm extends Component {
   componentDidMount() {
@@ -120,7 +126,7 @@ class MentorForm extends Component {
   }
   renderError(field) {
     const { meta: { error, submitFailed } } = field;
-    return <div>{submitFailed ? error : ""}</div>;
+    return <Error>{submitFailed ? error : ""}</Error>;
   }
   onSubmit(values) {
     this.props.updateMentor(values);
