@@ -87,7 +87,7 @@ const Input = styled.input`
 `;
 
 const FormElement = styled.div`
-  width: 80%;
+  width: 70%;
   @media (min-width: 768px) {
   }
 `;
@@ -96,6 +96,7 @@ const Error = styled.p`
   margin: 0;
   color: #fb8b24;
   font-size: 0.75em;
+  text-align: left;
 `;
 
 const Register = styled.p`
@@ -129,6 +130,7 @@ const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  line-height: 1.4rem;
 `;
 
 const PlaceholderDiv = styled.div`

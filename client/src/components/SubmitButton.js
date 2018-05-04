@@ -10,10 +10,9 @@ const Button = styled.button`
   margin: 10vw;
   height: 60px;
   font-size: 16px;
-
   @media (min-width: 768px) {
-    width: 80%;
-    align-self: center;
+    width: 50%;
+    margin: 5vw;
   }
 `;
 

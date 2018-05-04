@@ -7,7 +7,7 @@ import { fetchMentors, updateMentor } from "../../actions/appointment";
 import Header from "../Header";
 import SubmitButton from "../SubmitButton";
 import styled from "styled-components";
-import { PlaceholderDiv } from "../styling/components";
+import { Form, PlaceholderDiv } from "../styling/components";
 
 const Card = styled.label`
   height: 110px;
@@ -19,7 +19,7 @@ const Card = styled.label`
   align-items: center;
   justify-content: space-around;
   @media (min-width: 768px) {
-    width: 45%;
+    width: 50%;
   }
 `;
 
@@ -28,6 +28,7 @@ const FlexWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  width: 100%;
   @media (min-width: 768px) {
     justify-content: center;
   }
@@ -43,6 +44,7 @@ const Input = styled.input`
 const Label = styled.div`
   margin: 0 0 10px 0;
   font-weight: bold;
+  @med;
 `;
 
 const Desc = styled.p`
@@ -55,6 +57,12 @@ const Img = styled.img`
   height: auto;
   width: 80px;
   padding: 5px;
+`;
+const Error = styled.div`
+  font-size: 0.8em;
+  font-weight: 500;
+  width: 50%;
+  color: #f47a20;
 `;
 
 class MentorForm extends Component {
@@ -80,7 +88,7 @@ class MentorForm extends Component {
     return (
       <div className="container__div">
         <Header heading="Choose a mentor to connect with" />
-        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+        <Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           {_.map(this.props.mentors, mentor => (
             <FlexWrapper>
               <Field
@@ -97,7 +105,7 @@ class MentorForm extends Component {
           ))}
           <Field name="error" component={this.renderError} />
           <SubmitButton text="next" />
-        </form>
+        </Form>
       </div>
     );
   }
@@ -117,10 +125,8 @@ class MentorForm extends Component {
     );
   }
   renderError(field) {
-    const {
-      meta: { error, submitFailed }
-    } = field;
-    return <div>{submitFailed ? error : ""}</div>;
+    const { meta: { error, submitFailed } } = field;
+    return <Error>{submitFailed ? error : ""}</Error>;
   }
   onSubmit(values) {
     this.props.updateMentor(values);

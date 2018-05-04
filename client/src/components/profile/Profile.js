@@ -64,8 +64,18 @@ const TextWrap = styled.div`
 `;
 
 const NewAppButton = styled(LinkButton)`
-  position: inherit;
-  margin: 2vh 5vw 2vh 5vw;
+  background: #f47a20;
+  border: 2px solid #f47a20;
+  border-radius: 5px;
+  box-sizing: border-box;
+  width: 50%;
+  height: 60px;
+  font-size: 16px;
+  margin-top: 1rem;
+  @media (min-width: 768px) {
+    width: 50%;
+    margin: 2rem;
+  }
 `;
 
 class Profile extends Component {
@@ -105,6 +115,7 @@ class Profile extends Component {
                 </Card>
               );
             })}
+            <NewAppButton text="new appointment" url="/topics" primary />
           </FlexWrap>
           <NewAppButton text="new appointment" url="/topics" primary />
         </div>
