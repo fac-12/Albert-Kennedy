@@ -29,7 +29,7 @@ const Card = styled.div`
 `;
 
 const Img = styled.img`
-  max-height: 30vh;
+  max-height: 25vh;
   max-width: 20vw;
   height: auto;
 `;
@@ -37,7 +37,7 @@ const Img = styled.img`
 const Button = styled.button`
   height: 4vh;
   width: 90%;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   border: solid 0.1em #f47a20;
   background-color: white;
   border-radius: 0.3rem;
