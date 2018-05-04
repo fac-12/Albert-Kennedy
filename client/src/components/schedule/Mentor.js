@@ -7,7 +7,7 @@ import { fetchMentors, updateMentor } from "../../actions/appointment";
 import Header from "../Header";
 import SubmitButton from "../SubmitButton";
 import styled from "styled-components";
-import { Form, PlaceholderDiv } from "../styling/components";
+import { PlaceholderDiv } from "../styling/components";
 
 const Card = styled.label`
   height: 110px;
@@ -63,6 +63,13 @@ const Error = styled.div`
   font-weight: 500;
   width: 50%;
   color: #f47a20;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 class MentorForm extends Component {

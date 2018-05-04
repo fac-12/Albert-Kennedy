@@ -45,7 +45,7 @@ const ethnicities = [
 
 const EthnicityField = styled(Field)`
   height: 5vh;
-  width: 80vw;
+  width: 70%;
   margin-top: 1rem;
   background-color: white;
   border: 1px solid #333333;
@@ -118,9 +118,7 @@ class UserInformationForm extends Component {
   }
 
   renderField(field) {
-    const {
-      meta: { touched, error }
-    } = field;
+    const { meta: { touched, error } } = field;
     return (
       <FormElement>
         <Input
