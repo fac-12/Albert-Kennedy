@@ -140,7 +140,11 @@ const PlaceholderDiv = styled.div`
 `;
 
 const RedirectP = styled.p`
-  padding: 1rem;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  @media (min-width: 768px) {
+    padding: 1rem;
+  }
 `;
 
 export {

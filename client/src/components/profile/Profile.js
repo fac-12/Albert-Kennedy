@@ -29,21 +29,25 @@ const Card = styled.div`
 `;
 
 const Img = styled.img`
-  max-height: 30vh;
+  max-height: 25vh;
   max-width: 20vw;
-  height: auto;
 `;
 
 const Button = styled.button`
   height: 4vh;
   width: 90%;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   border: solid 0.1em #f47a20;
   background-color: white;
   border-radius: 0.3rem;
+
+  &:active {
+    background-color: #f47a20;
+  }
 `;
 
 const FlexWrap = styled.div`
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -57,43 +61,51 @@ const TextWrap = styled.div`
     margin: 0.5em;
   }
 `;
-const Crisis = styled.p`
-  font-size: 1rem;
-  padding: 0 8vw;
-`;
 
 const NewAppButton = styled(LinkButton)`
-  position: inherit;
-  margin: 2vh 5vw 2vh 5vw;
+  background: #f47a20;
+  border: 2px solid #f47a20;
+  border-radius: 5px;
+  box-sizing: border-box;
+  width: 50%;
+  height: 60px;
+  font-size: 16px;
+  margin-top: 1rem;
+  @media (min-width: 768px) {
+    width: 50%;
+    margin: 2rem;
+  }
 `;
 
+const ImgDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
+  min-width: 20vw;
+`;
 class Profile extends Component {
   render() {
     if (!this.props.apts) {
       return (
         <div>
-          <Header heading="My Appointments" logout />
+          <Header heading="My Appointments" text="crisis" logout />
           <PlaceholderDiv> Loading...</PlaceholderDiv>
-          <NewAppButton text="new appointment" url="/topics" primary />
-          <Crisis>
-            Immediate crisis? Don't use this site -{" "}
-            <Link to="/crisis">use these resources instead</Link>
-          </Crisis>
         </div>
       );
     } else {
       return (
         <div>
-          <Header heading="My Appointments" logout />
+          <Header heading="My Appointments" text="crisis" logout />
           <FlexWrap>
             {this.props.apts.map(appt => {
               console.log("appt", appt.img_url);
               const dates = this.convertDates(appt.date_and_time);
               return (
                 <Card key={appt.chat_string}>
-                  <div>
+                  <ImgDiv>
                     <Img src={appt.mentor_img_url} />
-                  </div>
+                  </ImgDiv>
                   <TextWrap>
                     <p>{appt.mentor_name}</p>
                     <p>{dates[0]}</p>
@@ -108,12 +120,8 @@ class Profile extends Component {
                 </Card>
               );
             })}
+            <NewAppButton text="new appointment" url="/topics" primary />
           </FlexWrap>
-          <NewAppButton text="new appointment" url="/topics" primary />
-          <Crisis>
-            In immediate crisis?
-            <Link to="/crisis">Use these resources instead</Link>
-          </Crisis>
         </div>
       );
     }
