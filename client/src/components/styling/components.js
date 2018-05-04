@@ -135,7 +135,6 @@ export {
   Container,
   Card,
   LogIn,
-  StyledLink,
   Subtitle,
   DesktopButton,
   LinkButton,

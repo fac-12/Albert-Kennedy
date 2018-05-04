@@ -5,7 +5,6 @@ import {
   Container,
   Card,
   LogIn,
-  StyledLink,
   Subtitle,
   DesktopButton,
   H2
