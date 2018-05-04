@@ -18,12 +18,11 @@ const Card = styled.div`
   background: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   padding: 1rem;
   text-align: center;
   margin: 1rem;
-  font-size: 14px;
   @media (min-width: 768px) {
     width: 30rem;
     height: 32rem;
@@ -58,13 +57,17 @@ const DesktopButton = styled(LinkButton)`
 `;
 
 const ButtonDiv = styled.div`
-  justify-content: space-between;
+  width: 100%;
+  display: FLEX;
+  flex-direction: COLUMN;
+  align-items: CENTER;
 `;
+
 const H2 = styled.h2`
   color: #7c53a2;
   margin-top: 1rem;
   @media (min-width: 768px) {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 `;
 
@@ -118,9 +121,10 @@ const Button = styled.button`
   width: 90%;
   height: 60px;
   font-size: 16px;
-  margin-top: 2rem;
+  margin-top: 1rem;
   @media (min-width: 768px) {
     width: 90%;
+    margin-top: 2rem;
   }
 `;
 

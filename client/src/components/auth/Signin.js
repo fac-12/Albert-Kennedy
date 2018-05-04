@@ -20,7 +20,8 @@ import {
   Register,
   Header,
   Button,
-  Form
+  Form,
+  ButtonDiv
 } from "../styling/components";
 
 class SigninForm extends Component {
@@ -46,16 +47,17 @@ class SigninForm extends Component {
               component={this.renderField}
             />
             <p>{this.renderAlert()}</p>
-
             <Button type="submit">login</Button>
+            <ButtonDiv>
+              <Register>
+                New to inter-AKT? <Link to="/">Start here</Link>
+              </Register>
 
-            <Register>
-              New to inter-AKT? <Link to="/">Start here</Link>
-            </Register>
-
-            <Register>
-              Forgot your password? <Link to="/forgotpassword">Reset here</Link>
-            </Register>
+              <Register>
+                Forgot your password?{" "}
+                <Link to="/forgotpassword">Reset here</Link>
+              </Register>
+            </ButtonDiv>
           </Card>
         </Form>
       </Container>
