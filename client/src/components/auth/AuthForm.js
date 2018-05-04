@@ -10,7 +10,6 @@ import styled from "styled-components";
 import {
   Card,
   LogIn,
-  StyledLink,
   Subtitle,
   DesktopButton,
   LinkButton,
@@ -77,7 +76,9 @@ class AuthForm extends Component {
   }
 
   renderField(field) {
-    const { meta: { touched, error } } = field;
+    const {
+      meta: { touched, error }
+    } = field;
     return (
       <FormElement>
         <Input

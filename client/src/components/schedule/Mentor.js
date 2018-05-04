@@ -7,7 +7,7 @@ import { fetchMentors, updateMentor } from "../../actions/appointment";
 import Header from "../Header";
 import SubmitButton from "../SubmitButton";
 import styled from "styled-components";
-import { Form } from "../styling/components";
+import { Form, PlaceholderDiv } from "../styling/components";
 
 const Card = styled.label`
   height: 110px;
@@ -73,6 +73,7 @@ class MentorForm extends Component {
       return (
         <div className="container__div">
           <Header heading="Choose a mentor to connect with" />
+          <PlaceholderDiv> Loading... </PlaceholderDiv>
         </div>
       );
     }

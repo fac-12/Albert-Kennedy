@@ -1,10 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import {
   Container,
   Card,
   LogIn,
-  StyledLink,
   Subtitle,
   DesktopButton,
   H2
@@ -21,7 +21,7 @@ export default class Landing extends Component {
           </Subtitle>
           <DesktopButton text="get started" url="/age" primary />
           <LogIn>
-            Returning user? <StyledLink to="/signin">Log in</StyledLink>
+            Returning user? <Link to="/signin">Log in</Link>
           </LogIn>
         </Card>
       </Container>

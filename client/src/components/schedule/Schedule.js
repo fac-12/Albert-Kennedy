@@ -12,6 +12,7 @@ import {
 import Header from "../Header";
 import { Link } from "react-router-dom";
 import SubmitButton from "../SubmitButton";
+import { PlaceholderDiv } from "../styling/components";
 
 const Card = styled.label`
   width: 90vw;
@@ -74,7 +75,12 @@ const FlexWrapper = styled.div`
 class ScheduleForm extends Component {
   render() {
     if (!this.props.availibility) {
-      return <Header heading="Schedule an appointment" />;
+      return (
+        <div>
+          <Header heading="Schedule an appointment" />
+          <PlaceholderDiv> Loading... </PlaceholderDiv>
+        </div>
+      );
     } else {
       return (
         <div>

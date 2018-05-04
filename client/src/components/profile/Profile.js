@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Header from "../Header";
+import { PlaceholderDiv } from "../styling/components";
 import { Link } from "react-router-dom";
 import {
   fetchAppointments,
@@ -66,17 +67,13 @@ const NewAppButton = styled(LinkButton)`
   margin: 2vh 5vw 2vh 5vw;
 `;
 
-const PlaceholderDiv = styled.div`
-  height: 45vh;
-`;
-
 class Profile extends Component {
   render() {
     if (!this.props.apts) {
       return (
         <div>
           <Header heading="My Appointments" logout />
-          <PlaceholderDiv />
+          <PlaceholderDiv> Loading...</PlaceholderDiv>
           <NewAppButton text="new appointment" url="/topics" primary />
           <Crisis>
             Immediate crisis? Don't use this site -{" "}
@@ -90,11 +87,12 @@ class Profile extends Component {
           <Header heading="My Appointments" logout />
           <FlexWrap>
             {this.props.apts.map(appt => {
+              console.log("appt", appt.img_url);
               const dates = this.convertDates(appt.date_and_time);
               return (
                 <Card key={appt.chat_string}>
                   <div>
-                    <Img src={appt.img_url} />
+                    <Img src={appt.mentor_img_url} />
                   </div>
                   <TextWrap>
                     <p>{appt.mentor_name}</p>
