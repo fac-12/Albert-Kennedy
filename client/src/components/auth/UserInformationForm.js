@@ -45,7 +45,7 @@ const ethnicities = [
 
 const EthnicityField = styled(Field)`
   height: 5vh;
-  width: 70%;
+  width: 80%;
   margin-top: 1rem;
   background-color: white;
   border: 1px solid #333333;
