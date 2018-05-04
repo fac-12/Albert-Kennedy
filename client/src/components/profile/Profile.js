@@ -63,8 +63,18 @@ const Crisis = styled.p`
 `;
 
 const NewAppButton = styled(LinkButton)`
-  position: inherit;
-  margin: 2vh 5vw 2vh 5vw;
+  background: #f47a20;
+  border: 2px solid #f47a20;
+  border-radius: 5px;
+  box-sizing: border-box;
+  width: 50%;
+  height: 60px;
+  font-size: 16px;
+  margin-top: 1rem;
+  @media (min-width: 768px) {
+    width: 50%;
+    margin: 2rem;
+  }
 `;
 
 class Profile extends Component {
@@ -72,9 +82,8 @@ class Profile extends Component {
     if (!this.props.apts) {
       return (
         <div>
-          <Header heading="My Appointments" logout />
+          <Header heading="My Appointments" text="logout" />
           <PlaceholderDiv> Loading...</PlaceholderDiv>
-          <NewAppButton text="new appointment" url="/topics" primary />
           <Crisis>
             Immediate crisis? Don't use this site -{" "}
             <Link to="/crisis">use these resources instead</Link>
@@ -84,7 +93,7 @@ class Profile extends Component {
     } else {
       return (
         <div>
-          <Header heading="My Appointments" logout />
+          <Header heading="My Appointments" text={Crisis} logout />
           <FlexWrap>
             {this.props.apts.map(appt => {
               console.log("appt", appt.img_url);
@@ -108,10 +117,10 @@ class Profile extends Component {
                 </Card>
               );
             })}
+            <NewAppButton text="new appointment" url="/topics" primary />
           </FlexWrap>
-          <NewAppButton text="new appointment" url="/topics" primary />
           <Crisis>
-            In immediate crisis?
+            In immediate crisis?<br />
             <Link to="/crisis">Use these resources instead</Link>
           </Crisis>
         </div>
