@@ -82,8 +82,13 @@ class UserInformationForm extends Component {
             component={this.renderField}
           />
 
-          <EthnicityField name="ethnicity" component="select">
-            <option value="">Please choose your ethnicity:</option>
+          <EthnicityField
+            label="ethnicity"
+            name="ethnicity"
+            component="select"
+            required="yes"
+          >
+            <option value="">Ethnicity</option>
             {ethnicities.map(ethnicityOption => (
               <option value={ethnicityOption} key={ethnicityOption}>
                 {ethnicityOption}
