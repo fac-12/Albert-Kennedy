@@ -29,7 +29,7 @@ class SigninForm extends Component {
       <Container>
         <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <Card>
-            <Header>inter-AKT</Header>
+            <H2>inter-AKT</H2>
             <Field
               name="email"
               type="email"
@@ -52,9 +52,9 @@ class SigninForm extends Component {
               New to inter-AKT? <Link to="/">Start here</Link>
             </Register>
 
-            <p>
+            <Register>
               Forgot your password? <Link to="/forgotpassword">Reset here</Link>
-            </p>
+            </Register>
           </Card>
         </Form>
       </Container>
@@ -62,9 +62,7 @@ class SigninForm extends Component {
   }
 
   renderField(field) {
-    const {
-      meta: { touched, error }
-    } = field;
+    const { meta: { touched, error } } = field;
     return (
       <FormElement>
         <Input

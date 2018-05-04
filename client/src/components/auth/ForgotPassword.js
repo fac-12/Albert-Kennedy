@@ -20,9 +20,8 @@ const Container = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: center;
-  background-color: #dfdbe5;
-  background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
-    linear-gradient(180deg, #7c53a2 0%, rgba(124, 83, 162, 0) 100%);
+  background-color: #7c53a2;
+  background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239469bb' fill-opacity='0.49'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 `;
 
 const Input = styled.input`
@@ -88,69 +87,67 @@ const Header = styled.h1`
   margin-bottom: 10vh;
 `;
 
-
-
 class ForgotPasswordForm extends Component {
-    render() {
-      const { handleSubmit } = this.props;
-      return (
-        <Container>
-          <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-            <Header>inter-AKT</Header>
-            <Field
-              name="email"
-              type="email"
-              label="Email"
-              placeholder="Email"
-              component={this.renderField}
-            />
-            <p>{this.renderAlert()}</p>
-  
-            <Button type="submit">reset</Button>
-  
-            <Register>
-              New to inter-AKT? <Link to="/">Start here</Link>
-            </Register>
-          </Form>
-        </Container>
-      );
-    }
-  
-    renderField(field) {
-      const { meta: { touched, error } } = field;
-      return (
-        <div>
-          <Input
-            {...field.input}
-            type={field.type}
-            placeholder={field.placeholder}
+  render() {
+    const { handleSubmit } = this.props;
+    return (
+      <Container>
+        <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+          <Header>inter-AKT</Header>
+          <Field
+            name="email"
+            type="email"
+            label="Email"
+            placeholder="Email"
+            component={this.renderField}
           />
-          <Error>{touched ? error : ""}</Error>
-        </div>
-      );
-    }
-  
-    renderAlert() {
-      if (this.props.error) {
-        return <span>{this.props.error}</span>;
-      }
-    }
-  
-    handleFormSubmit(values) {
-      this.props.forgotPassword(values);
-    }
-  
-    componentDidMount() {
-      this.props.resetError();
+          <p>{this.renderAlert()}</p>
+
+          <Button type="submit">reset</Button>
+
+          <Register>
+            New to inter-AKT? <Link to="/">Start here</Link>
+          </Register>
+        </Form>
+      </Container>
+    );
+  }
+
+  renderField(field) {
+    const { meta: { touched, error } } = field;
+    return (
+      <div>
+        <Input
+          {...field.input}
+          type={field.type}
+          placeholder={field.placeholder}
+        />
+        <Error>{touched ? error : ""}</Error>
+      </div>
+    );
+  }
+
+  renderAlert() {
+    if (this.props.error) {
+      return <span>{this.props.error}</span>;
     }
   }
 
-  const mapStateToProps = state => ({
-    error: state.error
-  });
-  
+  handleFormSubmit(values) {
+    this.props.forgotPassword(values);
+  }
 
-  export default reduxForm({
-    form: "ForgotPasswordForm"
-  })(connect(mapStateToProps, { forgotPassword, resetError })(ForgotPasswordForm));
-  
+  componentDidMount() {
+    this.props.resetError();
+  }
+}
+
+const mapStateToProps = state => ({
+  error: state.error
+});
+
+export default reduxForm({
+  form: "ForgotPasswordForm"
+})(
+  connect(mapStateToProps, { forgotPassword, resetError })(ForgotPasswordForm)
+);

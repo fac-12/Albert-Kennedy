@@ -24,11 +24,10 @@ const Card = styled.div`
   padding: 1rem;
   text-align: center;
   margin: 1rem;
-  height: 20rem;
-  width: 18rem;
-  @media (min-width: 546px) {
-    width: 28rem;
-    height: 30rem;
+  font-size: 14px;
+  @media (min-width: 768px) {
+    width: 30rem;
+    height: 32rem;
   }
 `;
 
@@ -54,6 +53,9 @@ const DesktopButton = styled(LinkButton)`
   }
 `;
 
+const ButtonDiv = styled.div`
+  justify-content: space-between;
+`;
 const H2 = styled.h2`
   color: #7c53a2;
   margin-top: 1rem;
@@ -95,6 +97,8 @@ const Error = styled.p`
 
 const Register = styled.p`
   margin-top: 1rem;
+  align-items: center;
+  text-align: center;
 `;
 
 const Header = styled.h1`
@@ -131,6 +135,10 @@ const PlaceholderDiv = styled.div`
   font-size: 26px;
 `;
 
+const RedirectP = styled.p`
+  padding: 1rem;
+`;
+
 export {
   Container,
   Card,
@@ -146,5 +154,7 @@ export {
   Header,
   Button,
   Form,
-  PlaceholderDiv
+  PlaceholderDiv,
+  RedirectP,
+  ButtonDiv
 };
