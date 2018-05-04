@@ -31,7 +31,6 @@ const Card = styled.div`
 const Img = styled.img`
   max-height: 25vh;
   max-width: 20vw;
-  height: auto;
 `;
 
 const Button = styled.button`
@@ -78,6 +77,13 @@ const NewAppButton = styled(LinkButton)`
   }
 `;
 
+const ImgDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
+  min-width: 20vw;
+`;
 class Profile extends Component {
   render() {
     if (!this.props.apts) {
@@ -85,7 +91,6 @@ class Profile extends Component {
         <div>
           <Header heading="My Appointments" text="crisis" logout />
           <PlaceholderDiv> Loading...</PlaceholderDiv>
-          <NewAppButton text="new appointment" url="/topics" primary />
         </div>
       );
     } else {
@@ -98,9 +103,9 @@ class Profile extends Component {
               const dates = this.convertDates(appt.date_and_time);
               return (
                 <Card key={appt.chat_string}>
-                  <div>
+                  <ImgDiv>
                     <Img src={appt.mentor_img_url} />
-                  </div>
+                  </ImgDiv>
                   <TextWrap>
                     <p>{appt.mentor_name}</p>
                     <p>{dates[0]}</p>
@@ -117,7 +122,6 @@ class Profile extends Component {
             })}
             <NewAppButton text="new appointment" url="/topics" primary />
           </FlexWrap>
-          <NewAppButton text="new appointment" url="/topics" primary />
         </div>
       );
     }
