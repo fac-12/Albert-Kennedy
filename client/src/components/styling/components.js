@@ -91,7 +91,7 @@ const Input = styled.input`
 `;
 
 const FormElement = styled.div`
-  width: 80%;
+  width: 70%;
   @media (min-width: 768px) {
   }
 `;
@@ -133,6 +133,7 @@ const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 70vh;
 `;
 
 const RedirectP = styled.p`

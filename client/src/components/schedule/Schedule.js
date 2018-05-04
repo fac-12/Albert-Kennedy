@@ -24,7 +24,7 @@ const Card = styled.label`
   align-items: center;
   justify-content: space-around;
   @media (min-width: 768px) {
-    width: 45%;
+    width: 50%;
   }
 `;
 
@@ -64,8 +64,9 @@ const FlexWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+
   @media (min-width: 768px) {
-    max-width: 70%;
+    width: 100%;
     justify-content: center;
   }
 `;
