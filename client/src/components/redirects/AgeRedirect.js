@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-import { Container, Card } from "../styling/components";
+import { Container, Card, RedirectP } from "../styling/components";
 
-const RedirectP = styled.p`
-  padding: 1rem;
-`;
 export default class AgeRedirect extends Component {
   render() {
     return (

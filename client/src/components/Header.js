@@ -36,6 +36,10 @@ const Text = styled.p`
   margin: 0.5rem auto;
 `;
 
+const SmallText = styled(Text)`
+  font-size: 16px;
+`;
+
 const Wrapper = styled.div`
   min-height: 30vh;
   @media (min-width: 546px) {
@@ -71,7 +75,11 @@ class Header extends Component {
           )}
         </NavBar>
         <Heading>{this.props.heading}</Heading>
-        <Text>{this.props.text}</Text>
+        {this.props.size ? (
+          <SmallText>{this.props.text}</SmallText>
+        ) : (
+          <Text>{this.props.text}</Text>
+        )}
         <h2 className="header__text">{this.props.headerText}</h2>
       </Wrapper>
     );

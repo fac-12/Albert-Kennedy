@@ -5,7 +5,8 @@ import {
   Card,
   Subtitle,
   DesktopButton,
-  H2
+  H2,
+  ButtonDiv
 } from "../styling/components";
 
 export default class Age extends Component {
@@ -15,8 +16,10 @@ export default class Age extends Component {
         <Card>
           <H2>inter-AKT</H2>
           <Subtitle>Great! Are you aged between 13 and 25?</Subtitle>
-          <DesktopButton text="yes" url="/lgbt" primary />
-          <DesktopButton text="no" url="/ageredirect" />
+          <ButtonDiv>
+            <DesktopButton text="yes" url="/lgbt" primary />
+            <DesktopButton text="no" url="/ageredirect" />
+          </ButtonDiv>
         </Card>
       </Container>
     );

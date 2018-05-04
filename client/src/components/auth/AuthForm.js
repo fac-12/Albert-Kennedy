@@ -10,7 +10,6 @@ import styled from "styled-components";
 import {
   Card,
   LogIn,
-  StyledLink,
   Subtitle,
   DesktopButton,
   LinkButton,
@@ -18,7 +17,8 @@ import {
   Input,
   FormElement,
   Error,
-  Register
+  Register,
+  Form
 } from "../styling/components";
 
 class AuthForm extends Component {
@@ -32,7 +32,7 @@ class AuthForm extends Component {
           Returning user? <Link to="/signin">Log in</Link>
         </Register>
 
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+        <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <Field
             name="name"
             type="text"
@@ -70,13 +70,15 @@ class AuthForm extends Component {
           />
           <p>{this.renderAlert()}</p>
           <SubmitButton text="next" />
-        </form>
+        </Form>
       </div>
     );
   }
 
   renderField(field) {
-    const { meta: { touched, error } } = field;
+    const {
+      meta: { touched, error }
+    } = field;
     return (
       <FormElement>
         <Input

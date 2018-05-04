@@ -11,7 +11,6 @@ import {
   Container,
   Card,
   LogIn,
-  StyledLink,
   Subtitle,
   DesktopButton,
   LinkButton,
@@ -19,7 +18,8 @@ import {
   Input,
   FormElement,
   Error,
-  Register
+  Register,
+  Form
 } from "../styling/components";
 
 const ethnicities = [
@@ -46,7 +46,7 @@ const ethnicities = [
 const EthnicityField = styled(Field)`
   height: 5vh;
   width: 80vw;
-  margin: 0 10vw 5vh 10vw;
+  margin-top: 1rem;
   background-color: white;
   border: 1px solid #333333;
   font-size: 1rem;
@@ -68,12 +68,12 @@ class UserInformationForm extends Component {
 
     return (
       <div className="container__div">
-        <Header heading="Personal Information" text={text} />
+        <Header heading="Personal Information" text={text} size="small" />
         <Register>
           Returning user? <Link to="/signin">Log in</Link>
         </Register>
 
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+        <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <Field
             name="dob"
             type="date"
@@ -82,10 +82,13 @@ class UserInformationForm extends Component {
             component={this.renderField}
           />
 
-          <EthnicityField name="ethnicity" component="select">
-            <option value="">
-              Please choose the ethnicity that applies to you
-            </option>
+          <EthnicityField
+            label="ethnicity"
+            name="ethnicity"
+            component="select"
+            required="yes"
+          >
+            <option value="">Ethnicity</option>
             {ethnicities.map(ethnicityOption => (
               <option value={ethnicityOption} key={ethnicityOption}>
                 {ethnicityOption}
@@ -109,7 +112,7 @@ class UserInformationForm extends Component {
           />
           <p>{this.renderAlert()}</p>
           <SubmitButton text="next" />
-        </form>
+        </Form>
       </div>
     );
   }

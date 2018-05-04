@@ -9,7 +9,6 @@ import {
   Container,
   Card,
   LogIn,
-  StyledLink,
   Subtitle,
   DesktopButton,
   LinkButton,
@@ -20,7 +19,8 @@ import {
   Register,
   Header,
   Button,
-  Form
+  Form,
+  ButtonDiv
 } from "../styling/components";
 
 class SigninForm extends Component {
@@ -30,7 +30,7 @@ class SigninForm extends Component {
       <Container>
         <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <Card>
-            <Header>inter-AKT</Header>
+            <H2>inter-AKT</H2>
             <Field
               name="email"
               type="email"
@@ -46,16 +46,17 @@ class SigninForm extends Component {
               component={this.renderField}
             />
             <p>{this.renderAlert()}</p>
-
             <Button type="submit">login</Button>
+            <ButtonDiv>
+              <Register>
+                New to inter-AKT? <Link to="/">Start here</Link>
+              </Register>
 
-            <Register>
-              New to inter-AKT? <Link to="/">Start here</Link>
-            </Register>
-
-            <p>
-              Forgot your password? <Link to="/forgotpassword">Reset here</Link>
-            </p>
+              <Register>
+                Forgot your password?{" "}
+                <Link to="/forgotpassword">Reset here</Link>
+              </Register>
+            </ButtonDiv>
           </Card>
         </Form>
       </Container>
@@ -63,9 +64,7 @@ class SigninForm extends Component {
   }
 
   renderField(field) {
-    const {
-      meta: { touched, error }
-    } = field;
+    const { meta: { touched, error } } = field;
     return (
       <FormElement>
         <Input

@@ -7,9 +7,10 @@ import { fetchMentors, updateMentor } from "../../actions/appointment";
 import Header from "../Header";
 import SubmitButton from "../SubmitButton";
 import styled from "styled-components";
+import { PlaceholderDiv } from "../styling/components";
 
 const Card = styled.label`
-  height: 8rem;
+  height: 110px;
   border-radius: 10px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
   margin: 15px;
@@ -17,8 +18,20 @@ const Card = styled.label`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  @media (min-width: 768px) {
+    width: 45%;
+  }
 `;
 
+const FlexWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  @media (min-width: 768px) {
+    justify-content: center;
+  }
+`;
 const Input = styled.input`
   display: none;
 
@@ -58,6 +71,7 @@ class MentorForm extends Component {
       return (
         <div className="container__div">
           <Header heading="Choose a mentor to connect with" />
+          <PlaceholderDiv> Loading... </PlaceholderDiv>
         </div>
       );
     }
@@ -68,16 +82,18 @@ class MentorForm extends Component {
         <Header heading="Choose a mentor to connect with" />
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           {_.map(this.props.mentors, mentor => (
-            <Field
-              name="mentor"
-              type="radio"
-              key={mentor.id}
-              label={mentor.name}
-              desc={mentor.description}
-              img={mentor.img_url}
-              value={mentor.name}
-              component={this.renderField}
-            />
+            <FlexWrapper>
+              <Field
+                name="mentor"
+                type="radio"
+                key={mentor.id}
+                label={mentor.name}
+                desc={mentor.description}
+                img={mentor.img_url}
+                value={mentor.name}
+                component={this.renderField}
+              />
+            </FlexWrapper>
           ))}
           <Field name="error" component={this.renderError} />
           <SubmitButton text="next" />
@@ -101,7 +117,9 @@ class MentorForm extends Component {
     );
   }
   renderError(field) {
-    const { meta: { error, submitFailed } } = field;
+    const {
+      meta: { error, submitFailed }
+    } = field;
     return <div>{submitFailed ? error : ""}</div>;
   }
   onSubmit(values) {

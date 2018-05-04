@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import LinkButton from "../LinkButton";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   font-size: 1rem;
@@ -18,26 +19,19 @@ const Card = styled.div`
   background: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   padding: 1rem;
   text-align: center;
   margin: 1rem;
-  height: 20rem;
-  width: 18rem;
-  @media (min-width: 546px) {
-    width: 28rem;
-    height: 30rem;
+  @media (min-width: 768px) {
+    width: 30rem;
+    height: 32rem;
   }
 `;
 
 const LogIn = styled.p`
   margin-top: 1rem;
-`;
-
-const StyledLink = styled.a`
-  color: #0000ee;
-  text-decoration: underline;
 `;
 
 const Subtitle = styled.p`
@@ -58,11 +52,18 @@ const DesktopButton = styled(LinkButton)`
   }
 `;
 
+const ButtonDiv = styled.div`
+  width: 100%;
+  display: FLEX;
+  flex-direction: COLUMN;
+  align-items: CENTER;
+`;
+
 const H2 = styled.h2`
   color: #7c53a2;
   margin-top: 1rem;
   @media (min-width: 768px) {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 `;
 
@@ -99,6 +100,8 @@ const Error = styled.p`
 
 const Register = styled.p`
   margin-top: 1rem;
+  align-items: center;
+  text-align: center;
 `;
 
 const Header = styled.h1`
@@ -114,9 +117,10 @@ const Button = styled.button`
   width: 90%;
   height: 60px;
   font-size: 16px;
-  margin-top: 2rem;
+  margin-top: 1rem;
   @media (min-width: 768px) {
     width: 90%;
+    margin-top: 2rem;
   }
 `;
 
@@ -127,11 +131,22 @@ const Form = styled.form`
   align-items: center;
 `;
 
+const PlaceholderDiv = styled.div`
+  height: 45vh;
+  text-align: center;
+  margin-top: 20vh;
+  color: #f47a20;
+  font-size: 26px;
+`;
+
+const RedirectP = styled.p`
+  padding: 1rem;
+`;
+
 export {
   Container,
   Card,
   LogIn,
-  StyledLink,
   Subtitle,
   DesktopButton,
   LinkButton,
@@ -142,5 +157,8 @@ export {
   Register,
   Header,
   Button,
-  Form
+  Form,
+  PlaceholderDiv,
+  RedirectP,
+  ButtonDiv
 };

@@ -5,7 +5,8 @@ import {
   Card,
   Subtitle,
   DesktopButton,
-  H2
+  H2,
+  ButtonDiv
 } from "../styling/components";
 
 export default class LGBT extends Component {
@@ -15,8 +16,10 @@ export default class LGBT extends Component {
         <Card>
           <H2>inter-AKT</H2>
           <Subtitle>Do you identify as part of the LGBT+ community?</Subtitle>
-          <DesktopButton text="yes" url="/topics" primary />
-          <DesktopButton text="no" url="/lgbtredirect" />
+          <ButtonDiv>
+            <DesktopButton text="yes" url="/topics" primary />
+            <DesktopButton text="no" url="/lgbtredirect" />
+          </ButtonDiv>
         </Card>
       </Container>
     );
