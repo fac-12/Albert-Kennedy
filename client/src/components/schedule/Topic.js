@@ -84,8 +84,7 @@ const Text = styled.label`
 `;
 
 const TextInput = styled.input`
-  display: block;
-  width: 90%;
+  width: 100%;
   height: 40px;
   box-sizing: border-box;
   border-radius: 5px;

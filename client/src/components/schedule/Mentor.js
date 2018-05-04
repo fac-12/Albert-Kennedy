@@ -9,7 +9,6 @@ import SubmitButton from "../SubmitButton";
 import styled from "styled-components";
 
 const Card = styled.label`
-  width: 45%;
   height: 110px;
   border-radius: 10px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
@@ -18,6 +17,9 @@ const Card = styled.label`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  @media (min-width: 768px) {
+    width: 45%;
+  }
 `;
 
 const FlexWrapper = styled.div`

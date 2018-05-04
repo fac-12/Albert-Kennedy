@@ -48,8 +48,6 @@ const Form = styled.form`
 `;
 
 const NoAptsCard = styled.div`
-  width: 340px;
-  height: 200px;
   border-radius: 10px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
   margin: 15px;
@@ -133,10 +131,9 @@ class ScheduleForm extends Component {
             />
           ))}
         </FlexWrapper>
-        <div>
-          <Field name="error" component={this.renderError} />
-          <SubmitButton text="next" />
-        </div>
+
+        <Field name="error" component={this.renderError} />
+        <SubmitButton text="next" />
       </Form>
     );
   }
