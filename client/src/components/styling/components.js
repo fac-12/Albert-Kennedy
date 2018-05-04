@@ -57,6 +57,9 @@ const DesktopButton = styled(LinkButton)`
   }
 `;
 
+const ButtonDiv = styled.div`
+  justify-content: space-between;
+`;
 const H2 = styled.h2`
   color: #7c53a2;
   margin-top: 1rem;
@@ -148,5 +151,6 @@ export {
   Header,
   Button,
   Form,
-  RedirectP
+  RedirectP,
+  ButtonDiv
 };

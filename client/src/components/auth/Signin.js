@@ -30,7 +30,7 @@ class SigninForm extends Component {
       <Container>
         <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <Card>
-            <Header>inter-AKT</Header>
+            <H2>inter-AKT</H2>
             <Field
               name="email"
               type="email"
