@@ -10,7 +10,7 @@ const mentorEmailTemplate = appt => {
     appt.userName
   } on ${appt.date}. Here is a bit more information about ${appt.userName}:
   <ul>
-    <li>Location: ${appt.postcode}</li>
+    <li>Location: ${appt.location}</li>
     <li>Age: ${age}</li>
     <li>Sexuality: ${appt.sexuality}</li>
     <li>Gender: ${appt.gender}</li>
