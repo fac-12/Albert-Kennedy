@@ -6,7 +6,6 @@ exports.getMentors = (req, res) => {
     .then(mentors => {
       res.send(JSON.stringify(mentors));
     })
-    .then(airtable.updateAdminMentors)
     .catch(console.log);
 };
 

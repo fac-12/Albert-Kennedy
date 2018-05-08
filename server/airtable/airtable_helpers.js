@@ -16,47 +16,10 @@ const trace = message => x => {
   return x;
 };
 
-// clears mentor info from adminBase
-
-const notInAdminBase = mentor => {
-  return adminBase("mentors")
-    .select({
-      filterByFormula: `{email} = \"${mentor.email}\"`
-    })
-    .all()
-    .then(mentor => r.isEmpty(mentor))
-    .catch(console.log);
-};
-
-// updates mentor info in adminBase from mentorBase
-
-const updateAdminMentors = () => {
-  return mentorBase("mentor_list")
-    .select({
-      fields: ["name", "email", "description", "img_url"]
-    })
-    .all()
-    .then(r.map(record => record.fields))
-    .then(mentors => {
-      return BBPromise.filter(mentors, notInAdminBase);
-    })
-    .then(
-      r.map(mentorFields => {
-        return adminBase("mentors").create({
-          name: mentorFields.name,
-          email: mentorFields.email,
-          description: mentorFields.description,
-          img_url: mentorFields.img_url
-        });
-      })
-    )
-    .catch(console.log);
-};
-
 // gets all mentors for 'choose a mentor' page
 
 const getMentors = () => {
-  return mentorBase("mentor_list")
+  return adminBase("mentors")
     .select({
       fields: ["name", "description", "img_url"]
     })
@@ -74,19 +37,6 @@ const getAvailabilities = mentor => {
     .select()
     .all()
     .then(records => records.map(record => record.fields.date))
-    .catch(console.log);
-};
-
-// gets mentor id of chosen mentor
-
-const getMentorId = mentor => {
-  return adminBase("mentors")
-    .select({
-      filterByFormula: `{name} = \"${mentor}\"`,
-      fields: ["id"]
-    })
-    .all()
-    .then(([record]) => record.fields.id)
     .catch(console.log);
 };
 
@@ -117,7 +67,7 @@ const compareAvailabilitesAppointments = ({
 // calls all the above functions in order to return to display available time slots on 'choose a time'
 
 const filterAvailabilities = mentor => {
-  return Promise.all([getAvailabilities(mentor), getMentorId(mentor)])
+  return Promise.all([getAvailabilities(mentor), getMentorRecordId(mentor)])
     .then(async ([availabilityObj, mentorId]) => {
       const appointmentObj = await getAppointments(mentorId);
       return { availabilityObj, appointmentObj };
@@ -292,6 +242,5 @@ module.exports = {
   getEmailDetails,
   getApptRecordId,
   deleteAppointment,
-  getUserRecordId,
-  updateAdminMentors
+  getUserRecordId
 };
