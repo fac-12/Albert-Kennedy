@@ -1,6 +1,7 @@
 const jwt = require("jwt-simple");
 const crypto = require("crypto");
 const airtable = require("../airtable/airtable_helpers");
+require("isomorphic-fetch");
 
 const {
   mentorConfirmationEmail,
@@ -35,9 +36,28 @@ exports.addAppt = (req, res) => {
       });
     })
     .then(([mentorDetails, userDetails]) => {
+      return fetch(`https://api.postcodes.io/postcodes/${userDetails.postcode}`)
+        .then(response => response.json())
+        .then(function(response) {
+          if (response.status === 200) {
+            const newUserDetails = {
+              ...userDetails,
+              location: response.result.parliamentary_constituency
+            };
+            return [mentorDetails, newUserDetails];
+          } else return [mentorDetails, userDetails];
+        });
+    })
+    .then(([mentorDetails, userDetails]) => {
       const info = {
         content: newApptObj.info
       };
+
+      const location = userDetails.location
+        ? userDetails.location
+        : "We were unable to find out";
+
+      console.log("before emails", mentorDetails[0]);
       mentorConfirmationEmail({
         emailAddress: mentorDetails[0],
         userName: userDetails.name,
@@ -45,7 +65,7 @@ exports.addAppt = (req, res) => {
         chatString: newApptObj.chat_string,
         topics: newApptObj.topics,
         info: info,
-        postcode: userDetails.postcode,
+        location,
         sexuality: userDetails.sexuality,
         gender: userDetails.gender,
         dob: userDetails.dob

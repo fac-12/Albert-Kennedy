@@ -40,6 +40,19 @@ const getAvailabilities = mentor => {
     .catch(console.log);
 };
 
+// gets mentor id of chosen mentor
+
+const getMentorId = mentor => {
+  return adminBase("mentors")
+    .select({
+      filterByFormula: `{name} = \"${mentor}\"`,
+      fields: ["id"]
+    })
+    .all()
+    .then(([record]) => record.fields.id)
+    .catch(console.log);
+};
+
 // gets all booked appointments of chosen mentor
 
 const getAppointments = id => {
@@ -67,7 +80,7 @@ const compareAvailabilitesAppointments = ({
 // calls all the above functions in order to return to display available time slots on 'choose a time'
 
 const filterAvailabilities = mentor => {
-  return Promise.all([getAvailabilities(mentor), getMentorRecordId(mentor)])
+  return Promise.all([getAvailabilities(mentor), getMentorId(mentor)])
     .then(async ([availabilityObj, mentorId]) => {
       const appointmentObj = await getAppointments(mentorId);
       return { availabilityObj, appointmentObj };
