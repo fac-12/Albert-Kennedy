@@ -32,7 +32,7 @@ export default class AgeRedirect extends Component {
           </RedirectP>
 
           <RedirectP>
-            Stonewall can offer information and support for members of the LGBT
+            Stonewall offers information and support for members of the LGBT
             community:<br />
             <a href="https://www.stonewall.org.uk">www.stonewall.org.uk</a>
             {" or call them: "}
