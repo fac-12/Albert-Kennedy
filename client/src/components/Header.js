@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import logo from "../assets/logo_white.png";
-import arrow from "../assets/curvearrow.png";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions/auth";
@@ -37,8 +36,15 @@ const Text = styled.p`
   margin: 0.5rem auto;
 `;
 
+const SmallText = styled(Text)`
+  font-size: 16px;
+`;
+
 const Wrapper = styled.div`
   min-height: 30vh;
+  @media (min-width: 546px) {
+    min-height: 20vh;
+  }
   width: 100vw;
 `;
 
@@ -50,8 +56,25 @@ const P = styled.p`
   text-decoration: underline;
 `;
 
+const CrisisLink = styled(Link)`
+  color: white;
+  background-color: #a8005d;
+  padding: 9px;
+  border-radius: 5px;
+  text-decoration: none;
+`;
+
 class Header extends Component {
   render() {
+    const subHeader =
+      this.props.text === "crisis" ? (
+        <div>
+          <CrisisLink to="/crisis">I need urgent help</CrisisLink>
+        </div>
+      ) : (
+        <p>{this.props.text}</p>
+      );
+
     return (
       <Wrapper>
         <NavBar>
@@ -69,7 +92,11 @@ class Header extends Component {
           )}
         </NavBar>
         <Heading>{this.props.heading}</Heading>
-        <Text>{this.props.text}</Text>
+        {this.props.size ? (
+          <SmallText>{subHeader}</SmallText>
+        ) : (
+          <Text>{subHeader}</Text>
+        )}
         <h2 className="header__text">{this.props.headerText}</h2>
       </Wrapper>
     );

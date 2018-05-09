@@ -1,16 +1,62 @@
 import axios from "axios";
 import history from "../history";
-import { AUTH_USER, UNAUTH_USER, DISPLAY_ERROR, RESET_ERROR } from "./types";
+import {
+  USER_INFO,
+  AUTH_USER,
+  UNAUTH_USER,
+  DISPLAY_ERROR,
+  RESET_ERROR
+} from "./types";
+
+export const authFormInfo = values => {
+  history.push("/userinfoform");
+  return {
+    type: USER_INFO,
+    payload: values
+  };
+};
 
 export const registerUser = (values, newApt) => {
-  if(localStorage.endOfFlow === "finished") {
-
+  if (localStorage.endOfFlow === "finished") {
     const scheduledAppt = {
-    mentor: newApt.mentor,
-    date_and_time: newApt.aptTime.datetime,
-    topics: newApt.topics
-    }
+      mentor: newApt.mentor,
+      date_and_time: newApt.aptTime.datetime,
+      topics: newApt.topics
+    };
 
+    return (dispatch, getState) => {
+      const authFormInfoState = getState().auth.user_info;
+      axios
+        .post("/signup", { ...values, ...authFormInfoState })
+        .then(response => {
+          localStorage.setItem("token", response.data.token);
+          dispatch({
+            type: AUTH_USER
+          });
+        })
+        .then(response => {
+          axios.post("/addappt", {
+            scheduledAppt,
+            headers: { authorization: localStorage.getItem("token") }
+          });
+        })
+        .then(() => {
+          localStorage.removeItem("endOfFlow");
+          history.push("/success");
+        })
+        .catch(error => {
+          if (error.message.includes("422")) {
+            dispatch(displayError(error.response.data.error));
+          } else {
+            dispatch(
+              displayError(
+                "There was an issue with our server. Please try again later"
+              )
+            );
+          }
+        });
+    };
+  } else {
     return dispatch => {
       axios
         .post("/signup", values)
@@ -19,46 +65,22 @@ export const registerUser = (values, newApt) => {
           dispatch({
             type: AUTH_USER
           });
-         })
-        .then(response => {
-          axios.post("/addappt", { scheduledAppt, headers: { authorization: localStorage.getItem("token") }})
-        })
-        .then(() => {
-          localStorage.removeItem("endOfFlow");
-          history.push("/success");
+          history.push("/profile");
         })
         .catch(error => {
-        if (error.message.includes('422')){
-        dispatch(displayError(error.response.data.error));
-      } else {
-        dispatch(displayError("There was an issue with our server. Please try again later"));
-      }
-      });
-  }
-}
-
-  else {
-    return dispatch => {
-        axios
-          .post("/signup", values)
-          .then(response => {
-            localStorage.setItem("token", response.data.token);
-            dispatch({
-              type: AUTH_USER
-            });
-            history.push("/profile");
-          })
-          .catch(error => {
-          if (error.message.includes('422')){
-          dispatch(displayError(error.response.data.error));
-        } else {
-          dispatch(displayError("There was an issue with our server. Please try again later"));
-        }
+          if (error.message.includes("422")) {
+            dispatch(displayError(error.response.data.error));
+          } else {
+            dispatch(
+              displayError(
+                "There was an issue with our server. Please try again later"
+              )
+            );
+          }
         });
-
-    }
+    };
   }
-}
+};
 
 export const signinUser = values => {
   return dispatch => {
@@ -67,7 +89,8 @@ export const signinUser = values => {
       .then(response => {
         localStorage.setItem("token", response.data.token);
         dispatch({
-          type: AUTH_USER
+          type: AUTH_USER,
+          USER_INFO
         });
         history.push("/profile");
       })
@@ -120,6 +143,37 @@ export const getUser = () => {
         dispatch({
           type: UNAUTH_USER
         });
+      });
+  };
+};
+
+export const forgotPassword = userEmail => {
+  return dispatch => {
+    axios
+      .post("/forgotpassword", userEmail)
+      .then(response => {
+        dispatch(displayError(response.data.message));
+      })
+      .catch(error => {
+        dispatch(displayError(error.response.data.error));
+      });
+  };
+};
+
+export const resetPassword = newPasswordValues => {
+  const params = new URL(document.location).searchParams;
+  const token = params.get("token");
+  const updatePasswordValues = { ...newPasswordValues, token };
+
+  return dispatch => {
+    axios
+      .post("/resetpassword", updatePasswordValues)
+      .then(response => {
+        dispatch(displayError(response.data.message));
+        setTimeout(() => history.push("/signin"), 1500);
+      })
+      .catch(error => {
+        dispatch(displayError(error.response.data.error));
       });
   };
 };

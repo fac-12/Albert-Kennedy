@@ -1,51 +1,27 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
+import Header from "../Header";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { registerUser, resetError } from "../../actions/auth";
-import Header from "../Header";
+import { resetError, authFormInfo } from "../../actions/auth";
 import SubmitButton from "../SubmitButton";
 import styled from "styled-components";
 
-const FormElement = styled.div`
-  height: 10vh;
-  padding: 0 10vw 0 10vw;
-`;
+import {
+  Card,
+  LogIn,
+  Subtitle,
+  DesktopButton,
+  LinkButton,
+  H2,
+  Input,
+  FormElement,
+  Error,
+  Register,
+  Form
+} from "../styling/components";
 
-const Input = styled.input`
-  height: 5vh;
-  width: 80vw;
-  box-shadow: none;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  font-size: 1rem;
-  ::placeholder {
-    color: black;
-    font-size: 1rem;
-  }
-
-  &:focus {
-    -webkit-appearance: none;
-    outline: none;
-  }
-`;
-
-const Error = styled.p`
-  margin: 0;
-  width: 90vw;
-  color: #fb8b24;
-  line-height: 5vh;
-  font-size: 0.75em;
-`;
-
-const Register = styled.p`
-  width: 100vw;
-  text-align: center;
-  margin-top: 0;
-`;
-
-class RegisterForm extends Component {
+class AuthForm extends Component {
   render() {
     const { handleSubmit } = this.props;
     const text = `Your contact details will be kept private and will not be shared with your mentor.`;
@@ -56,7 +32,7 @@ class RegisterForm extends Component {
           Returning user? <Link to="/signin">Log in</Link>
         </Register>
 
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+        <Form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <Field
             name="name"
             type="text"
@@ -72,31 +48,10 @@ class RegisterForm extends Component {
             component={this.renderField}
           />
           <Field
-            name="dob"
-            type="date"
-            label="Date of Birth"
-            placeholder="Date of birth"
-            component={this.renderField}
-          />
-          <Field
             name="postcode"
             type="text"
             label="Postcode"
             placeholder="Postcode"
-            component={this.renderField}
-          />
-          <Field
-            name="gender"
-            type="text"
-            label="Gender"
-            placeholder="Gender"
-            component={this.renderField}
-          />
-          <Field
-            name="sexuality"
-            type="text"
-            label="Sexuality"
-            placeholder="Sexuality"
             component={this.renderField}
           />
           <Field
@@ -115,13 +70,15 @@ class RegisterForm extends Component {
           />
           <p>{this.renderAlert()}</p>
           <SubmitButton text="next" />
-        </form>
+        </Form>
       </div>
     );
   }
 
   renderField(field) {
-    const { meta: { touched, error } } = field;
+    const {
+      meta: { touched, error }
+    } = field;
     return (
       <FormElement>
         <Input
@@ -145,9 +102,22 @@ class RegisterForm extends Component {
   }
 
   handleFormSubmit(values) {
-    this.props.registerUser(values, this.props.newApt);
+    this.props.authFormInfo(values, this.props.newApt);
   }
 }
+
+const checkPassword = string => {
+  let regex = new RegExp("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$");
+
+  return regex.test(string);
+};
+
+const checkPostcode = string => {
+  let regex = new RegExp(
+    "([Gg][Ii][Rr]0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]))))\\s?[0-9][A-Za-z]{2}$)"
+  );
+  return regex.test(string);
+};
 
 const mapStateToProps = state => ({
   error: state.error,
@@ -158,11 +128,16 @@ const validate = values => {
   const errors = {};
   if (!values.name) errors.name = "Enter your name";
   if (!values.email) errors.email = "Enter an email";
-  if (!values.dob) errors.dob = "Enter your date of birth";
   if (!values.postcode) errors.postcode = "Enter a postcode";
+  if (!checkPostcode(values.postcode))
+    errors.postcode = "That's not a valid postcode";
   if (!values.password) errors.password = "Enter your password";
+  if (!checkPassword(values.password)) {
+    errors.password =
+      "Include one uppercase letter, one number and a minimum of 6 characters.";
+  }
   if (values.password !== values.confirmPassword)
-    errors.confirmPassword = "Passwords do not match";
+    errors.confirmPassword = "Oops! These passwords don't match.";
   if (!values.confirmPassword)
     errors.confirmPassword = "Enter your password again";
   return errors;
@@ -170,5 +145,5 @@ const validate = values => {
 
 export default reduxForm({
   validate,
-  form: "RegisterForm"
-})(connect(mapStateToProps, { registerUser, resetError })(RegisterForm));
+  form: "AuthForm"
+})(connect(mapStateToProps, { authFormInfo, resetError })(AuthForm));

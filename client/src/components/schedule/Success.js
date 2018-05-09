@@ -4,15 +4,26 @@ import LinkButton from "../LinkButton";
 import { connect } from "react-redux";
 import _ from "lodash";
 import styled from "styled-components";
-
 const TextWrapper = styled.div`
   width: 88%;
   margin: auto;
+  text-align: center;
+  justify-content: center;
 `;
 
 const Button = styled(LinkButton)`
-  position: fixed;
-  margin: 2vh 5vw 2vh 5vw;
+  background: white;
+  border: 2px solid #f47a20;
+  border-radius: 5px;
+  box-sizing: border-box;
+  width: 80%;
+  margin: 10vw;
+  height: 60px;
+  font-size: 16px;
+  @media (min-width: 768px) {
+    width: 50%;
+    margin: 5vw;
+  }
 `;
 
 class Success extends Component {
@@ -22,7 +33,7 @@ class Success extends Component {
       return <div />;
     } else {
       return (
-        <div>
+        <div className="container__div">
           <Header heading="Success!" />
           <TextWrapper>
             <p>
@@ -35,8 +46,8 @@ class Success extends Component {
               Or, log back in at the given time to join the chat from your
               profile page.
             </p>
+            <Button text="done" url="/profile" />
           </TextWrapper>
-          <Button text="done" url="/profile" />
         </div>
       );
     }

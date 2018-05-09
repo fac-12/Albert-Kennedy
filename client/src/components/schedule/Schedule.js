@@ -4,14 +4,19 @@ import { connect } from "react-redux";
 import _ from "lodash";
 import history from "../../history";
 import styled from "styled-components";
-import { fetchAvailibilites, updateAptTime } from "../../actions/appointment";
+import {
+  fetchAvailibilites,
+  updateAptTime,
+  onUnload
+} from "../../actions/appointment";
 import Header from "../Header";
 import { Link } from "react-router-dom";
 import SubmitButton from "../SubmitButton";
+import { PlaceholderDiv } from "../styling/components";
 
 const Card = styled.label`
   width: 90vw;
-  height: 10vh;
+  height: 110px;
   border-radius: 10px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
   margin: 2vh 5vw 2vh 5vw;
@@ -19,6 +24,9 @@ const Card = styled.label`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  @media (min-width: 768px) {
+    width: 50%;
+  }
 `;
 
 const Input = styled.input`
@@ -31,38 +39,48 @@ const Input = styled.input`
 
 const Label = styled.div``;
 
-const Img = styled.img`
-  height: auto;
-  width: 50px;
-  padding: 5px;
-`;
-
 const Form = styled.form`
   min-height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding-bottom: 3vh;
+  align-items: center;
 `;
 
 const NoAptsCard = styled.div`
-    width: 340px;
-    height: 200px;
-    border-radius: 10px;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
-    margin: 15px;
-    display: flex;
-    align-items: center;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+  margin: 15px;
+  display: flex;
+  align-items: center;
 `;
 
 const TextWrap = styled.div`
-    padding: 20px;
+  padding: 20px;
+`;
+
+const FlexWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 class ScheduleForm extends Component {
   render() {
     if (!this.props.availibility) {
-      return <div />;
+      return (
+        <div>
+          <Header heading="Schedule an appointment" />
+          <PlaceholderDiv> Loading... </PlaceholderDiv>
+        </div>
+      );
     } else {
       return (
         <div>
@@ -83,44 +101,46 @@ class ScheduleForm extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.onUnload("clear_availabilities");
+  }
 
   renderNoApts() {
     return (
-        <NoAptsCard>
-            <TextWrap>
-                <p>
-                    Whoops! There are no appointments currently available for this
-                    mentor
-                </p>
-                <p>
-                    Please <Link to="/mentors">pick another.</Link>
-                </p>
-            </TextWrap>
-        </NoAptsCard>
+      <NoAptsCard>
+        <TextWrap>
+          <p>
+            Whoops! There are no appointments currently available for this
+            mentor
+          </p>
+          <p>
+            Please <Link to="/mentors">pick another.</Link>
+          </p>
+        </TextWrap>
+      </NoAptsCard>
     );
-}
+  }
 
   renderForm() {
     const { handleSubmit } = this.props;
-    const dates = this.convertDates(this.props.availibility);
+    const dates = this.props.availibility;
     return (
       <Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-      <div>
-         {_.map(dates, datetime => (
-                    <Field
-                        name="datetime"
-                        type="radio"
-                        key={datetime}
-                        label={datetime[0] + " at " + datetime[1]}
-                        value={datetime[0] + " at " + datetime[1]}
-                        component={this.renderField}
-                    />
-                ))}
-        </div>
-        <div>
+        <FlexWrapper>
+          {_.map(dates, (datetime, index) => (
+            <Field
+              name="datetime"
+              type="radio"
+              key={datetime + index}
+              label={datetime.replace(/,{1} {1}\d{4}/, " at")}
+              value={datetime}
+              component={this.renderField}
+            />
+          ))}
+        </FlexWrapper>
+
         <Field name="error" component={this.renderError} />
         <SubmitButton text="next" />
-        </div>
       </Form>
     );
   }
@@ -142,30 +162,6 @@ class ScheduleForm extends Component {
   onSubmit = value => {
     this.props.updateAptTime(value, this.props.auth, this.props.newApt);
   };
-
-  convertDates = dateArr => {
-        const dateOptions = {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        };
-        const timeOptions = {
-            hour: "numeric",
-            minute: "numeric",
-            hour12: true
-        };
-
-        let dates = dateArr.map(date => {
-            const datetime = new Date(date);
-            const dateStr = datetime.toLocaleString("en-gb", dateOptions);
-            const timeStr = datetime.toLocaleString("en-gb", timeOptions);
-            return [dateStr, timeStr];
-        });
-
-        return dates;
-    };
-
 }
 
 const validate = values => {
@@ -191,6 +187,7 @@ export default reduxForm({
 })(
   connect(mapStateToProps, {
     fetchAvailibilites,
-    updateAptTime
+    updateAptTime,
+    onUnload
   })(ScheduleForm)
 );

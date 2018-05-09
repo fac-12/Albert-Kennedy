@@ -6,10 +6,14 @@ const Button = styled.button`
   border: 2px solid #f47a20;
   border-radius: 5px;
   box-sizing: border-box;
-  width: 90vw;
+  width: 80%;
+  margin: 10vw;
   height: 60px;
   font-size: 16px;
-  margin: 5vw;
+  @media (min-width: 768px) {
+    width: 50%;
+    margin: 5vw;
+  }
 `;
 
 const SubmitButton = props => {

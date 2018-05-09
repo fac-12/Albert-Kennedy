@@ -10,10 +10,10 @@ const runDbBuild = callback => {
   db
     .query(build)
     .then(res => {
-      console.log("res", res);
       callback();
     })
     .catch(e => console.error("error", e));
 };
 
 module.exports = runDbBuild;
+
