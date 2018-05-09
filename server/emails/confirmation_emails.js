@@ -19,7 +19,7 @@ const mentorEmailTemplate = appt => {
   <p>At the time of your appointment, click on this link: https://tlk.io/${
     appt.chatString
   }.</p>
-  <p>It is advised that you click on the link a few minutes before the time of your appointment so that you can be there greet the young person upon their arrival.
+  <p>It is advised that you click on the link a few minutes before the time of your appointment so that you can be there to greet the young person upon their arrival.
     Please allow up to 15 minutes for the young person to join as they may be running late. If you have any questions about this session, would like some support preparing, or would like to pass this on to an AKT practitioner, please contact onlinesupport@akt.org.uk or call the London office on 020 7831 6562.</p>
     <p>Please be sure to follow the steps below during your session:</p>
   <ul>
