@@ -114,7 +114,7 @@ exports.forgotPassword = (req, res) => {
         name: user.name,
         email: user.email,
         passwordLink:
-          "https://inter-akt-staging.herokuapp.com/resetpassword?token=" +
+          "https://inter-akt.herokuapp.com/resetpassword?token=" +
           user.reset_password_token
       };
 
