@@ -30,7 +30,7 @@ const mentorEmailTemplate = appt => {
 	<li>When closing the session, summarise next steps for young person and confirm whether young person would like another session.</li>
 	<li>Asks young person to complete this feedback form and share link: http://bit.ly/aktfeedback. The young person has also been given this link in their appointment confirmation email. AKT will share relevant and appropriate content with you afterwards.</li>
 	<li>Wait for young person to leave the online room before leaving yourself.</li>
-	<li>Complete session review: https://goo.gl/forms/uEdXig4YxBfptu9l2. This is received by AKT and you will receive a copy as well.</li>
+	<li>Complete session review: https://akt1989.typeform.com/to/FSpuAr. This is received by AKT and you will receive a copy as well.</li>
 </ul>
 <p>Thank you, enjoy your session, and best wishes,</p>
 <p>The Albert Kennedy Trust</p>
