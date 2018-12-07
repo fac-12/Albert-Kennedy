@@ -6,10 +6,10 @@ const mentorEmailTemplate = appt => {
     <p>At the time of your appointment, click on this link: https://tlk.io/${
       appt.chat_string
     }. It is advised that you click on the link a few minutes before the time of your appointment so that you can greet the young person once they arrive. Please allow up to 15 minutes for the young person to join as they may be running late.</p>
-    <p>Please be sure to follow the steps below during your session. If you have any questions you can contact Tom: tomj@akt.org.uk.</p>
+    <p>Please be sure to follow the steps below during your session. If you have any questions you can contact Sean: sean@akt.org.uk.</p>
     <ol>
     <li>When young person arrives, greet them and asks for their name and what they would like to talk about, just to confirm that they are the expected young person.</li>
-    <li>Ask them whether they would like to continue using live chat, or talk using audio or video instead. If they would like an audio or video conversation, share your unique appear.in link with them so that you can both click through to that virtual space. Please note that they can only use appear.in if they are on a computer. If they are on their phone, they can only use live chat.</li>
+    <li>Ask them whether they would like to continue using live chat, or talk using audio or video instead. If they would like an audio or video conversation, share your unique appear.in link with them so that you can both click through to that virtual space. Appear.In can be used on a computer or on a handheld device. Please note that iOS users have to download the Appear.In app.</li>
     <li>Facilitate your online session with young person – no personal contact details exchanged.</li>
     <li>When closing the session, summarise next steps for young person and confirm whether young person would like another session.</li>
     <li>Asks young person to complete this feedback form and share link: http://bit.ly/aktfeedback. The young person has also been given this link in their appointment confirmation email. AKT will share relevant and appropriate content with you afterwards.</li>
